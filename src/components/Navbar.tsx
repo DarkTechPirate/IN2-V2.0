@@ -1,6 +1,8 @@
 import { Heart, ShoppingBag, Truck, User, Menu, ChevronLeft, LogOut, Package, LayoutDashboard } from 'lucide-react';
 import { useState } from 'react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
+import React from "react";
+
 
 interface NavbarProps {
   currentPage: string;
@@ -26,11 +28,11 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-20">
+        <div className="relative flex items-center justify-between h-20">
           {/* Left - Logo */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-shrink-0">
             {!isHomePage && (
-              <button 
+              <button
                 onClick={() => onNavigate('home')}
                 className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 aria-label="Back"
@@ -38,18 +40,21 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
                 <ChevronLeft className="w-5 h-5" />
               </button>
             )}
-            <button 
+            <button
               onClick={() => onNavigate('home')}
               className="flex items-center gap-2 group"
             >
-              <div className="text-2xl tracking-tight transition-all duration-300 group-hover:tracking-wide" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <div
+                className="text-2xl tracking-tight transition-all duration-300 group-hover:tracking-wide"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
                 IN<span style={{ color: '#2FF924' }}>2</span>
               </div>
             </button>
           </div>
-
+  
           {/* Center - Nav Links (Desktop) */}
-          <div className="hidden lg:flex items-center gap-10">
+          <div className="absolute left-1/2 transform -translate-x-1/2 hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <button
                 key={link.value}
@@ -58,14 +63,16 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 {link.label}
-                <span 
+                <span
                   className={`absolute bottom-0 left-0 h-0.5 bg-[#2FF924] transition-all duration-300 ${
-                    currentPage === link.value ? 'w-full' : 'w-0 group-hover:w-full'
+                    currentPage === link.value
+                      ? 'w-full'
+                      : 'w-0 group-hover:w-full'
                   }`}
                 />
               </button>
             ))}
-            
+  
             {/* Admin Dashboard Button - Only for Admins */}
             {isAdmin && (
               <button
@@ -82,14 +89,13 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
               </button>
             )}
           </div>
-
+  
           {/* Right - Icons */}
-          <div className="flex items-center gap-4">
-            {/* Profile/Login - Show different options based on login status */}
+          <div className="flex items-center gap-4 flex-shrink-0">
             {isLoggedIn ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button 
+                  <button
                     className="p-2 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
                     aria-label="Profile"
                   >
@@ -118,7 +124,7 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <button 
+              <button
                 onClick={() => onNavigate('login')}
                 className="px-4 py-2 rounded-lg bg-[#2FF924]/10 text-[#2FF924] hover:bg-[#2FF924] hover:text-white transition-all duration-300"
                 style={{ fontFamily: 'Inter, sans-serif' }}
@@ -126,8 +132,8 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
                 Login
               </button>
             )}
-            
-            <button 
+  
+            <button
               onClick={() => onNavigate('wishlist')}
               className="relative p-2 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
               aria-label="Wishlist"
@@ -139,8 +145,8 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
                 </span>
               )}
             </button>
-            
-            <button 
+  
+            <button
               onClick={() => onNavigate('cart')}
               className="relative p-2 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
               aria-label="Cart"
@@ -152,17 +158,17 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
                 </span>
               )}
             </button>
-            
-            <button 
+  
+            <button
               onClick={() => onNavigate('order-tracking')}
               className="hidden lg:flex p-2 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
               aria-label="Track Order"
             >
               <Truck className="w-5 h-5" />
             </button>
-
+  
             {/* Mobile Menu Toggle */}
-            <button 
+            <button
               className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Menu"
@@ -171,7 +177,7 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
             </button>
           </div>
         </div>
-
+  
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden pb-4 border-t border-gray-200 mt-2 pt-4">
@@ -184,8 +190,8 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
                     setMobileMenuOpen(false);
                   }}
                   className={`text-left px-4 py-3 rounded-lg transition-colors ${
-                    currentPage === link.value 
-                      ? 'bg-[#2FF924]/10 text-[#2FF924]' 
+                    currentPage === link.value
+                      ? 'bg-[#2FF924]/10 text-[#2FF924]'
                       : 'hover:bg-gray-100'
                   }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
@@ -198,5 +204,5 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
         )}
       </div>
     </nav>
-  );
+  );  
 }
