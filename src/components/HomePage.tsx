@@ -124,7 +124,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   <Button
                     onClick={() => onNavigate('social-cause')}
                     variant="outline"
-                    className="h-12 px-8 border-2 border-white text-black hover:bg-white hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-white"
+                    className="h-12 px-8 border-2 border-white text-black hover:bg-white hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-white/50"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     Explore Story
@@ -328,7 +328,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <Button
                 onClick={() => onNavigate('gallery')}
                 variant="outline"
-                className="h-12 px-8 border-2 border-primary_green text-primary_green  hover:bg-primary_green hover:text-white transition-all duration-300"
+                className="h-12 px-8 border-2px bg-gray-50 text-primary_green  hover:bg-primary_green hover:text-white transition-all duration-300"
                 style={{ fontFamily: 'Inter, sans-serif',fontWeight: 600 ,letterSpacing: '1px'}}
               >
                 View Full Gallery
