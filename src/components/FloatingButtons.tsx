@@ -15,14 +15,16 @@ export function FloatingButtons() {
   return (
     <>
       {/* Chatbot Button - Bottom Right */}
-      <button
-        className="fixed bottom-8 right-8 w-14 h-14 bg-primary_green rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 z-40 animate-pulse hover:animate-none group"
-        style={{ animationDuration: '3s' }}
-        aria-label="Chat with us"
-      >
-        <MessageCircle className="w-6 h-6 text-white" />
-        <span className="absolute -top-1 -left-1 w-3 h-3 bg-primary_green rounded-full opacity-75 group-hover:opacity-0 transition-opacity" />
-      </button>
+{/* Chatbot Button - Bottom Right */}
+    <button
+      className="fixed bottom-8 right-8 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 z-40 group chat-btn"
+      aria-label="Chat with us"
+      style={{ /* keep if you want custom duration override */ animationDuration: '3s' }}
+    >
+      <MessageCircle className="w-6 h-6 text-white" />
+      <span className="absolute -top-1 -left-1 w-3 h-3 rounded-full opacity-75 chat-badge" />
+    </button>
+
 
       {/* Language Switcher - Bottom Left */}
       <DropdownMenu>
