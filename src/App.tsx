@@ -17,7 +17,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { ProductDetailPage } from './components/ProductDetailPage';
 import { Toaster } from './components/ui/sonner';
 import { ProductProvider } from './components/ProductContext';
-
+import LoadingScreen from "@/components/LoadingScreen";
 type Page = 'home' | 'shop' | 'social-cause' | 'gallery' | 'contact' | 'profile' | 'wishlist' | 'cart' | 'order-tracking' | 'login' | 'signup' | 'admin-dashboard' | 'product-detail';
 
 interface UserData {
@@ -40,6 +40,10 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
+
+    // NEW: loading state for the loading screen
+  const [loaded, setLoaded] = useState(false);
+
 
   const handleNavigate = (page: string, productId?: string) => {
     // Redirect to login if trying to access protected pages
@@ -125,6 +129,17 @@ export default function App() {
 
   return (
     <ProductProvider>
+
+      {/* Loading screen overlay — it will call setLoaded(true) via onLoadingComplete */}
+      {!loaded && (
+        <LoadingScreen
+          duration={2800} // optional: how long the loader stays; adjust as needed
+          onLoadingComplete={() => setLoaded(true)}
+          bg="#ffffff"      // optional: background color
+          color="#050a30"   // optional: logo color
+        />
+      )}
+
       <div className="min-h-screen bg-white">
         {showNavAndFooter && (
           <Navbar 
