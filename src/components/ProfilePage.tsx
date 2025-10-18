@@ -62,7 +62,7 @@ export function ProfilePage() {
           <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-200">
             <Avatar className="w-24 h-24">
               <AvatarImage src="https://images.unsplash.com/photo-1641808887823-b3201916a57d?w=200" />
-              <AvatarFallback className="bg-[#2FF924]/10 text-[#2FF924] text-2xl">
+              <AvatarFallback className="bg-primary_green/10 text-primary_green text-2xl">
                 {profileData.name.split(' ').map(n => n[0]).join('')}
               </AvatarFallback>
             </Avatar>
@@ -78,7 +78,7 @@ export function ProfilePage() {
               <Button
                 onClick={() => setIsEditing(true)}
                 variant="outline"
-                className="border-2 border-[#2FF924] text-[#2FF924] hover:bg-[#2FF924] hover:text-white"
+                className="border-2 border-primary_green text-primary_green hover:bg-primary_green hover:text-white"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 <Edit2 className="w-4 h-4 mr-2" />
@@ -93,7 +93,7 @@ export function ProfilePage() {
               {/* Personal Information */}
               <div>
                 <h3 className="mb-4 flex items-center gap-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  <User className="w-5 h-5 text-[#2FF924]" />
+                  <User className="w-5 h-5 text-primary_green" />
                   Personal Information
                 </h3>
                 <div className="grid md:grid-cols-2 gap-6">
@@ -107,7 +107,7 @@ export function ProfilePage() {
                       value={profileData.name}
                       onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                       disabled={!isEditing}
-                      className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924] disabled:opacity-70"
+                      className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green disabled:opacity-70"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -123,7 +123,7 @@ export function ProfilePage() {
                         value={profileData.email}
                         onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                         disabled={!isEditing}
-                        className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924] disabled:opacity-70"
+                        className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green disabled:opacity-70"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -134,7 +134,7 @@ export function ProfilePage() {
               {/* Contact Information */}
               <div>
                 <h3 className="mb-4 flex items-center gap-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  <Phone className="w-5 h-5 text-[#2FF924]" />
+                  <Phone className="w-5 h-5 text-primary_green" />
                   Contact Information
                 </h3>
                 <div>
@@ -149,7 +149,7 @@ export function ProfilePage() {
                       value={profileData.phone}
                       onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                       disabled={!isEditing}
-                      className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924] disabled:opacity-70"
+                      className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green disabled:opacity-70"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -159,7 +159,7 @@ export function ProfilePage() {
               {/* Address Information */}
               <div>
                 <h3 className="mb-4 flex items-center gap-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  <MapPin className="w-5 h-5 text-[#2FF924]" />
+                  <MapPin className="w-5 h-5 text-primary_green" />
                   Address Information
                 </h3>
                 <div className="space-y-4">
@@ -173,7 +173,7 @@ export function ProfilePage() {
                       value={profileData.address}
                       onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
                       disabled={!isEditing}
-                      className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924] disabled:opacity-70"
+                      className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green disabled:opacity-70"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -188,7 +188,7 @@ export function ProfilePage() {
                         value={profileData.city}
                         onChange={(e) => setProfileData({ ...profileData, city: e.target.value })}
                         disabled={!isEditing}
-                        className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924] disabled:opacity-70"
+                        className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green disabled:opacity-70"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -202,7 +202,7 @@ export function ProfilePage() {
                         value={profileData.state}
                         onChange={(e) => setProfileData({ ...profileData, state: e.target.value })}
                         disabled={!isEditing}
-                        className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924] disabled:opacity-70"
+                        className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green disabled:opacity-70"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -218,7 +218,7 @@ export function ProfilePage() {
                         value={profileData.pincode}
                         onChange={(e) => setProfileData({ ...profileData, pincode: e.target.value })}
                         disabled={!isEditing}
-                        className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924] disabled:opacity-70"
+                        className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green disabled:opacity-70"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -232,7 +232,7 @@ export function ProfilePage() {
                         value={profileData.country}
                         onChange={(e) => setProfileData({ ...profileData, country: e.target.value })}
                         disabled={!isEditing}
-                        className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924] disabled:opacity-70"
+                        className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green disabled:opacity-70"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -245,7 +245,7 @@ export function ProfilePage() {
                 <div className="flex gap-4 pt-4">
                   <Button
                     type="submit"
-                    className="flex-1 h-12 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+                    className="flex-1 h-12 bg-primary_green hover:bg-[#26d41f] text-white"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     <Save className="w-4 h-4 mr-2" />

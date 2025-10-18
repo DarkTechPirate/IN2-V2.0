@@ -142,14 +142,14 @@ export function GalleryPage() {
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-12 h-12">
             <TabsTrigger 
               value="past" 
-              className="data-[state=active]:bg-[#2FF924] data-[state=active]:text-white"
+              className="data-[state=active]:bg-primary_green data-[state=active]:text-white"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Past Events ({pastEvents.length})
             </TabsTrigger>
             <TabsTrigger 
               value="upcoming"
-              className="data-[state=active]:bg-[#2FF924] data-[state=active]:text-white"
+              className="data-[state=active]:bg-primary_green data-[state=active]:text-white"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Upcoming Events ({upcomingEvents.length})

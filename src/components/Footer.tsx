@@ -21,10 +21,10 @@ export function Footer() {
           <div>
             <h4 className="mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>Company</h4>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li><a href="#" className="hover:text-[#2FF924] transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-[#2FF924] transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-[#2FF924] transition-colors">Press</a></li>
-              <li><a href="#" className="hover:text-[#2FF924] transition-colors">Blog</a></li>
+              <li><a href="#" className="hover:text-primary_green transition-colors">About Us</a></li>
+              <li><a href="#" className="hover:text-primary_green transition-colors">Careers</a></li>
+              <li><a href="#" className="hover:text-primary_green transition-colors">Press</a></li>
+              <li><a href="#" className="hover:text-primary_green transition-colors">Blog</a></li>
             </ul>
           </div>
 
@@ -32,10 +32,10 @@ export function Footer() {
           <div>
             <h4 className="mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>Support</h4>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li><a href="#" className="hover:text-[#2FF924] transition-colors">Contact Us</a></li>
-              <li><a href="#" className="hover:text-[#2FF924] transition-colors">Shipping</a></li>
-              <li><a href="#" className="hover:text-[#2FF924] transition-colors">Returns</a></li>
-              <li><a href="#" className="hover:text-[#2FF924] transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-primary_green transition-colors">Contact Us</a></li>
+              <li><a href="#" className="hover:text-primary_green transition-colors">Shipping</a></li>
+              <li><a href="#" className="hover:text-primary_green transition-colors">Returns</a></li>
+              <li><a href="#" className="hover:text-primary_green transition-colors">Privacy Policy</a></li>
             </ul>
           </div>
 
@@ -49,10 +49,10 @@ export function Footer() {
               <Input 
                 type="email" 
                 placeholder="Your email" 
-                className="flex-1 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                className="flex-1 border-gray-300 focus:border-primary_green focus:ring-primary_green"
               />
               <Button 
-                className="bg-[#2FF924] hover:bg-[#26d41f] text-white transition-all duration-300"
+                className="bg-primary_green hover:bg-[#26d41f] text-white transition-all duration-300"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 Join
@@ -68,17 +68,17 @@ export function Footer() {
           </p>
           
           <div className="flex gap-4">
-            <a href="#" className="p-2 rounded-full hover:bg-[#2FF924]/10 transition-colors" aria-label="Facebook">
-              <Facebook className="w-5 h-5 text-gray-600 hover:text-[#2FF924] transition-colors" />
+            <a href="#" className="p-2 rounded-full hover:bg-primary_green/10 transition-colors" aria-label="Facebook">
+              <Facebook className="w-5 h-5 text-gray-600 hover:text-primary_green transition-colors" />
             </a>
-            <a href="#" className="p-2 rounded-full hover:bg-[#2FF924]/10 transition-colors" aria-label="Instagram">
-              <Instagram className="w-5 h-5 text-gray-600 hover:text-[#2FF924] transition-colors" />
+            <a href="#" className="p-2 rounded-full hover:bg-primary_green/10 transition-colors" aria-label="Instagram">
+              <Instagram className="w-5 h-5 text-gray-600 hover:text-primary_green transition-colors" />
             </a>
-            <a href="#" className="p-2 rounded-full hover:bg-[#2FF924]/10 transition-colors" aria-label="Twitter">
-              <Twitter className="w-5 h-5 text-gray-600 hover:text-[#2FF924] transition-colors" />
+            <a href="#" className="p-2 rounded-full hover:bg-primary_green/10 transition-colors" aria-label="Twitter">
+              <Twitter className="w-5 h-5 text-gray-600 hover:text-primary_green transition-colors" />
             </a>
-            <a href="#" className="p-2 rounded-full hover:bg-[#2FF924]/10 transition-colors" aria-label="YouTube">
-              <Youtube className="w-5 h-5 text-gray-600 hover:text-[#2FF924] transition-colors" />
+            <a href="#" className="p-2 rounded-full hover:bg-primary_green/10 transition-colors" aria-label="YouTube">
+              <Youtube className="w-5 h-5 text-gray-600 hover:text-primary_green transition-colors" />
             </a>
           </div>
         </div>

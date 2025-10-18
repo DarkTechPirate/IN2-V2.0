@@ -118,7 +118,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
                 className="w-full h-full object-cover"
               />
               {product.soldCount > 100 && (
-                <Badge className="absolute top-4 right-4 bg-[#2FF924] text-black" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <Badge className="absolute top-4 right-4 bg-primary_green text-black" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Popular
                 </Badge>
               )}
@@ -142,7 +142,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-5 h-5 ${i < Math.floor(averageRating) ? 'fill-[#2FF924] text-[#2FF924]' : 'text-gray-300'}`}
+                      className={`w-5 h-5 ${i < Math.floor(averageRating) ? 'fill-primary_green text-primary_green' : 'text-gray-300'}`}
                     />
                   ))}
                 </div>
@@ -168,7 +168,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
                     onClick={() => setSelectedSize(size)}
                     className={`px-6 py-3 rounded-lg border-2 transition-all duration-300 ${
                       selectedSize === size
-                        ? 'border-[#2FF924] bg-[#2FF924]/10 text-black'
+                        ? 'border-primary_green bg-primary_green/10 text-black'
                         : 'border-gray-300 hover:border-gray-400'
                     }`}
                     style={{ fontFamily: 'Inter, sans-serif' }}
@@ -189,7 +189,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
                     onClick={() => setSelectedColor(color)}
                     className={`px-6 py-3 rounded-lg border-2 transition-all duration-300 capitalize ${
                       selectedColor === color
-                        ? 'border-[#2FF924] bg-[#2FF924]/10 text-black'
+                        ? 'border-primary_green bg-primary_green/10 text-black'
                         : 'border-gray-300 hover:border-gray-400'
                     }`}
                     style={{ fontFamily: 'Inter, sans-serif' }}
@@ -259,7 +259,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
             <div className="flex gap-4 pt-4">
               <Button
                 onClick={handleAddToCart}
-                className="flex-1 h-12 bg-[#2FF924] hover:bg-[#26d41f] text-black transition-all duration-300"
+                className="flex-1 h-12 bg-primary_green hover:bg-[#26d41f] text-black transition-all duration-300"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 <ShoppingCart className="w-4 h-4 mr-2" />
@@ -276,21 +276,21 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
             {/* Features */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t">
               <div className="flex items-center gap-3">
-                <Truck className="w-5 h-5 text-[#2FF924]" />
+                <Truck className="w-5 h-5 text-primary_green" />
                 <div>
                   <p className="text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>Free Shipping</p>
                   <p className="text-xs text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>On orders over $100</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Shield className="w-5 h-5 text-[#2FF924]" />
+                <Shield className="w-5 h-5 text-primary_green" />
                 <div>
                   <p className="text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>Secure Payment</p>
                   <p className="text-xs text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>100% protected</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-[#2FF924]" />
+                <Check className="w-5 h-5 text-primary_green" />
                 <div>
                   <p className="text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>Quality Assured</p>
                   <p className="text-xs text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>Premium materials</p>
@@ -324,19 +324,19 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
                     <h4 className="font-medium mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>Features</h4>
                     <ul className="space-y-2 text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
                       <li className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-[#2FF924] mt-1 flex-shrink-0" />
+                        <Check className="w-4 h-4 text-primary_green mt-1 flex-shrink-0" />
                         <span>Premium quality materials</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-[#2FF924] mt-1 flex-shrink-0" />
+                        <Check className="w-4 h-4 text-primary_green mt-1 flex-shrink-0" />
                         <span>Moisture-wicking technology</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-[#2FF924] mt-1 flex-shrink-0" />
+                        <Check className="w-4 h-4 text-primary_green mt-1 flex-shrink-0" />
                         <span>Four-way stretch fabric</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-[#2FF924] mt-1 flex-shrink-0" />
+                        <Check className="w-4 h-4 text-primary_green mt-1 flex-shrink-0" />
                         <span>Breathable and lightweight</span>
                       </li>
                     </ul>
@@ -362,7 +362,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
                       <div className="flex items-center gap-2 mb-2">
                         <h4 className="font-medium" style={{ fontFamily: 'Poppins, sans-serif' }}>{review.name}</h4>
                         {review.verified && (
-                          <Badge variant="outline" className="text-[#2FF924] border-[#2FF924]" style={{ fontFamily: 'Inter, sans-serif' }}>
+                          <Badge variant="outline" className="text-primary_green border-primary_green" style={{ fontFamily: 'Inter, sans-serif' }}>
                             Verified Purchase
                           </Badge>
                         )}
@@ -372,7 +372,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`w-4 h-4 ${i < review.rating ? 'fill-[#2FF924] text-[#2FF924]' : 'text-gray-300'}`}
+                              className={`w-4 h-4 ${i < review.rating ? 'fill-primary_green text-primary_green' : 'text-gray-300'}`}
                             />
                           ))}
                         </div>
@@ -412,7 +412,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
                       alt={relatedProduct.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2FF924] transition-all duration-300 rounded-2xl" />
+                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary_green transition-all duration-300 rounded-2xl" />
                   </div>
                   <h3 className="mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
                     {relatedProduct.name}
@@ -425,7 +425,7 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
                       ${relatedProduct.sellingPrice}
                     </span>
                     {relatedProduct.soldCount > 100 && (
-                      <span className="text-xs text-[#2FF924] bg-[#2FF924]/10 px-2 py-1 rounded-full" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      <span className="text-xs text-primary_green bg-primary_green/10 px-2 py-1 rounded-full" style={{ fontFamily: 'Inter, sans-serif' }}>
                         Popular
                       </span>
                     )}

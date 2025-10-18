@@ -105,7 +105,7 @@ export function LoginPage({ onLogin, onNavigate }: LoginPageProps) {
                         value={userEmail}
                         onChange={(e) => setUserEmail(e.target.value)}
                         required
-                        className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                        className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -124,7 +124,7 @@ export function LoginPage({ onLogin, onNavigate }: LoginPageProps) {
                         value={userPassword}
                         onChange={(e) => setUserPassword(e.target.value)}
                         required
-                        className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                        className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -132,7 +132,7 @@ export function LoginPage({ onLogin, onNavigate }: LoginPageProps) {
 
                   <Button
                     type="submit"
-                    className="w-full h-12 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+                    className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     <LogIn className="w-4 h-4 mr-2" />
@@ -144,7 +144,7 @@ export function LoginPage({ onLogin, onNavigate }: LoginPageProps) {
                     <button
                       type="button"
                       onClick={() => onNavigate('signup')}
-                      className="text-[#2FF924] hover:underline"
+                      className="text-primary_green hover:underline"
                     >
                       Sign up
                     </button>
@@ -176,7 +176,7 @@ export function LoginPage({ onLogin, onNavigate }: LoginPageProps) {
                         value={adminEmail}
                         onChange={(e) => setAdminEmail(e.target.value)}
                         required
-                        className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                        className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -195,7 +195,7 @@ export function LoginPage({ onLogin, onNavigate }: LoginPageProps) {
                         value={adminPassword}
                         onChange={(e) => setAdminPassword(e.target.value)}
                         required
-                        className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                        className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -203,7 +203,7 @@ export function LoginPage({ onLogin, onNavigate }: LoginPageProps) {
 
                   <Button
                     type="submit"
-                    className="w-full h-12 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+                    className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     <LogIn className="w-4 h-4 mr-2" />

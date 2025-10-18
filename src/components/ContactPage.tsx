@@ -94,7 +94,7 @@ export function ContactPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -110,7 +110,7 @@ export function ContactPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -126,14 +126,14 @@ export function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
                     rows={6}
-                    className="mt-2 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924] resize-none"
+                    className="mt-2 border-gray-300 focus:border-primary_green focus:ring-primary_green resize-none"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#2FF924] hover:bg-black hover:text-[#2FF924] transition-all duration-300"
+                  className="w-full h-12 bg-primary_green hover:bg-black hover:text-primary_green transition-all duration-300"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   Send Message
@@ -162,8 +162,8 @@ export function ContactPage() {
                     href={info.link}
                     className="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-full bg-[#2FF924]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#2FF924]/20 transition-colors">
-                      <info.icon className="w-6 h-6 text-[#2FF924]" />
+                    <div className="w-12 h-12 rounded-full bg-primary_green/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary_green/20 transition-colors">
+                      <info.icon className="w-6 h-6 text-primary_green" />
                     </div>
                     <div>
                       <h3 className="mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
@@ -189,7 +189,7 @@ export function ContactPage() {
                   <a
                     key={index}
                     href={social.link}
-                    className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center hover:bg-[#2FF924] hover:text-white transition-all duration-300 group"
+                    className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center hover:bg-primary_green hover:text-white transition-all duration-300 group"
                     aria-label={social.label}
                   >
                     <social.icon className="w-5 h-5" />

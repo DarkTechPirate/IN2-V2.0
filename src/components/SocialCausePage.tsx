@@ -75,8 +75,8 @@ export function SocialCausePage() {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#2FF924]/10 mb-4">
-                  <stat.icon className="w-8 h-8 text-[#2FF924]" />
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary_green/10 mb-4">
+                  <stat.icon className="w-8 h-8 text-primary_green" />
                 </div>
                 <h3 
                   className="mb-2"
@@ -133,7 +133,7 @@ export function SocialCausePage() {
       ))}
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-[#2FF924]/10 to-white py-20">
+      <section className="bg-gradient-to-br from-primary_green/10 to-white py-20">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -152,7 +152,7 @@ export function SocialCausePage() {
             </p>
             <Button
               variant="outline"
-              className="h-12 px-8 border-2 border-[#2FF924] text-[#2FF924] hover:bg-[#2FF924] hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-[#2FF924]/30"
+              className="h-12 px-8 border-2 border-primary_green text-primary_green hover:bg-primary_green hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-primary_green/30"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Join the Movement

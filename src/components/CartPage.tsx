@@ -79,7 +79,7 @@ export function CartPage() {
           className="mb-8"
         >
           <div className="flex items-center gap-3 mb-2">
-            <ShoppingBag className="w-8 h-8 text-[#2FF924]" />
+            <ShoppingBag className="w-8 h-8 text-primary_green" />
             <h1 
               style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)' }}
             >
@@ -213,12 +213,12 @@ export function CartPage() {
                 {/* Total */}
                 <div className="flex justify-between mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
                   <span>Total</span>
-                  <span className="text-[#2FF924]">${total.toFixed(2)}</span>
+                  <span className="text-primary_green">${total.toFixed(2)}</span>
                 </div>
 
                 {/* Checkout Button */}
                 <Button
-                  className="w-full h-12 bg-[#2FF924] hover:bg-[#26d41f] text-white mb-3"
+                  className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white mb-3"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   Proceed to Checkout
@@ -248,7 +248,7 @@ export function CartPage() {
               Add items to get started
             </p>
             <Button
-              className="h-12 px-8 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+              className="h-12 px-8 bg-primary_green hover:bg-[#26d41f] text-white"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Continue Shopping

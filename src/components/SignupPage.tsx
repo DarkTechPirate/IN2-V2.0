@@ -99,7 +99,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                       value={formData.name}
                       onChange={(e) => updateFormData('name', e.target.value)}
                       required
-                      className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                      className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -118,7 +118,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                       value={formData.email}
                       onChange={(e) => updateFormData('email', e.target.value)}
                       required
-                      className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                      className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -140,7 +140,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                       value={formData.password}
                       onChange={(e) => updateFormData('password', e.target.value)}
                       required
-                      className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                      className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -159,7 +159,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                       value={formData.confirmPassword}
                       onChange={(e) => updateFormData('confirmPassword', e.target.value)}
                       required
-                      className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                      className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -180,7 +180,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                     value={formData.phone}
                     onChange={(e) => updateFormData('phone', e.target.value)}
                     required
-                    className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -200,7 +200,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                     value={formData.address}
                     onChange={(e) => updateFormData('address', e.target.value)}
                     required
-                    className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -218,7 +218,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                     value={formData.city}
                     onChange={(e) => updateFormData('city', e.target.value)}
                     required
-                    className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -234,7 +234,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                     value={formData.state}
                     onChange={(e) => updateFormData('state', e.target.value)}
                     required
-                    className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -252,7 +252,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                     value={formData.pincode}
                     onChange={(e) => updateFormData('pincode', e.target.value)}
                     required
-                    className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -267,7 +267,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                     value={formData.country}
                     onChange={(e) => updateFormData('country', e.target.value)}
                     required
-                    className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -276,7 +276,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
               {/* Submit */}
               <Button
                 type="submit"
-                className="w-full h-12 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+                className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 <UserPlus className="w-4 h-4 mr-2" />
@@ -288,7 +288,7 @@ export function SignupPage({ onSignup, onNavigate }: SignupPageProps) {
                 <button
                   type="button"
                   onClick={() => onNavigate('login')}
-                  className="text-[#2FF924] hover:underline"
+                  className="text-primary_green hover:underline"
                 >
                   Login
                 </button>

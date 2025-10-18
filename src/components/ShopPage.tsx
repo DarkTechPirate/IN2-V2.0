@@ -55,9 +55,9 @@ export function ShopPage({ onNavigate }: ShopPageProps) {
                     setSelectedCategories(selectedCategories.filter(c => c !== category));
                   }
                 }}
-                className="data-[state=checked]:bg-[#2FF924] data-[state=checked]:border-[#2FF924]"
+                className="data-[state=checked]:bg-primary_green data-[state=checked]:border-primary_green"
               />
-              <span className="capitalize group-hover:text-[#2FF924] transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <span className="capitalize group-hover:text-primary_green transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
                 {category}
               </span>
             </label>
@@ -96,9 +96,9 @@ export function ShopPage({ onNavigate }: ShopPageProps) {
                     setSelectedSizes(selectedSizes.filter(s => s !== size));
                   }
                 }}
-                className="data-[state=checked]:bg-[#2FF924] data-[state=checked]:border-[#2FF924]"
+                className="data-[state=checked]:bg-primary_green data-[state=checked]:border-primary_green"
               />
-              <span className="group-hover:text-[#2FF924] transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <span className="group-hover:text-primary_green transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
                 {size}
               </span>
             </label>
@@ -121,9 +121,9 @@ export function ShopPage({ onNavigate }: ShopPageProps) {
                     setSelectedColors(selectedColors.filter(c => c !== color));
                   }
                 }}
-                className="data-[state=checked]:bg-[#2FF924] data-[state=checked]:border-[#2FF924]"
+                className="data-[state=checked]:bg-primary_green data-[state=checked]:border-primary_green"
               />
-              <span className="capitalize group-hover:text-[#2FF924] transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <span className="capitalize group-hover:text-primary_green transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
                 {color}
               </span>
             </label>
@@ -192,7 +192,7 @@ export function ShopPage({ onNavigate }: ShopPageProps) {
                       alt={product.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2FF924] transition-all duration-300 rounded-2xl" />
+                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary_green transition-all duration-300 rounded-2xl" />
                     
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
@@ -202,7 +202,7 @@ export function ShopPage({ onNavigate }: ShopPageProps) {
                           e.stopPropagation();
                           handleAddToCart(product.id, product.name);
                         }}
-                        className="bg-white text-black hover:bg-[#2FF924] hover:text-white transition-all duration-300 shadow-lg"
+                        className="bg-white text-black hover:bg-primary_green hover:text-white transition-all duration-300 shadow-lg"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       >
                         <ShoppingCart className="w-4 h-4 mr-2" />
@@ -233,7 +233,7 @@ export function ShopPage({ onNavigate }: ShopPageProps) {
                       ${product.sellingPrice}
                     </span>
                     {product.soldCount > 100 && (
-                      <span className="text-xs text-[#2FF924] bg-[#2FF924]/10 px-2 py-1 rounded-full" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      <span className="text-xs text-primary_green bg-primary_green/10 px-2 py-1 rounded-full" style={{ fontFamily: 'Inter, sans-serif' }}>
                         Popular
                       </span>
                     )}
