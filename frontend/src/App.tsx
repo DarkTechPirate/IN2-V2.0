@@ -1,4 +1,6 @@
+// App.tsx
 import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { FloatingButtons } from './components/FloatingButtons';
@@ -17,8 +19,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { ProductDetailPage } from './components/ProductDetailPage';
 import { Toaster } from './components/ui/sonner';
 import { ProductProvider } from './components/ProductContext';
-import LoadingScreen from "@/components/LoadingScreen";
-type Page = 'home' | 'shop' | 'social-cause' | 'gallery' | 'contact' | 'profile' | 'wishlist' | 'cart' | 'order-tracking' | 'login' | 'signup' | 'admin-dashboard' | 'product-detail';
+import LoadingScreen from '@/components/LoadingScreen';
 
 interface UserData {
   name: string;
@@ -32,119 +33,57 @@ interface UserData {
   role?: string;
 }
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
-  const [currentProductId, setCurrentProductId] = useState<string | null>(null);
+function AppContent() {
   const [cartCount, setCartCount] = useState(3);
   const [wishlistCount, setWishlistCount] = useState(3);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
-
-    // NEW: loading state for the loading screen
   const [loaded, setLoaded] = useState(false);
 
-
-  const handleNavigate = (page: string, productId?: string) => {
-    // Redirect to login if trying to access protected pages
-    const protectedPages = ['profile', 'wishlist', 'cart', 'order-tracking'];
-    if (protectedPages.includes(page) && !isLoggedIn) {
-      setCurrentPage('login');
-      return;
-    }
-
-    // Redirect to login if trying to access admin dashboard without admin rights
-    if (page === 'admin-dashboard' && !isAdmin) {
-      setCurrentPage('login');
-      return;
-    }
-
-    // Handle product detail page navigation
-    if (page === 'product-detail' && productId) {
-      setCurrentProductId(productId);
-    }
-
-    setCurrentPage(page as Page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = (userType: 'user' | 'admin', user: UserData) => {
     setIsLoggedIn(true);
     setIsAdmin(userType === 'admin');
     setUserData(user);
+    navigate('/');
   };
 
   const handleSignup = (user: UserData) => {
     setIsLoggedIn(true);
     setIsAdmin(false);
     setUserData(user);
+    navigate('/');
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
     setUserData(null);
-    setCurrentPage('home');
+    navigate('/');
   };
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <HomePage onNavigate={handleNavigate} />;
-      case 'shop':
-        return <ShopPage onNavigate={handleNavigate} />;
-      case 'product-detail':
-        return currentProductId ? (
-          <ProductDetailPage productId={currentProductId} onNavigate={handleNavigate} />
-        ) : (
-          <ShopPage onNavigate={handleNavigate} />
-        );
-      case 'social-cause':
-        return <SocialCausePage />;
-      case 'gallery':
-        return <GalleryPage />;
-      case 'contact':
-        return <ContactPage />;
-      case 'profile':
-        return <ProfilePage />;
-      case 'wishlist':
-        return <WishlistPage />;
-      case 'cart':
-        return <CartPage />;
-      case 'order-tracking':
-        return <OrderTrackingPage />;
-      case 'login':
-        return <LoginPage onLogin={handleLogin} onNavigate={handleNavigate} />;
-      case 'signup':
-        return <SignupPage onSignup={handleSignup} onNavigate={handleNavigate} />;
-      case 'admin-dashboard':
-        return isAdmin ? <AdminDashboard /> : <HomePage onNavigate={handleNavigate} />;
-      default:
-        return <HomePage onNavigate={handleNavigate} />;
-    }
-  };
-
-  // Don't show navbar/footer on login/signup pages
-  const showNavAndFooter = currentPage !== 'login' && currentPage !== 'signup';
+  const hideLayout = location.pathname === '/login' || location.pathname === '/signup';
 
   return (
     <ProductProvider>
-
-      {/* Loading screen overlay — it will call setLoaded(true) via onLoadingComplete */}
       {!loaded && (
         <LoadingScreen
-          duration={2800} // optional: how long the loader stays; adjust as needed
+          duration={2800}
           onLoadingComplete={() => setLoaded(true)}
-          bg="#ffffff"      // optional: background color
-          color="#050a30"   // optional: logo color
+          bg="#ffffff"
+          color="#050a30"
         />
       )}
 
       <div className="min-h-screen bg-white">
-        {showNavAndFooter && (
-          <Navbar 
-            currentPage={currentPage} 
-            onNavigate={handleNavigate}
+        {!hideLayout && (
+          <Navbar
+            currentPage={location.pathname}
+            // NOTE: update your Navbar to use useNavigate internally or accept a `navigateToPath` prop if needed
+            onNavigate={(p: string) => navigate(p)}
             cartCount={cartCount}
             wishlistCount={wishlistCount}
             isAdmin={isAdmin}
@@ -152,19 +91,43 @@ export default function App() {
             onLogout={handleLogout}
           />
         )}
-        
+
         <main>
-          {renderPage()}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/product/:productId" element={<ProductDetailPage />} />
+            <Route path="/social-cause" element={<SocialCausePage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/profile" element={isLoggedIn ? <ProfilePage /> : <Navigate to="/login" />} />
+            <Route path="/wishlist" element={isLoggedIn ? <WishlistPage /> : <Navigate to="/login" />} />
+            <Route path="/cart" element={isLoggedIn ? <CartPage /> : <Navigate to="/login" />} />
+            <Route path="/order-tracking" element={isLoggedIn ? <OrderTrackingPage /> : <Navigate to="/login" />} />
+            <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+            <Route path="/signup" element={<SignupPage onSignup={handleSignup} />} />
+            <Route path="/admin-dashboard" element={isAdmin ? <AdminDashboard /> : <Navigate to="/login" />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
         </main>
 
-        {showNavAndFooter && (
+        {!hideLayout && (
           <>
             <Footer />
             <FloatingButtons />
           </>
         )}
+
         <Toaster position="top-center" />
       </div>
     </ProductProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
