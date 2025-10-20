@@ -43,7 +43,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       colors: ['black', 'white', 'navy'],
       image: 'https://images.unsplash.com/photo-1641808887823-b3201916a57d?w=400',
       media:[
-        {src:'https://images.unsplash.com/photo-1641808887823-b3201916a57d?w=400',}
+       'https://images.unsplash.com/photo-1641808887823-b3201916a57d?w=400',
+       'https://images.unsplash.com/photo-1645652367526-a0ecb717650a?w=400',
       ],
       soldCount: 156,
       addedDate: '2024-01-15',
