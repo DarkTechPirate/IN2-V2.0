@@ -1,0 +1,53 @@
+================================================================================
+BRANCH COMPARISON SUMMARY: main vs dev
+================================================================================
+
+Generated: $(date)
+Repository: DarkTechPirate/IN2-V2.0
+
+================================================================================
+QUICK STATS
+================================================================================
+
+Commits ahead of main: 7
+Files changed: 89
+Insertions: +814
+Deletions: -762
+
+================================================================================
+COMMIT LIST (main → dev)
+================================================================================
+
+e8a9b70 - Feat: added tailwind and made a global value for green colour
+855d2e6 - Fix some colour in the homepage
+d551b50 - Feat: Added colour change in the chatbot in the botton screen
+1fd6b90 - Feat: Added Temp loading screen
+f9e031b - Patch: Moved all the frontend to a sperate folder
+0e6867b - Fix: navigation bug in the shop and product detail page
+8ea899c - ADD : added backend folder
+
+================================================================================
+KEY DIFFERENCES
+================================================================================
+
+STRUCTURE:
+  main: All frontend code in root src/ folder
+  dev:  Frontend moved to frontend/ subfolder, backend/ folder added
+
+STYLING:
+  main: Basic CSS styling
+  dev:  Tailwind CSS integrated with custom color theming
+
+NEW FEATURES:
+  - Loading screen component
+  - Backend folder structure
+  - Enhanced navigation
+  - Improved color scheme
+  - Global green color variable
+
+DEPENDENCIES:
+  Added: react-router-dom, tailwindcss, postcss, autoprefixer
+
+================================================================================
+For detailed analysis, see BRANCH_COMPARISON.md
+================================================================================
