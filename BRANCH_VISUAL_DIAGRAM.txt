@@ -1,0 +1,97 @@
+================================================================================
+BRANCH VISUAL COMPARISON
+================================================================================
+
+Branch History Diagram:
+-----------------------
+
+                           ┌─ 8ea899c (origin/dev)
+                           │   ADD: added backend folder
+                           │
+                           ├─ 0e6867b
+                           │   Fix: navigation bug
+                           │
+                           ├─ f9e031b
+                           │   Patch: Moved frontend to separate folder
+                           │
+                           ├─ 1fd6b90
+                           │   Feat: Added Temp loading screen
+                           │
+                           ├─ d551b50
+                           │   Feat: Added colour change in chatbot
+                           │
+                           ├─ 855d2e6
+                           │   Fix: some colour in homepage
+                           │
+                           ├─ e8a9b70
+                           │   Feat: added tailwind & global green colour
+                           │
+                           ┴
+* e300a65 (origin/main)
+  web_name_update
+
+================================================================================
+
+Directory Structure Comparison:
+-------------------------------
+
+MAIN BRANCH                          DEV BRANCH
+───────────────                      ──────────────────────────────
+IN2-V2.0/                            IN2-V2.0/
+├── src/                             ├── frontend/
+│   ├── components/                  │   ├── src/
+│   ├── services/                    │   │   ├── components/
+│   ├── styles/                      │   │   ├── services/
+│   ├── types/                       │   │   ├── styles/
+│   ├── constants/                   │   │   ├── types/
+│   └── guidelines/                  │   │   ├── constants/
+├── package.json                     │   │   └── guidelines/
+├── vite.config.ts                   │   ├── package.json
+├── index.html                       │   ├── vite.config.ts
+├── .gitignore                       │   ├── index.html
+└── README.md                        │   ├── .gitignore
+                                     │   ├── README.md
+                                     │   ├── tailwind.config.js  ← NEW
+                                     │   └── postcss.config.js   ← NEW
+                                     └── backend/                ← NEW
+                                         ├── package.json
+                                         └── .gitignore
+
+================================================================================
+
+Technology Stack Changes:
+-------------------------
+
+MAIN BRANCH                          DEV BRANCH
+───────────────                      ──────────────────────────────
+React                                React
+Vite                                 Vite
+TypeScript                           TypeScript
+Basic CSS                            Tailwind CSS              ← NEW
+                                     PostCSS                   ← NEW
+                                     Autoprefixer              ← NEW
+                                     React Router DOM v7.9.4   ← NEW
+
+================================================================================
+
+Feature Additions in Dev Branch:
+---------------------------------
+
+✨ NEW FEATURES:
+   • LoadingScreen.tsx component
+   • Backend folder structure (ready for API)
+   • Tailwind CSS theming system
+   • Global color variables (--primary-green)
+   • Enhanced ProductDetailPage
+
+🐛 BUG FIXES:
+   • Navigation bug in shop & product detail pages
+   • Homepage color issues
+   • Chatbot color consistency
+
+🎨 UI/UX IMPROVEMENTS:
+   • Loading screen for better UX
+   • Consistent color theming
+   • Improved component styling
+
+================================================================================
