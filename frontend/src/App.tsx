@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocat
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { FloatingButtons } from './components/FloatingButtons';
-import { HomePage } from './components/HomePage';
 import { ShopPage } from './components/ShopPage';
 import { SocialCausePage } from './components/SocialCausePage';
 import { GalleryPage } from './components/GalleryPage';
@@ -19,6 +18,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { ProductDetailPage } from './components/ProductDetailPage';
 import { Toaster } from './components/ui/sonner';
 import { ProductProvider } from './components/ProductContext';
+import { HomePage } from './components/HomePage';
 import LoadingScreen from '@/components/LoadingScreen';
 
 interface UserData {
