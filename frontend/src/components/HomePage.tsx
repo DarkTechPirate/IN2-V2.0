@@ -111,12 +111,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   className="text-white/90 mb-8 max-w-2xl mx-auto"
                   style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}
                 >
-                  {slide.subtitle}
+                  {slide.subtitle} 
                 </p>
                 <div className="flex gap-4 justify-center flex-wrap">
                   <Button
                     onClick={() => onNavigate('shop')}
-                    className="h-12 px-8 bg-[#2FF924] hover:bg-[#26d41f] text-white transition-all duration-300 hover:shadow-lg hover:shadow-[#2FF924]/50"
+                    className="h-12 px-8 bg-primary_green hover:bg-[#26d41f] text-white transition-all duration-300 hover:shadow-lg hover:shadow-primary_green/50"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     Shop Now
@@ -124,7 +124,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   <Button
                     onClick={() => onNavigate('social-cause')}
                     variant="outline"
-                    className="h-12 px-8 border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300"
+                    className="h-12 px-8 border-2 border-white text-black hover:bg-white hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-white/50"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     Explore Story
@@ -158,7 +158,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide ? 'w-8 bg-[#2FF924]' : 'w-2 bg-white/50'
+                index === currentSlide ? 'w-8 bg-primary_green' : 'w-2 bg-white/50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -200,10 +200,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#2FF924] transition-all duration-300 rounded-2xl" />
+                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary_green transition-all duration-300 rounded-2xl" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <Button
-                      className="bg-white text-black hover:bg-[#2FF924] hover:text-white transition-all duration-300 shadow-lg"
+                      className="bg-white text-black hover:bg-primary_green hover:text-white transition-all duration-300 shadow-lg"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     >
                       <ShoppingCart className="w-4 h-4 mr-2" />
@@ -225,7 +225,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
             <Button
               onClick={() => onNavigate('shop')}
               variant="outline"
-              className="h-12 px-8 border-2 border-[#2FF924] text-[#2FF924] hover:bg-[#2FF924] hover:text-white transition-all duration-300"
+              className="h-12 px-8 border-2 border-primary_green text-primary_green hover:bg-primary_green hover:text-white transition-all duration-300"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               View All Products
@@ -260,8 +260,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <Button
                 onClick={() => onNavigate('social-cause')}
                 variant="outline"
-                className="h-12 px-8 border-2 border-[#2FF924] text-[#2FF924] hover:bg-[#2FF924] hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-[#2FF924]/30"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                className="h-12 px-8 border-2 border-primary_green text-primary_green font-bold hover:bg-primary_green hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-primary_green/30"
+                style={{ fontFamily: 'Inter, sans-serif',fontWeight: 600 ,letterSpacing: '1px'}}
               >
                 Explore More
               </Button>
@@ -328,8 +328,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <Button
                 onClick={() => onNavigate('gallery')}
                 variant="outline"
-                className="h-12 px-8 border-2 border-[#2FF924] text-[#2FF924] hover:bg-[#2FF924] hover:text-white transition-all duration-300"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                className="h-12 px-8 border-2px bg-gray-50 text-primary_green  hover:bg-primary_green hover:text-white transition-all duration-300"
+                style={{ fontFamily: 'Inter, sans-serif',fontWeight: 600 ,letterSpacing: '1px'}}
               >
                 View Full Gallery
               </Button>

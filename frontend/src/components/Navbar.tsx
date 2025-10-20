@@ -59,12 +59,12 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
               <button
                 key={link.value}
                 onClick={() => onNavigate(link.value)}
-                className="relative py-2 transition-all duration-300 hover:text-[#2FF924] group"
+                className="relative py-2 transition-all duration-300 hover:text-primary_green group"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 {link.label}
                 <span
-                  className={`absolute bottom-0 left-0 h-0.5 bg-[#2FF924] transition-all duration-300 ${
+                  className={`absolute bottom-0 left-0 h-0.5 bg-primary_green transition-all duration-300 ${
                     currentPage === link.value
                       ? 'w-full'
                       : 'w-0 group-hover:w-full'
@@ -79,8 +79,8 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
                 onClick={() => onNavigate('admin-dashboard')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
                   currentPage === 'admin-dashboard'
-                    ? 'bg-[#2FF924] text-white'
-                    : 'bg-[#2FF924]/10 text-[#2FF924] hover:bg-[#2FF924]/20'
+                    ? 'bg-primary_green text-white'
+                    : 'bg-primary_green/10 text-primary_green hover:bg-primary_green/20'
                 }`}
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
@@ -126,7 +126,7 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
             ) : (
               <button
                 onClick={() => onNavigate('login')}
-                className="px-4 py-2 rounded-lg bg-[#2FF924]/10 text-[#2FF924] hover:bg-[#2FF924] hover:text-white transition-all duration-300"
+                className="px-4 py-2 rounded-lg bg-primary_green/10 text-primary_green hover:bg-primary_green hover:text-white transition-all duration-300"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 Login
@@ -140,7 +140,7 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
             >
               <Heart className="w-5 h-5" />
               {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#2FF924] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary_green text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {wishlistCount}
                 </span>
               )}
@@ -153,7 +153,7 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
             >
               <ShoppingBag className="w-5 h-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#2FF924] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary_green text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
@@ -191,7 +191,7 @@ export function Navbar({ currentPage, onNavigate, cartCount = 0, wishlistCount =
                   }}
                   className={`text-left px-4 py-3 rounded-lg transition-colors ${
                     currentPage === link.value
-                      ? 'bg-[#2FF924]/10 text-[#2FF924]'
+                      ? 'bg-primary_green/10 text-primary_green'
                       : 'hover:bg-gray-100'
                   }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}

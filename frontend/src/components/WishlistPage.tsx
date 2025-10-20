@@ -58,7 +58,7 @@ export function WishlistPage() {
           className="mb-8"
         >
           <div className="flex items-center gap-3 mb-2">
-            <Heart className="w-8 h-8 text-[#2FF924]" />
+            <Heart className="w-8 h-8 text-primary_green" />
             <h1 
               style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)' }}
             >
@@ -115,7 +115,7 @@ export function WishlistPage() {
                   <Button
                     onClick={() => addToCart(item)}
                     disabled={!item.inStock}
-                    className="w-full h-11 bg-[#2FF924] hover:bg-[#26d41f] text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full h-11 bg-primary_green hover:bg-[#26d41f] text-white disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
@@ -140,7 +140,7 @@ export function WishlistPage() {
               Save your favorite items for later
             </p>
             <Button
-              className="h-12 px-8 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+              className="h-12 px-8 bg-primary_green hover:bg-[#26d41f] text-white"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Continue Shopping

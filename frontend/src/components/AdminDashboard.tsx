@@ -183,7 +183,7 @@ export function AdminDashboard() {
           <Dialog open={productDialogOpen} onOpenChange={setProductDialogOpen}>
             <DialogTrigger asChild>
               <Button
-                className="h-12 px-6 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+                className="h-12 px-6 bg-primary_green hover:bg-[#26d41f] text-white"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 <Package className="w-4 h-4 mr-2" />
@@ -210,7 +210,7 @@ export function AdminDashboard() {
                       value={productForm.name}
                       onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
                       required
-                      className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                      className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -247,7 +247,7 @@ export function AdminDashboard() {
                     onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
                     required
                     rows={3}
-                    className="mt-2 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -267,7 +267,7 @@ export function AdminDashboard() {
                         value={productForm.costPrice}
                         onChange={(e) => setProductForm({ ...productForm, costPrice: e.target.value })}
                         required
-                        className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                        className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -287,7 +287,7 @@ export function AdminDashboard() {
                         value={productForm.sellingPrice}
                         onChange={(e) => setProductForm({ ...productForm, sellingPrice: e.target.value })}
                         required
-                        className="pl-10 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                        className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -298,12 +298,12 @@ export function AdminDashboard() {
                       Profit Margin
                     </Label>
                     <div className="relative mt-2">
-                      <Percent className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#2FF924]" />
+                      <Percent className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary_green" />
                       <Input
                         type="text"
                         value={calculateProfitPercentage() + '%'}
                         disabled
-                        className="pl-10 h-12 bg-[#2FF924]/10 border-[#2FF924] text-[#2FF924]"
+                        className="pl-10 h-12 bg-primary_green/10 border-primary_green text-primary_green"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
@@ -322,7 +322,7 @@ export function AdminDashboard() {
                       value={productForm.sizes}
                       onChange={(e) => setProductForm({ ...productForm, sizes: e.target.value })}
                       required
-                      className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                      className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -338,7 +338,7 @@ export function AdminDashboard() {
                       value={productForm.colors}
                       onChange={(e) => setProductForm({ ...productForm, colors: e.target.value })}
                       required
-                      className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                      className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -355,14 +355,14 @@ export function AdminDashboard() {
                     value={productForm.image}
                     onChange={(e) => setProductForm({ ...productForm, image: e.target.value })}
                     required
-                    className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+                  className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   <Plus className="w-4 h-4 mr-2" />
@@ -376,7 +376,7 @@ export function AdminDashboard() {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="h-12 px-6 border-2 border-[#2FF924] text-[#2FF924] hover:bg-[#2FF924] hover:text-white"
+                className="h-12 px-6 border-2 border-primary_green text-primary_green hover:bg-primary_green hover:text-white"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 <ImageIcon className="w-4 h-4 mr-2" />
@@ -402,7 +402,7 @@ export function AdminDashboard() {
                     value={galleryForm.title}
                     onChange={(e) => setGalleryForm({ ...galleryForm, title: e.target.value })}
                     required
-                    className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -418,7 +418,7 @@ export function AdminDashboard() {
                     onChange={(e) => setGalleryForm({ ...galleryForm, description: e.target.value })}
                     required
                     rows={2}
-                    className="mt-2 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                    className="mt-2 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                 </div>
@@ -434,7 +434,7 @@ export function AdminDashboard() {
                       value={galleryForm.date}
                       onChange={(e) => setGalleryForm({ ...galleryForm, date: e.target.value })}
                       required
-                      className="mt-2 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                      className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -470,7 +470,7 @@ export function AdminDashboard() {
                       value={galleryForm.image}
                       onChange={(e) => setGalleryForm({ ...galleryForm, image: e.target.value })}
                       required
-                      className="flex-1 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+                      className="flex-1 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                     <Button
@@ -487,7 +487,7 @@ export function AdminDashboard() {
 
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+                  className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   <Plus className="w-4 h-4 mr-2" />
@@ -540,7 +540,7 @@ export function AdminDashboard() {
                 <CardDescription style={{ fontFamily: 'Inter, sans-serif' }}>Total Profit</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl mb-1 text-[#2FF924]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                <div className="text-2xl mb-1 text-primary_green" style={{ fontFamily: 'Poppins, sans-serif' }}>
                   ${totalProfit.toLocaleString()}
                 </div>
                 <p className="text-xs text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -554,7 +554,7 @@ export function AdminDashboard() {
                 <CardDescription style={{ fontFamily: 'Inter, sans-serif' }}>Overall Profit Margin</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl mb-1 text-[#2FF924]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                <div className="text-2xl mb-1 text-primary_green" style={{ fontFamily: 'Poppins, sans-serif' }}>
                   {overallProfitMargin.toFixed(1)}%
                 </div>
                 <p className="text-xs text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -672,11 +672,11 @@ export function AdminDashboard() {
                             <TableCell className="text-right" style={{ fontFamily: 'Inter, sans-serif' }}>
                               ${revenue.toLocaleString()}
                             </TableCell>
-                            <TableCell className="text-right text-[#2FF924]" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            <TableCell className="text-right text-primary_green" style={{ fontFamily: 'Inter, sans-serif' }}>
                               ${profit.toLocaleString()}
                             </TableCell>
                             <TableCell className="text-right" style={{ fontFamily: 'Inter, sans-serif' }}>
-                              <span className={product.profitMargin > 100 ? 'text-[#2FF924]' : ''}>
+                              <span className={product.profitMargin > 100 ? 'text-primary_green' : ''}>
                                 {product.profitMargin.toFixed(1)}%
                               </span>
                             </TableCell>
@@ -706,7 +706,7 @@ export function AdminDashboard() {
                     </div>
                     <div className="flex-1 h-8 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-[#2FF924] transition-all duration-500"
+                        className="h-full bg-primary_green transition-all duration-500"
                         style={{ width: `${(item.sales / 25000) * 100}%` }}
                       />
                     </div>
@@ -742,7 +742,7 @@ export function AdminDashboard() {
                       </div>
                       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-[#2FF924]"
+                          className="h-full bg-primary_green"
                           style={{ width: `${item.percentage}%` }}
                         />
                       </div>
@@ -769,7 +769,7 @@ export function AdminDashboard() {
                       </div>
                       <div className="flex-1 h-8 bg-gray-100 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-[#2FF924] transition-all duration-500"
+                          className="h-full bg-primary_green transition-all duration-500"
                           style={{ width: `${(item.sales / 45000) * 100}%` }}
                         />
                       </div>

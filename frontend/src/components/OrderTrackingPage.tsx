@@ -82,8 +82,8 @@ export function OrderTrackingPage() {
   };
 
   const getStatusIcon = (index: number) => {
-    if (index === 0) return <Truck className="w-6 h-6 text-[#2FF924]" />;
-    return <CheckCircle2 className="w-6 h-6 text-[#2FF924]" />;
+    if (index === 0) return <Truck className="w-6 h-6 text-primary_green" />;
+    return <CheckCircle2 className="w-6 h-6 text-primary_green" />;
   };
 
   return (
@@ -97,7 +97,7 @@ export function OrderTrackingPage() {
           className="mb-8"
         >
           <div className="flex items-center gap-3 mb-2">
-            <Package className="w-8 h-8 text-[#2FF924]" />
+            <Package className="w-8 h-8 text-primary_green" />
             <h1 
               style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)' }}
             >
@@ -122,12 +122,12 @@ export function OrderTrackingPage() {
               placeholder="Enter tracking number (e.g., IN2-2024-1234)"
               value={trackingNumber}
               onChange={(e) => setTrackingNumber(e.target.value)}
-              className="flex-1 h-12 border-gray-300 focus:border-[#2FF924] focus:ring-[#2FF924]"
+              className="flex-1 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
               style={{ fontFamily: 'Inter, sans-serif' }}
             />
             <Button
               type="submit"
-              className="h-12 px-8 bg-[#2FF924] hover:bg-[#26d41f] text-white"
+              className="h-12 px-8 bg-primary_green hover:bg-[#26d41f] text-white"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Track Order
@@ -154,9 +154,9 @@ export function OrderTrackingPage() {
                     Placed on {trackedOrder.date}
                   </p>
                 </div>
-                <div className="flex items-center gap-2 bg-[#2FF924]/10 px-4 py-2 rounded-full">
-                  <Clock className="w-4 h-4 text-[#2FF924]" />
-                  <span className="text-sm capitalize text-[#2FF924]" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="flex items-center gap-2 bg-primary_green/10 px-4 py-2 rounded-full">
+                  <Clock className="w-4 h-4 text-primary_green" />
+                  <span className="text-sm capitalize text-primary_green" style={{ fontFamily: 'Inter, sans-serif' }}>
                     {trackedOrder.status.replace('-', ' ')}
                   </span>
                 </div>
@@ -187,7 +187,7 @@ export function OrderTrackingPage() {
 
               {/* Estimated Delivery */}
               <div className="mt-6 pt-6 border-t border-gray-200 flex items-center gap-3">
-                <MapPin className="w-5 h-5 text-[#2FF924]" />
+                <MapPin className="w-5 h-5 text-primary_green" />
                 <div>
                   <p className="text-sm text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Estimated Delivery
@@ -216,7 +216,7 @@ export function OrderTrackingPage() {
                     {/* Icon */}
                     <div className="relative">
                       <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                        index === 0 ? 'bg-[#2FF924]/10' : 'bg-gray-100'
+                        index === 0 ? 'bg-primary_green/10' : 'bg-gray-100'
                       }`}>
                         {getStatusIcon(index)}
                       </div>
@@ -227,7 +227,7 @@ export function OrderTrackingPage() {
 
                     {/* Content */}
                     <div className="flex-1 pb-6">
-                      <h3 className={`mb-1 ${index === 0 ? 'text-[#2FF924]' : ''}`} style={{ fontFamily: 'Poppins, sans-serif' }}>
+                      <h3 className={`mb-1 ${index === 0 ? 'text-primary_green' : ''}`} style={{ fontFamily: 'Poppins, sans-serif' }}>
                         {event.status}
                       </h3>
                       <p className="text-gray-600 text-sm mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
