@@ -42,6 +42,9 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       sizes: ['S', 'M', 'L', 'XL'],
       colors: ['black', 'white', 'navy'],
       image: 'https://images.unsplash.com/photo-1641808887823-b3201916a57d?w=400',
+      media:[
+        {src:'https://images.unsplash.com/photo-1641808887823-b3201916a57d?w=400',}
+      ],
       soldCount: 156,
       addedDate: '2024-01-15',
       monthlySales: [

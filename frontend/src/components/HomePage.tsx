@@ -268,7 +268,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
             </div>
             <div className="order-1 md:order-2 rounded-2xl overflow-hidden">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1758599668547-2b1192c10abb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tdW5pdHklMjBjaGFyaXR5JTIwdm9sdW50ZWVyc3xlbnwxfHx8fDE3NjAyMDc2MTh8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/momentOfGood.jpg"
                 alt="Social Cause"
                 className="w-full h-[400px] object-cover"
               />
