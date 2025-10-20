@@ -68,11 +68,7 @@ temp/
 data/
 mongodb_data/
 
-# Uploads
-public/uploads/*
-!public/uploads/.gitkeep
-backend/uploads/*
-!backend/uploads/.gitkeep
+
 
 # Cache
 .cache/

@@ -13,7 +13,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
   const heroSlides = [
     {
-      image: 'https://images.unsplash.com/photo-1641808887823-b3201916a57d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzcG9ydHN3ZWFyJTIwYXRobGV0ZXxlbnwxfHx8fDE3NjAyMDc2MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      image: '/hero/dark.jpg',
       title: 'IN MOTION. IN STYLE. IN2.',
       subtitle: 'Where luxury performance meets conscious movement.',
     },
@@ -30,34 +30,116 @@ export function HomePage({ onNavigate }: HomePageProps) {
   ];
 
   const bestsellers = [
-    {
-      id: 1,
+     {
+      id: '1',
       name: 'Elite Performance Tee',
-      price: 89,
-      image: 'https://images.unsplash.com/photo-1641808887823-b3201916a57d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzcG9ydHN3ZWFyJTIwYXRobGV0ZXxlbnwxfHx8fDE3NjAyMDc2MTZ8MA&ixlib=rb-4.1.0&q=80&w=400',
+      description: 'Premium moisture-wicking fabric with advanced breathability for peak performance during intense workouts.',
+      category: 'football socks',
+      costPrice: 45,
+      sellingPrice: 89,
+      profitMargin: 97.78,
+      sizes: ['S', 'M', 'L', 'XL'],
+      colors: ['black', 'white', 'navy'],
+      image: '/product/1.jpg',
+      media:[
+       '/product/1.jpg',
+       '/product/second_scoks_image.jpg',
+      ],
+      soldCount: 156,
+      addedDate: '2024-01-15',
+      monthlySales: [
+        { month: '2024-01', units: 12 },
+        { month: '2024-02', units: 18 },
+        { month: '2024-03', units: 22 },
+        { month: '2024-04', units: 25 },
+        { month: '2024-05', units: 31 },
+        { month: '2024-06', units: 28 },
+        { month: '2024-07', units: 20 },
+      ],
     },
     {
-      id: 2,
+      id: '2',
       name: 'Motion Flex Leggings',
-      price: 129,
-      image: 'https://images.unsplash.com/photo-1645652367526-a0ecb717650a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b2dhJTIwbWVkaXRhdGlvbiUyMHdlbGxuZXNzfGVufDF8fHx8MTc2MDE5NjI2NHww&ixlib=rb-4.1.0&q=80&w=400',
+      description: 'High-waisted leggings with four-way stretch and compression support for maximum flexibility.',
+      category: ' tennis socks',
+      costPrice: 65,
+      sellingPrice: 129,
+      profitMargin: 98.46,
+      sizes: ['S', 'M', 'L'],
+      colors: ['black', 'gray', 'navy'],
+      image: '/product/2.jpg',
+      media:[
+       '/product/2.jpg',
+       '/product/second_scoks_image.jpg',
+      ],
+      soldCount: 234,
+      addedDate: '2024-02-20',
+      monthlySales: [
+        { month: '2024-02', units: 15 },
+        { month: '2024-03', units: 28 },
+        { month: '2024-04', units: 35 },
+        { month: '2024-05', units: 42 },
+        { month: '2024-06', units: 48 },
+        { month: '2024-07', units: 38 },
+        { month: '2024-08', units: 28 },
+      ],
     },
     {
-      id: 3,
+      id: '3',
       name: 'Ultra-Lite Jacket',
-      price: 199,
-      image: 'https://images.unsplash.com/photo-1637844528612-064026615fcd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhdGhsZXRpYyUyMHdlYXJ8ZW58MXx8fHwxNzYwMjA3NjE3fDA&ixlib=rb-4.1.0&q=80&w=400',
+      description: 'Water-resistant windbreaker with reflective details and packable design for on-the-go athletes.',
+      category: 'football socks',
+      costPrice: 95,
+      sellingPrice: 199,
+      profitMargin: 109.47,
+      sizes: ['M', 'L', 'XL'],
+      colors: ['gray', 'navy', 'green'],
+      image: '/product/3.jpg',
+      media:[
+       '/product/3.jpg',
+      ],
+      soldCount: 89,
+      addedDate: '2024-03-10',
+      monthlySales: [
+        { month: '2024-03', units: 8 },
+        { month: '2024-04', units: 12 },
+        { month: '2024-05', units: 15 },
+        { month: '2024-06', units: 18 },
+        { month: '2024-07', units: 16 },
+        { month: '2024-08', units: 12 },
+        { month: '2024-09', units: 8 },
+      ],
     },
     {
-      id: 4,
+      id: '4',
       name: 'Performance Shorts',
-      price: 79,
-      image: 'https://images.unsplash.com/photo-1646178175472-1afddc71ea8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydW5uaW5nJTIwZml0bmVzcyUyMG1pbmltYWx8ZW58MXx8fHwxNzYwMjA3NjE3fDA&ixlib=rb-4.1.0&q=80&w=400',
+      description: 'Lightweight training shorts with built-in liner and secure zipper pockets for essentials.',
+      category: ' tennis socks',
+      costPrice: 35,
+      sellingPrice: 79,
+      profitMargin: 125.71,
+      sizes: ['S', 'M', 'L', 'XL'],
+      colors: ['black', 'navy', 'gray'],
+      image: '/product/4.jpg',
+      media:[
+       '/product/4.jpg',
+      ],
+      soldCount: 198,
+      addedDate: '2024-04-05',
+      monthlySales: [
+        { month: '2024-04', units: 18 },
+        { month: '2024-05', units: 32 },
+        { month: '2024-06', units: 38 },
+        { month: '2024-07', units: 42 },
+        { month: '2024-08', units: 35 },
+        { month: '2024-09', units: 28 },
+        { month: '2024-10', units: 5 },
+      ],
     },
   ];
 
   const galleryImages = [
-    'https://images.unsplash.com/photo-1515100235140-6cb3498e8031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcG9ydHMlMjBldmVudCUyMGF1ZGllbmNlfGVufDF8fHx8MTc2MDIwNzYxOHww&ixlib=rb-4.1.0&q=80&w=600',
+    '/momentOfGood.jpg',
     'https://images.unsplash.com/photo-1758599668547-2b1192c10abb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21tdW5pdHklMjBjaGFyaXR5JTIwdm9sdW50ZWVyc3xlbnwxfHx8fDE3NjAyMDc2MTh8MA&ixlib=rb-4.1.0&q=80&w=600',
     'https://images.unsplash.com/photo-1641808887823-b3201916a57d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzcG9ydHN3ZWFyJTIwYXRobGV0ZXxlbnwxfHx8fDE3NjAyMDc2MTZ8MA&ixlib=rb-4.1.0&q=80&w=600',
   ];
@@ -215,7 +297,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   {product.name}
                 </h3>
                 <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  ${product.price}
+                  ₣{product.sellingPrice}
                 </p>
               </motion.div>
             ))}
