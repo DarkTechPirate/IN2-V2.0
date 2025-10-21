@@ -76,8 +76,8 @@ export function ShopPage() {
           className="mb-4"
         />
         <div className="flex justify-between text-sm text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
-          <span>${priceRange[0]}</span>
-          <span>${priceRange[1]}</span>
+          <span>₣{priceRange[0]}</span>
+          <span>₣{priceRange[1]}</span>
         </div>
       </div>
 
@@ -224,7 +224,7 @@ export function ShopPage() {
                   </p>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-900" style={{ fontFamily: 'Inter, sans-serif' }}>
-                      ${product.sellingPrice}
+                      ₣{product.sellingPrice}
                     </span>
                     {product.soldCount > 100 && (
                       <span className="text-xs text-primary_green bg-primary_green/10 px-2 py-1 rounded-full" style={{ fontFamily: 'Inter, sans-serif' }}>
