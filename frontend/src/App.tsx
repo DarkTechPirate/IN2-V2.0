@@ -25,7 +25,7 @@ import { AdminDashboard } from "./components/AdminDashboard";
 import { ProductDetailPage } from "./components/ProductDetailPage";
 import { Toaster } from "./components/ui/sonner";
 import { ProductProvider } from "./components/ProductContext";
-import { HomePage } from "./components/HomePage";
+import { HomePage } from "./components/homePage";
 import LoadingScreen from "@/components/LoadingScreen";
 
 interface UserData {
