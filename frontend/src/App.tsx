@@ -1,25 +1,32 @@
 // App.tsx
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
-import { FloatingButtons } from './components/FloatingButtons';
-import { ShopPage } from './components/ShopPage';
-import { SocialCausePage } from './components/SocialCausePage';
-import { GalleryPage } from './components/GalleryPage';
-import { ContactPage } from './components/ContactPage';
-import { ProfilePage } from './components/ProfilePage';
-import { WishlistPage } from './components/WishlistPage';
-import { CartPage } from './components/CartPage';
-import { OrderTrackingPage } from './components/OrderTrackingPage';
-import { LoginPage } from './components/LoginPage';
-import { SignupPage } from './components/SignupPage';
-import { AdminDashboard } from './components/AdminDashboard';
-import { ProductDetailPage } from './components/ProductDetailPage';
-import { Toaster } from './components/ui/sonner';
-import { ProductProvider } from './components/ProductContext';
-import { HomePage } from './components/HomePage';
-import LoadingScreen from '@/components/LoadingScreen';
+import { useState, useEffect } from "react"; // --- 1. Import useEffect ---
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
+import { FloatingButtons } from "./components/FloatingButtons";
+import { ShopPage } from "./components/ShopPage";
+import { SocialCausePage } from "./components/SocialCausePage";
+import { GalleryPage } from "./components/GalleryPage";
+import { ContactPage } from "./components/ContactPage";
+import { ProfilePage } from "./components/ProfilePage";
+import { WishlistPage } from "./components/WishlistPage";
+import { CartPage } from "./components/CartPage";
+import { OrderTrackingPage } from "./components/OrderTrackingPage";
+import { LoginPage } from "./components/LoginPage";
+import { SignupPage } from "./components/SignupPage";
+import { AdminDashboard } from "./components/AdminDashboard";
+import { ProductDetailPage } from "./components/ProductDetailPage";
+import { Toaster } from "./components/ui/sonner";
+import { ProductProvider } from "./components/ProductContext";
+import { HomePage } from "./components/HomePage";
+import LoadingScreen from "@/components/LoadingScreen";
 
 interface UserData {
   name: string;
@@ -44,28 +51,39 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogin = (userType: 'user' | 'admin', user: UserData) => {
+  // --- 2. Add this useEffect hook ---
+  // This hook triggers on every route change (location.pathname)
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [location.pathname]);
+  // ----------------------------------
+
+  const handleLogin = (userType: "user" | "admin", user: UserData) => {
     setIsLoggedIn(true);
-    setIsAdmin(userType === 'admin');
+    setIsAdmin(userType === "admin");
     setUserData(user);
-    navigate('/');
+    navigate("/");
   };
 
   const handleSignup = (user: UserData) => {
     setIsLoggedIn(true);
     setIsAdmin(false);
     setUserData(user);
-    navigate('/');
+    navigate("/");
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
     setUserData(null);
-    navigate('/');
+    navigate("/");
   };
 
-  const hideLayout = location.pathname === '/login' || location.pathname === '/signup';
+  const hideLayout =
+    location.pathname === "/login" || location.pathname === "/signup";
 
   return (
     <ProductProvider>
@@ -82,7 +100,7 @@ function AppContent() {
         {!hideLayout && (
           <Navbar
             currentPage={location.pathname}
-            // NOTE: update your Navbar to use useNavigate internally or accept a `navigateToPath` prop if needed
+            // NOTE: update your Navbar to use useNavigate internally or accept a `MapsToPath` prop if needed
             onNavigate={(p: string) => navigate(p)}
             cartCount={cartCount}
             wishlistCount={wishlistCount}
@@ -100,13 +118,36 @@ function AppContent() {
             <Route path="/social-cause" element={<SocialCausePage />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/profile" element={isLoggedIn ? <ProfilePage /> : <Navigate to="/login" />} />
-            <Route path="/wishlist" element={isLoggedIn ? <WishlistPage /> : <Navigate to="/login" />} />
-            <Route path="/cart" element={isLoggedIn ? <CartPage /> : <Navigate to="/login" />} />
-            <Route path="/order-tracking" element={isLoggedIn ? <OrderTrackingPage /> : <Navigate to="/login" />} />
-            <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-            <Route path="/signup" element={<SignupPage onSignup={handleSignup} />} />
-            <Route path="/admin-dashboard" element={isAdmin ? <AdminDashboard /> : <Navigate to="/login" />} />
+            <Route
+              path="/profile"
+              element={isLoggedIn ? <ProfilePage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/wishlist"
+              element={isLoggedIn ? <WishlistPage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/cart"
+              element={isLoggedIn ? <CartPage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/order-tracking"
+              element={
+                isLoggedIn ? <OrderTrackingPage /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/login"
+              element={<LoginPage onLogin={handleLogin} />}
+            />
+            <Route
+              path="/signup"
+              element={<SignupPage onSignup={handleSignup} />}
+            />
+            <Route
+              path="/admin-dashboard"
+              element={isAdmin ? <AdminDashboard /> : <Navigate to="/login" />}
+            />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
