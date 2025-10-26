@@ -7,8 +7,7 @@ import { SocialCauseSection } from "./SocialCauseSection";
 import { GallerySection } from "./GallerySection";
 import { WhyChooseUs } from "./whyChooseUs";
 import { FeaturesSection } from "./FeaturesSection";
-import SocksPromo from "./SocksPromo"; // Corrected import (default)
-import "./HomePage.css";
+import SocksPromo  from "../SocksPromo";
 
 gsap.registerPlugin(ScrollTrigger);
 

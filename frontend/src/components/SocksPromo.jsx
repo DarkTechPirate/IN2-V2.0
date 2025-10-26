@@ -8,7 +8,8 @@ const SocksPromo = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-wrap gap-5 p-5 max-w-7xl mx-auto bg-white font-sans">
+
+    <div className="flex flex-wrap gap-5 p-5 max-w-7xl mx-auto  font-sans">
       {/* --- LEFT COLUMN: Main Promo --- */}
       <div className="flex flex-[2] min-w-[300px] items-center bg-green-50 rounded-lg overflow-hidden">
         {/* Left: Image */}

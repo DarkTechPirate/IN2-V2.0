@@ -26,7 +26,7 @@ const whyChooseData = [
 
 export function WhyChooseUs() {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-white">
       <div className="max-w-[1200px] mx-auto px-6 text-center">
         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
           Why Choose Us
