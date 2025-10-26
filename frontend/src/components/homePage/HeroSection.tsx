@@ -18,12 +18,12 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
       subtitle: 'Where luxury performance meets conscious movement.',
     },
     {
-      image: 'https://images.unsplash.com/photo-1637844528612-064026615fcd?auto=format&fit=crop&w=1080&q=80',
+      image: '/hero/campany_logo3.jpg',
       title: 'REDEFINE YOUR LIMITS',
       subtitle: 'Premium sportswear crafted for the modern athlete.',
     },
     {
-      image: 'https://images.unsplash.com/photo-1646178175472-1afddc71ea8a?auto=format&fit=crop&w=1080&q=80',
+      image: '/hero/hero2(2).jpg',
       title: 'MOVEMENT WITH PURPOSE',
       subtitle: 'Every piece designed to elevate your performance.',
     },

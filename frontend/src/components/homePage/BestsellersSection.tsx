@@ -18,7 +18,7 @@ export function BestsellersSection({ onNavigate }: BestsellersSectionProps) {
   return (
     <section className="max-w-[1400px] mx-auto px-6 lg:px-12 py-20">
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-        <h2 className="text-center mb-4 font-poppins text-3xl">Bestsellers</h2>
+        <h2 className="text-center mb-4 font-poppins text-3xl lg:text-4xl font-bold">Bestsellers</h2>
         <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto font-inter">
           Discover our most loved pieces, designed for peak performance and style.
         </p>
