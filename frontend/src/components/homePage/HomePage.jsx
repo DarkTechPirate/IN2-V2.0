@@ -11,15 +11,14 @@ import SocksPromo  from "./SocksPromo";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface HomePageProps {
-  onNavigate: (page: string) => void;
-}
-
-export function HomePage({ onNavigate }: HomePageProps) {
-  const sectionsRef = useRef<HTMLDivElement[]>([]);
+// No interface needed in JSX
+export function HomePage({ onNavigate }) {
+  // Removed type annotations
+  const sectionsRef = useRef([]);
 
   useEffect(() => {
-    sectionsRef.current.forEach((section) => {
+    const sections = sectionsRef.current.filter(Boolean);
+    sections.forEach((section) => {
       if (!section) return;
 
       gsap.fromTo(
@@ -45,7 +44,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
   }, []);
 
   return (
-    <div className="scroll-smooth overflow-x-hidden">
+    // --- FIX: Remove height constraints and add top padding for navbar ---
+    // (Assuming 80px / 5rem navbar height, adjust pt-20 as needed)
+    <div className="overflow-x-hidden pt-20">
       <section ref={(el) => el && (sectionsRef.current[0] = el)}>
         <HeroSection onNavigate={onNavigate} />
       </section>
@@ -54,10 +55,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
         <BestsellersSection onNavigate={onNavigate} />
       </section>
 
-
-
       <section ref={(el) => el && (sectionsRef.current[2] = el)}>
-        <SocksPromo  />
+        <SocksPromo onNavigate={onNavigate} />
       </section>
 
       <section ref={(el) => el && (sectionsRef.current[3] = el)}>
@@ -68,7 +67,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
         <WhyChooseUs />
       </section>
 
-       <section ref={(el) => el && (sectionsRef.current[5] = el)}>
+      <section ref={(el) => el && (sectionsRef.current[5] = el)}>
         <SocialCauseSection onNavigate={onNavigate} />
       </section>
 
@@ -78,3 +77,5 @@ export function HomePage({ onNavigate }: HomePageProps) {
     </div>
   );
 }
+
+// Removed the TypeScript-specific `declare module "*.css"` block

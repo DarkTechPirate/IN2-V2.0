@@ -18,7 +18,7 @@ export function SocialCauseSection({ onNavigate }: SocialCauseSectionProps) {
           className="grid md:grid-cols-2 gap-12 items-center"
         >
           <div className="order-2 md:order-1">
-            <h2 className="mb-4 font-poppins text-3xl">Movement for Good</h2>
+            <h2 className="mb-4 font-poppins text-3xl lg:text-4xl font-bold">Movement for Good</h2>
             <p className="text-gray-600 mb-6 leading-relaxed font-inter">
               At IN2, we believe luxury and purpose can coexist. For every purchase, we contribute to community wellness programs.
             </p>
