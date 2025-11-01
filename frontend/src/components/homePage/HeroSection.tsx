@@ -40,16 +40,16 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   const prevSlide = () => setCurrentSlide(prev => (prev - 1 + heroSlides.length) % heroSlides.length);
 
   return (
-    <section className="relative h-[80vh] overflow-hidden">
+    <section className="relative h-[80vh] overflow-hidden pt-0">
       {heroSlides.map((slide, index) => (
         <motion.div
           key={index}
-          className="absolute inset-0"
+          className="absolute inset-0 pt-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: index === currentSlide ? 1 : 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="absolute inset-0 bg-black/30 z-10" />
+          <div className="absolute inset-0 bg-black/30 z-10 " />
           <ImageWithFallback src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
 
           <div className="absolute inset-0 z-20 flex items-center justify-center text-center px-6">

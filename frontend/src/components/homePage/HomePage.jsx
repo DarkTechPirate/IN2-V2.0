@@ -46,7 +46,7 @@ export function HomePage({ onNavigate }) {
   return (
     // --- FIX: Remove height constraints and add top padding for navbar ---
     // (Assuming 80px / 5rem navbar height, adjust pt-20 as needed)
-    <div className="overflow-x-hidden pt-20">
+    <div className="overflow-x-hidden pt-14">
       <section ref={(el) => el && (sectionsRef.current[0] = el)}>
         <HeroSection onNavigate={onNavigate} />
       </section>
