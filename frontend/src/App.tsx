@@ -26,6 +26,7 @@ import { ProductDetailPage } from "./components/ProductDetailPage";
 import { Toaster } from "./components/ui/sonner";
 import { ProductProvider } from "./components/ProductContext";
 import { HomePage } from "./components/homePage";
+// import { GoogleOAuthProvider } from "@react-oauth/google"; // Removed as Passport.js is backend-centric
 import LoadingScreen from "@/components/LoadingScreen";
 
 interface UserData {
@@ -65,7 +66,11 @@ function AppContent() {
     setIsLoggedIn(true);
     setIsAdmin(userType === "admin");
     setUserData(user);
-    navigate("/");
+    if (userType === "admin") {
+      navigate("/admin-dashboard");
+    } else {
+      navigate("/");
+    }
   };
 
   const handleSignup = (user: UserData) => {
@@ -142,7 +147,11 @@ function AppContent() {
             />
             <Route
               path="/signup"
-              element={<SignupPage onSignup={handleSignup} />}
+              element={
+                <SignupPage
+                  onLogin={(userType, userData) => handleSignup(userData)}
+                />
+              }
             />
             <Route
               path="/admin-dashboard"
@@ -167,6 +176,7 @@ function AppContent() {
 
 export default function App() {
   return (
+    // GoogleOAuthProvider removed as Passport.js is a backend solution
     <Router>
       <AppContent />
     </Router>
