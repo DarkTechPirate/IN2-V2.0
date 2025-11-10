@@ -4,30 +4,31 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
-
-interface HeroSectionProps {
-  onNavigate: (page: string) => void;
-}
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const heroSlides = [
   {
-    image: "/hero/dark.jpg",
-    title: "IN MOTION. IN STYLE. IN2.",
-    subtitle: "Where luxury performance meets conscious movement.",
+    image: "/hero/hero2.jpg",
+    title: "Step into Comfort",
+    subtitle: "Discover our new collection of premium socks.",
   },
   {
-    image: "/hero/campany_logo3.jpg",
-    title: "REDEFINE YOUR LIMITS",
-    subtitle: "Premium sportswear crafted for the modern athlete.",
+    image: "/hero/hero2(1).jpg",
+    title: "Style for Every Occasion",
+    subtitle: "From casual to formal, we have the perfect pair for you.",
   },
   {
     image: "/hero/hero2(2).jpg",
-    title: "MOVEMENT WITH PURPOSE",
-    subtitle: "Every piece designed to elevate your performance.",
+    title: "Quality You Can Feel",
+    subtitle: "Made with the finest materials for ultimate comfort and durability.",
+  },
+  {
+    image: "/hero/dark.jpg",
+    title: "Join Our Social Cause",
+    subtitle: "Every purchase helps us support a greater cause.",
   },
 ];
 
-// Animation variants for the slide transition
 const slideVariants = {
   enter: (direction: "next" | "prev") => ({
     x: direction === "next" ? "100%" : "-100%",
@@ -43,12 +44,16 @@ const slideVariants = {
   }),
 };
 
-// Helper function to calculate swipe power
 const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity;
 };
 
-export function HeroSection({ onNavigate }: HeroSectionProps) {
+interface HeroSectionProps {
+  // onNavigate: (page: string) => void; // Removed
+}
+
+export function HeroSection() {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [currentSlide, setCurrentSlide] = useState(0);
   // 'direction' helps the animation know which way to slide
   const [direction, setDirection] = useState<"next" | "prev">("next");
@@ -162,13 +167,13 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               </p>
               <div className="flex gap-4 justify-center flex-wrap">
                 <Button
-                  onClick={() => onNavigate("shop")}
+                  onClick={() => navigate("/shop")}
                   className="h-12 px-8 bg-primary_green hover:bg-[#26d41f] text-white transition-all"
                 >
                   Shop Now
                 </Button>
                 <Button
-                  onClick={() => onNavigate("social-cause")}
+                  onClick={() => navigate("/social-cause")}
                   variant="outline"
                   // --- UI Fix: Changed text-black to text-white ---
                   className="h-12 px-8 border-2 border-white text-black hover:bg-white hover:text-gray-500"

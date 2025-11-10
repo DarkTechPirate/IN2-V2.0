@@ -2,12 +2,14 @@ import { motion } from 'motion/react';
 import { ShoppingCart } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 interface BestsellersSectionProps {
-  onNavigate: (page: string) => void;
+  // onNavigate: (page: string) => void; // Removed
 }
 
-export function BestsellersSection({ onNavigate }: BestsellersSectionProps) {
+export function BestsellersSection() {
+  const navigate = useNavigate(); // Initialize useNavigate
   const bestsellers = [
     { id: '1', name: 'Elite Performance Tee', image: '/product/1.jpg', sellingPrice: 89 },
     { id: '2', name: 'Motion Flex Leggings', image: '/product/2.jpg', sellingPrice: 129 },
@@ -50,7 +52,7 @@ export function BestsellersSection({ onNavigate }: BestsellersSectionProps) {
 
         <div className="text-center mt-12">
           <Button
-            onClick={() => onNavigate('shop')}
+            onClick={() => navigate('/shop')}
             variant="outline"
             className="h-12 px-8 border-2 border-primary_green text-primary_green hover:bg-primary_green hover:text-white"
           >
