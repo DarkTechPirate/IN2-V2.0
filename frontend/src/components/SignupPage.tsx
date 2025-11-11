@@ -3,7 +3,7 @@ import axios from "axios";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { User, Lock, Mail, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +28,7 @@ interface SignupPageProps {
 }
 
 export function SignupPage({ onLogin }: SignupPageProps) {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -106,6 +107,7 @@ export function SignupPage({ onLogin }: SignupPageProps) {
       <div className="relative hidden lg:flex items-center justify-center bg-gray-900">
         <ImageWithFallback
           src="/hero/dark.jpg"
+          src="/hero/dark.jpg"
           alt="IN2 Brand"
           className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
@@ -158,7 +160,7 @@ export function SignupPage({ onLogin }: SignupPageProps) {
                 </div>
               </div>
 
-              <div className="relative my-6">
+              <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <span className="w-full border-t" />
                 </div>
@@ -181,8 +183,7 @@ export function SignupPage({ onLogin }: SignupPageProps) {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
-                      style={{ fontFamily: "Inter, sans-serif" }}
+                      className="pl-10 h-12"
                     />
                   </div>
                 </div>
@@ -200,8 +201,7 @@ export function SignupPage({ onLogin }: SignupPageProps) {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
-                      style={{ fontFamily: "Inter, sans-serif" }}
+                      className="pl-10 h-12"
                     />
                   </div>
                 </div>
@@ -219,8 +219,7 @@ export function SignupPage({ onLogin }: SignupPageProps) {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
-                      style={{ fontFamily: "Inter, sans-serif" }}
+                      className="pl-10 h-.12"
                     />
                   </div>
                 </div>
@@ -240,7 +239,6 @@ export function SignupPage({ onLogin }: SignupPageProps) {
             <p className="mt-8 text-center text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
               Already have an account?{" "}
               <button
-                type="button"
                 onClick={() => navigate("/login")}
                 className="text-primary_green hover:underline font-medium"
               >

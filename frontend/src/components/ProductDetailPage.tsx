@@ -32,6 +32,14 @@ export function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [pincode, setPincode] = useState('');
   const [pincodeChecked, setPincodeChecked] = useState(false);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [newReviewRating, setNewReviewRating] = useState(0);
+  const [newReviewComment, setNewReviewComment] = useState('');
+  const [reviews, setReviews] = useState([
+    { id: 1, name: 'Sarah Johnson', rating: 5, comment: 'Absolutely love this product! The quality is exceptional and the fit is perfect.', date: '2024-10-05', verified: true },
+    { id: 2, name: 'Michael Chen', rating: 4, comment: 'Great quality and comfortable. Would definitely recommend!', date: '2024-10-01', verified: true },
+    { id: 3, name: 'Emma Williams', rating: 5, comment: "Best purchase I've made this year. Worth every penny!", date: '2024-09-28', verified: true },
+  ]);
 
   // Gallery states
   const [selectedMedia, setSelectedMedia] = useState<string>('');
@@ -67,12 +75,6 @@ export function ProductDetailPage() {
     );
   }
 
-  const reviews = [
-    { id: 1, name: 'Sarah Johnson', rating: 5, comment: 'Absolutely love this product! The quality is exceptional and the fit is perfect.', date: '2024-10-05', verified: true },
-    { id: 2, name: 'Michael Chen', rating: 4, comment: 'Great quality and comfortable. Would definitely recommend!', date: '2024-10-01', verified: true },
-    { id: 3, name: 'Emma Williams', rating: 5, comment: "Best purchase I've made this year. Worth every penny!", date: '2024-09-28', verified: true },
-  ];
-
   const averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
 
   const handleAddToCart = () => {
@@ -95,6 +97,32 @@ export function ProductDetailPage() {
     } else {
       toast.error('Please enter a valid 6-digit pincode');
     }
+  };
+
+  const handleReviewSubmit = () => {
+    if (newReviewRating === 0) {
+      toast.error('Please select a rating');
+      return;
+    }
+    if (newReviewComment.trim() === '') {
+      toast.error('Please enter a comment');
+      return;
+    }
+
+    const newReview = {
+      id: reviews.length + 1,
+      name: 'New User', // Replace with actual user name if available
+      rating: newReviewRating,
+      comment: newReviewComment,
+      date: new Date().toISOString().split('T')[0],
+      verified: false,
+    };
+
+    setReviews([newReview, ...reviews]);
+    setShowReviewForm(false);
+    setNewReviewRating(0);
+    setNewReviewComment('');
+    toast.success('Thank you for your review!');
   };
 
   useEffect(() => {
@@ -401,6 +429,114 @@ export function ProductDetailPage() {
               </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Ratings & Reviews Section */}
+        <div className="border-t pt-12">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              Ratings & Reviews
+            </h2>
+            <Button onClick={() => setShowReviewForm(!showReviewForm)} variant="outline">
+              Write a Review
+            </Button>
+          </div>
+
+          {/* Review Form */}
+          {showReviewForm && (
+            <div className="bg-gray-50 p-6 rounded-lg mb-8">
+              <h3 className="text-lg font-bold mb-4">Write Your Review</h3>
+              <div className="grid grid-cols-1 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Your Rating</label>
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-6 h-6 cursor-pointer ${
+                          i < newReviewRating ? 'text-primary_green' : 'text-gray-300'
+                        }`}
+                        onClick={() => setNewReviewRating(i + 1)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="review-comment" className="block text-sm font-medium text-gray-700 mb-1">
+                    Your Review
+                  </label>
+                  <textarea
+                    id="review-comment"
+                    rows={4}
+                    className="w-full p-2 border rounded-md"
+                    placeholder="Share your thoughts about the product..."
+                    value={newReviewComment}
+                    onChange={(e) => setNewReviewComment(e.target.value)}
+                  ></textarea>
+                </div>
+                <div className="flex justify-end">
+                  <Button onClick={handleReviewSubmit}>Submit Review</Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg">
+              <p className="text-5xl font-bold" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                {averageRating.toFixed(1)}
+              </p>
+              <div className="flex items-center gap-1 my-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`w-6 h-6 ${
+                      i < Math.floor(averageRating)
+                        ? 'fill-primary_green text-primary_green'
+                        : 'text-gray-300'
+                    }`}
+                  />
+                ))}
+              </div>
+              <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
+                Based on {reviews.length} reviews
+              </p>
+            </div>
+            <div className="md:col-span-2">
+              {reviews.map((review) => (
+                <div key={review.id} className="border-b py-4">
+                  <div className="flex items-center mb-2">
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-4 h-4 ${
+                            i < review.rating
+                              ? 'fill-primary_green text-primary_green'
+                              : 'text-gray-300'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <p className="ml-3 font-semibold" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                      {review.name}
+                    </p>
+                    {review.verified && (
+                      <Badge variant="outline" className="ml-2 border-green-600 text-green-600">
+                        Verified Purchase
+                      </Badge>
+                    )}
+                  </div>
+                  <p className="text-gray-600 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    {review.comment}
+                  </p>
+                  <p className="text-xs text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    {review.date}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -4,8 +4,9 @@ import axios from "axios";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { LogIn, User, Lock } from "lucide-react";
+import { toast } from "sonner";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -63,13 +64,8 @@ export function LoginPage({ onLogin }: LoginPageProps) {
 
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock admin validation
     if (adminEmail === "admin@in2.com" && adminPassword === "admin123") {
-      const adminData = {
-        name: "Admin",
-        email: adminEmail,
-        role: "admin",
-      };
+      const adminData = { name: "Admin", email: adminEmail, role: "admin" };
       onLogin("admin", adminData);
       toast.success("Admin login successful!");
     } else {
@@ -100,21 +96,20 @@ export function LoginPage({ onLogin }: LoginPageProps) {
   };
 
   return (
-    <div className="min-h-screen w-full lg:grid lg:grid-cols-2">
-      {/* --- Left Side: Brand Poster (Desktop only) --- */}
+    <div className="min-h-screen w-full lg:grid lg:grid-cols-2 bg-white">
       <div className="relative hidden lg:flex items-center justify-center bg-gray-900">
         <ImageWithFallback
-          src="/hero/dark.jpg" // Poster image from your brand
+          src="/hero/dark.jpg"
           alt="IN2 Brand"
           className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
         <div className="relative z-10 text-center space-y-4 p-8">
-          <div
-            className="text-7xl mb-2 tracking-tight text-white"
+          <h1
+            className="text-7xl font-bold tracking-tight text-white"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
-            IN<span style={{ color: "#2FF924" }}>2</span>
-          </div>
+            IN<span className="text-primary_green">2</span>
+          </h1>
           <p
             className="text-white/80 text-2xl"
             style={{ fontFamily: "Inter, sans-serif" }}
@@ -124,52 +119,38 @@ export function LoginPage({ onLogin }: LoginPageProps) {
         </div>
       </div>
 
-      {/* --- Right Side: Login Form --- */}
-      <div className="flex items-center justify-center pt-20 pb-12 px-6 bg-gradient-to-br from-gray-50 to-white">
-        <div className="w-full max-w-md">
+      <div className="flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
-            {/* Logo for Mobile */}
-            <div className="text-center mb-8 lg:hidden">
-              <div
-                className="text-4xl mb-2 tracking-tight"
+            <div className="text-center lg:hidden">
+              <h1
+                className="text-5xl font-bold tracking-tight"
                 style={{ fontFamily: "Poppins, sans-serif" }}
               >
-                IN<span style={{ color: "#2FF924" }}>2</span>
-              </div>
+                IN<span className="text-primary_green">2</span>
+              </h1>
             </div>
 
-            <h2
-              className="text-3xl font-semibold text-center mb-2"
-              style={{ fontFamily: "Poppins, sans-serif" }}
-            >
-              Welcome Back
-            </h2>
-            <p
-              className="text-gray-600 text-center mb-8"
-              style={{ fontFamily: "Inter, sans-serif" }}
-            >
-              Login to continue your journey.
-            </p>
+            <div className="text-center mt-4 lg:mt-0">
+              <h2
+                className="text-3xl font-semibold tracking-tight"
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
+                Welcome Back
+              </h2>
+              <p className="mt-2 text-gray-600">
+                Login to continue your journey.
+              </p>
+            </div>
 
-            {/* Login Tabs */}
-            <Tabs defaultValue="user" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-8">
-                <TabsTrigger
-                  value="user"
-                  style={{ fontFamily: "Inter, sans-serif" }}
-                >
-                  User Login
-                </TabsTrigger>
-                <TabsTrigger
-                  value="admin"
-                  style={{ fontFamily: "Inter, sans-serif" }}
-                >
-                  Admin Login
-                </TabsTrigger>
+            <Tabs defaultValue="user" className="w-full mt-8">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="user">User</TabsTrigger>
+                <TabsTrigger value="admin">Admin</TabsTrigger>
               </TabsList>
 
               {/* User Login */}
@@ -186,27 +167,22 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                     </div>
                   </div>
 
-                  <div className="relative my-6">
+                  <div className="relative">
                     <div className="absolute inset-0 flex items-center">
                       <span className="w-full border-t" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-white px-2 text-gray-500">
+                      <span className="bg-white px-2 text-muted-foreground">
                         Or login with email
                       </span>
                     </div>
                   </div>
 
                   <form onSubmit={handleUserLogin} className="space-y-6">
-                    <div>
-                      <Label
-                        htmlFor="user-email"
-                        style={{ fontFamily: "Inter, sans-serif" }}
-                      >
-                        Email Address
-                      </Label>
-                      <div className="relative mt-2">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <div className="space-y-2">
+                      <Label htmlFor="user-email">Email Address</Label>
+                      <div className="relative flex items-center">
+                        <User className="absolute left-3 h-5 w-5 text-gray-400" />
                         <Input
                           id="user-email"
                           type="email"
@@ -214,20 +190,14 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                           value={userEmail}
                           onChange={(e) => setUserEmail(e.target.value)}
                           required
-                          className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
-                          style={{ fontFamily: "Inter, sans-serif" }}
+                          className="pl-10 h-12"
                         />
                       </div>
                     </div>
-                    <div>
-                      <Label
-                        htmlFor="user-password"
-                        style={{ fontFamily: "Inter, sans-serif" }}
-                      >
-                        Password
-                      </Label>
-                      <div className="relative mt-2">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <div className="space-y-2">
+                      <Label htmlFor="user-password">Password</Label>
+                      <div className="relative flex items-center">
+                        <Lock className="absolute left-3 h-5 w-5 text-gray-400" />
                         <Input
                           id="user-password"
                           type="password"
@@ -235,8 +205,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                           value={userPassword}
                           onChange={(e) => setUserPassword(e.target.value)}
                           required
-                          className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
-                          style={{ fontFamily: "Inter, sans-serif" }}
+                          className="pl-10 h-12"
                         />
                       </div>
                     </div>
@@ -251,13 +220,9 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                     </Button>
                   </form>
                 </div>
-                <p
-                  className="mt-8 text-center text-sm text-gray-600"
-                  style={{ fontFamily: "Inter, sans-serif" }}
-                >
+                <p className="mt-6 text-center text-sm text-muted-foreground">
                   Don't have an account?{" "}
                   <button
-                    type="button"
                     onClick={() => navigate("/signup")}
                     className="text-primary_green hover:underline font-medium"
                   >
@@ -266,70 +231,48 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                 </p>
               </TabsContent>
 
-              {/* Admin Login */}
-              <TabsContent value="admin">
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-                  <form onSubmit={handleAdminLogin} className="space-y-6">
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                      <p
-                        className="text-xs text-yellow-800"
-                        style={{ fontFamily: "Inter, sans-serif" }}
-                      >
-                        Demo: admin@in2.com / admin123
-                      </p>
+              <TabsContent value="admin" className="mt-6">
+                <form onSubmit={handleAdminLogin} className="space-y-6">
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-center">
+                    <p className="text-sm text-yellow-800">
+                      Demo: <strong>admin@in2.com</strong> / <strong>admin123</strong>
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="admin-email">Admin Email</Label>
+                    <div className="relative flex items-center">
+                      <User className="absolute left-3 h-5 w-5 text-gray-400" />
+                      <Input
+                        id="admin-email"
+                        type="email"
+                        placeholder="admin@in2.com"
+                        value={adminEmail}
+                        onChange={(e) => setAdminEmail(e.target.value)}
+                        required
+                        className="pl-10 h-12"
+                      />
                     </div>
-                    <div>
-                      <Label
-                        htmlFor="admin-email"
-                        style={{ fontFamily: "Inter, sans-serif" }}
-                      >
-                        Admin Email
-                      </Label>
-                      <div className="relative mt-2">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                        <Input
-                          id="admin-email"
-                          type="email"
-                          placeholder="admin@in2.com"
-                          value={adminEmail}
-                          onChange={(e) => setAdminEmail(e.target.value)}
-                          required
-                          className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
-                          style={{ fontFamily: "Inter, sans-serif" }}
-                        />
-                      </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="admin-password">Admin Password</Label>
+                    <div className="relative flex items-center">
+                      <Lock className="absolute left-3 h-5 w-5 text-gray-400" />
+                      <Input
+                        id="admin-password"
+                        type="password"
+                        placeholder="••••••••"
+                        value={adminPassword}
+                        onChange={(e) => setAdminPassword(e.target.value)}
+                        required
+                        className="pl-10 h-12"
+                      />
                     </div>
-                    <div>
-                      <Label
-                        htmlFor="admin-password"
-                        style={{ fontFamily: "Inter, sans-serif" }}
-                      >
-                        Admin Password
-                      </Label>
-                      <div className="relative mt-2">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                        <Input
-                          id="admin-password"
-                          type="password"
-                          placeholder="••••••••"
-                          value={adminPassword}
-                          onChange={(e) => setAdminPassword(e.target.value)}
-                          required
-                          className="pl-10 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
-                          style={{ fontFamily: "Inter, sans-serif" }}
-                        />
-                      </div>
-                    </div>
-                    <Button
-                      type="submit"
-                      className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white"
-                      style={{ fontFamily: "Inter, sans-serif" }}
-                    >
-                      <LogIn className="w-4 h-4 mr-2" />
-                      Admin Login
-                    </Button>
-                  </form>
-                </div>
+                  </div>
+                  <Button type="submit" className="w-full h-12 bg-primary_green hover:bg-primary_green/90 text-white gap-2">
+                    <LogIn className="h-4 w-4" />
+                    Admin Login
+                  </Button>
+                </form>
               </TabsContent>
             </Tabs>
           </motion.div>
