@@ -1,23 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { motion } from "motion/react";
 import { LogIn, User, Lock } from "lucide-react";
-import { toast } from "sonner"; // Removed the specific version
+import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { ImageWithFallback } from "./figma/ImageWithFallback"; // Assuming this path
+import { ImageWithFallback } from "./figma/ImageWithFallback";
 
-// Simple Google icon component (you can replace with a real SVG icon)
+// Google OAuth
+import { GoogleLogin } from "@react-oauth/google";
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 48 48"
-    width="1.25em"
-    height="1.25em"
-  >
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="1.25em" height="1.25em">
     <path
       fill="#FFC107"
       d="M43.6 20.283H24v7.428h11.303c-1.64 4.793-6.082 8.237-11.303 8.237-6.804 0-12.336-5.532-12.336-12.336s5.532-12.336 12.336-12.336c3.734 0 6.946 1.63 9.07 4.13l5.88-5.88C35.08 6.73 30.01 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20c11.34 0 19.45-8.41 19.45-19.857 0-1.302-.14-2.404-.35-3.86z"
@@ -35,25 +34,30 @@ export function LoginPage({ onLogin }: LoginPageProps) {
   const [userPassword, setUserPassword] = useState("");
   const [adminEmail, setAdminEmail] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleUserLogin = (e: React.FormEvent) => {
+  const handleUserLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock user validation
-    if (userEmail && userPassword) {
-      const userData = {
-        name: "Alex Johnson",
+    if (!userEmail || !userPassword) {
+      toast.error("Please enter both email and password.");
+      return;
+    }
+    try {
+      setLoading(true);
+      const res = await axios.post(`${BACKEND_URL}/api/auth/login`, {
         email: userEmail,
-        phone: "+1 (555) 123-4567",
-        address: "123 Fashion Ave",
-        city: "New York",
-        state: "NY",
-        pincode: "10001",
-        country: "United States",
-      };
-      onLogin("user", userData);
-      toast.success("Welcome back!"); // Navigation is handled by App.tsx after onLogin
-    } else {
-      toast.error("Please enter valid credentials");
+        password: userPassword,
+      });
+      const { token, user } = res.data;
+      localStorage.setItem("token", token);
+      toast.success("Welcome back!");
+      onLogin("user", user);
+      navigate("/");
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || "Login failed";
+      toast.error(msg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,21 +77,26 @@ export function LoginPage({ onLogin }: LoginPageProps) {
     }
   };
 
-  const handleGoogleLoginRedirect = () => {
-    // --- Mock Google Login ---
-    // In a real app, you would redirect to your backend's
-    // /auth/google endpoint or use a pop-up window.
-    toast.info("Redirecting to Google login...");
-    const mockGoogleUser = {
-      name: "Google User",
-      email: "google.user@gmail.com",
-      // ...other data from Google
-    };
-    // Simulate a successful login after a short delay
-    setTimeout(() => {
-      onLogin("user", mockGoogleUser);
-      toast.success("Welcome, Google User!");
-    }, 1500);
+  const onGoogleSuccess = async (credential: string | undefined) => {
+    if (!credential) {
+      toast.error("Google credential missing");
+      return;
+    }
+    try {
+      setLoading(true);
+      const res = await axios.post(`${BACKEND_URL}/api/auth/google`, { idToken: credential });
+      const { token, user } = res.data;
+
+      localStorage.setItem("token", token);
+      toast.success("Signed in with Google");
+      onLogin("user", user);
+      navigate("/");
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || "Google auth failed";
+      toast.error(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -166,14 +175,16 @@ export function LoginPage({ onLogin }: LoginPageProps) {
               {/* User Login */}
               <TabsContent value="user">
                 <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-                  <Button
-                    variant="outline"
-                    className="w-full h-12 text-base"
-                    onClick={handleGoogleLoginRedirect}
-                  >
-                    <GoogleIcon className="mr-2" />
-                    Continue with Google
-                  </Button>
+                  <div className="w-full flex flex-col gap-3">
+                    <GoogleLogin
+                      onSuccess={(cred) => onGoogleSuccess(cred.credential)}
+                      onError={() => toast.error("Google sign-in failed")}
+                    />
+                    <div className="flex items-center gap-2 text-xs text-gray-500 justify-center">
+                      <GoogleIcon />
+                      <span>Sign in is powered by Google</span>
+                    </div>
+                  </div>
 
                   <div className="relative my-6">
                     <div className="absolute inset-0 flex items-center">
@@ -231,11 +242,12 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                     </div>
                     <Button
                       type="submit"
-                      className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white"
+                      disabled={loading}
+                      className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white disabled:opacity-70"
                       style={{ fontFamily: "Inter, sans-serif" }}
                     >
                       <LogIn className="w-4 h-4 mr-2" />
-                      Login
+                      {loading ? "Logging in..." : "Login"}
                     </Button>
                   </form>
                 </div>

@@ -29,6 +29,8 @@ import { HomePage } from "./components/homePage";
 // import { GoogleOAuthProvider } from "@react-oauth/google"; // Removed as Passport.js is backend-centric
 import LoadingScreen from "@/components/LoadingScreen";
 
+
+
 interface UserData {
   name: string;
   email: string;
@@ -41,6 +43,7 @@ interface UserData {
   role?: string;
 }
 
+
 function AppContent() {
   const [cartCount, setCartCount] = useState(3);
   const [wishlistCount, setWishlistCount] = useState(3);
@@ -51,6 +54,8 @@ function AppContent() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+
 
   // --- 2. Add this useEffect hook ---
   // This hook triggers on every route change (location.pathname)
@@ -91,6 +96,7 @@ function AppContent() {
     location.pathname === "/login" || location.pathname === "/signup";
 
   return (
+    
     <ProductProvider>
       {!loaded && (
         <LoadingScreen
@@ -178,7 +184,9 @@ export default function App() {
   return (
     // GoogleOAuthProvider removed as Passport.js is a backend solution
     <Router>
-      <AppContent />
+      
+        <AppContent />
+      
     </Router>
   );
 }
