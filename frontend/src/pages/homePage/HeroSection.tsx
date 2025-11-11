@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 // Import motion and AnimatePresence from framer-motion for swipe gestures
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "../ui/button";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { Button } from "../../components/ui/button";
+import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const heroSlides = [

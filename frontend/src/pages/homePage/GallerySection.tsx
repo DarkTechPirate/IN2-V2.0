@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
-import { Button } from '../ui/button';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { Button } from '../../components/ui/button';
+import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 
 interface GallerySectionProps {
   onNavigate: (page: string) => void;

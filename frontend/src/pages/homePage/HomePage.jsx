@@ -5,7 +5,7 @@ import { GallerySection } from "./GallerySection";
 import { WhyChooseUs } from "./whyChooseUs";
 import { FeaturesSection } from "./FeaturesSection";
 import SocksPromo from "./SocksPromo";
-import ScrollAnimation from "../ui/ScrollAnimation";
+import ScrollAnimation from "../../components/ui/ScrollAnimation";
 
 export function HomePage() {
   return (

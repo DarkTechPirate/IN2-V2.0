@@ -19,13 +19,13 @@ import { ProfilePage } from "./components/ProfilePage";
 import { WishlistPage } from "./components/WishlistPage";
 import { CartPage } from "./components/CartPage";
 import { OrderTrackingPage } from "./components/OrderTrackingPage";
-import { LoginPage } from "./components/LoginPage";
-import { SignupPage } from "./components/SignupPage";
+import { LoginPage } from "./pages/auth/LoginPage";
+import { SignupPage } from "./pages/auth/SignupPage";
 import { AdminDashboard } from "./components/AdminDashboard";
 import { ProductDetailPage } from "./components/ProductDetailPage";
 import { Toaster } from "./components/ui/sonner";
 import { ProductProvider } from "./components/ProductContext";
-import { HomePage } from "./components/homePage";
+import { HomePage } from "./pages/homePage";
 // import { GoogleOAuthProvider } from "@react-oauth/google"; // Removed as Passport.js is backend-centric
 import LoadingScreen from "@/components/LoadingScreen";
 

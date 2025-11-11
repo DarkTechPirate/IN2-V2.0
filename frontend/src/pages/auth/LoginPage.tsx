@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
 import { motion } from "framer-motion";
 import { LogIn, User, Lock } from "lucide-react";
 import { toast } from "sonner";
-import { toast } from "sonner";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
+import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 
 // Google OAuth
 import { GoogleLogin } from "@react-oauth/google";
@@ -161,7 +160,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                       onSuccess={(cred) => onGoogleSuccess(cred.credential)}
                       onError={() => toast.error("Google sign-in failed")}
                     />
-                    <div className="flex items-center gap-2 text-xs text-gray-500 justify-center">
+                    <div className="flex items-center gap-2 text-xs text-gray-500 justify-center mb-2">
                       <GoogleIcon />
                       <span>Sign in is powered by Google</span>
                     </div>

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
 import { motion } from "framer-motion";
 import { User, Lock, Mail, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 
 // Google OAuth
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
@@ -32,15 +32,19 @@ export function SignupPage({ onLogin }: SignupPageProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
+  
   // ---- Normal signup (email/password) ----
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !confirmPassword) {
       toast.error("Please fill all fields");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
       return;
     }
     if (password.length < 6) {
@@ -154,7 +158,7 @@ export function SignupPage({ onLogin }: SignupPageProps) {
 
                 {/* Optional: keep your styled button that triggers the same action by programmatically showing the Google popup (advanced). 
                     Recommended to stick with <GoogleLogin /> for reliability and anti-popup-blocker behavior. */}
-                <div className="flex items-center gap-2 text-xs text-gray-500 justify-center">
+                <div className="flex items-center gap-2 text-xs text-gray-500 justify-center mb-2">
                   <GoogleIcon />
                   <span>Sign up is powered by Google</span>
                 </div>
@@ -169,13 +173,11 @@ export function SignupPage({ onLogin }: SignupPageProps) {
                 </div>
               </div>
 
-              <form onSubmit={handleSignup} className="space-y-6">
-                <div>
-                  <Label htmlFor="name" style={{ fontFamily: "Inter, sans-serif" }}>
-                    Full Name
-                  </Label>
-                  <div className="relative mt-2">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <form onSubmit={handleSignup} className="mt-6 space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Full Name</Label>
+                  <div className="relative flex items-center">
+                    <User className="absolute left-3 h-5 w-5 text-gray-400" />
                     <Input
                       id="name"
                       type="text"
@@ -183,17 +185,14 @@ export function SignupPage({ onLogin }: SignupPageProps) {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="pl-10 h-12"
+                      className="pl-10 h-12 w-full"
                     />
                   </div>
                 </div>
-
-                <div>
-                  <Label htmlFor="email" style={{ fontFamily: "Inter, sans-serif" }}>
-                    Email Address
-                  </Label>
-                  <div className="relative mt-2">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email Address</Label>
+                  <div className="relative flex items-center">
+                    <Mail className="absolute left-3 h-5 w-5 text-gray-400" />
                     <Input
                       id="email"
                       type="email"
@@ -201,17 +200,14 @@ export function SignupPage({ onLogin }: SignupPageProps) {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="pl-10 h-12"
+                      className="pl-10 h-12 w-full"
                     />
                   </div>
                 </div>
-
-                <div>
-                  <Label htmlFor="password" style={{ fontFamily: "Inter, sans-serif" }}>
-                    Password
-                  </Label>
-                  <div className="relative mt-2">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <div className="space-y-2">
+                  <Label htmlFor="password">Password</Label>
+                  <div className="relative flex items-center">
+                    <Lock className="absolute left-3 h-5 w-5 text-gray-400" />
                     <Input
                       id="password"
                       type="password"
@@ -219,7 +215,22 @@ export function SignupPage({ onLogin }: SignupPageProps) {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="pl-10 h-.12"
+                      className="pl-10 h-12 w-full"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="confirm-password">Confirm Password</Label>
+                  <div className="relative flex items-center">
+                    <Lock className="absolute left-3 h-5 w-5 text-gray-400" />
+                    <Input
+                      id="confirm-password"
+                      type="password"
+                      placeholder="••••••••"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                      className="pl-10 h-12 w-full"
                     />
                   </div>
                 </div>
