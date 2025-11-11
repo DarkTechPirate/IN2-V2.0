@@ -1,6 +1,6 @@
-import { emailLogin } from "./emailLogin";
+import { emailLogin } from "./emailLogin.js";
 import { emailSignup } from "./emailSignup.js";
-import { googleAuth } from "./googleSignup.js";
+import { googleAuth } from "./googleAuth.js";
 
 
 export { emailLogin, emailSignup, googleAuth };

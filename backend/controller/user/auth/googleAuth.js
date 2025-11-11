@@ -23,15 +23,18 @@ export const googleAuth = async (req, res) => {
     });
 
     const payload = ticket.getPayload();
+    console.log("Google Payload:", payload);
     const { email, name, picture, sub: googleId } = payload;
 
     let user = await User.findOne({ email });
 
     if (!user) {
       // New User via Google
+      const randomPassword = crypto.randomBytes(16).toString("hex");
       user = await User.create({
         name,
         email,
+        password: randomPassword, // Add a random password
         googleId,
         profilePic: picture,
         isVerified: true,
@@ -60,6 +63,16 @@ export const googleAuth = async (req, res) => {
 
   } catch (err) {
     console.error("Google Auth Error:", err);
+    if (err.message.includes("Token used too early")) {
+      return res.status(400).json({
+        message:
+          "Authentication failed: Server time mismatch. Please check your system's clock.",
+      });
+    } else if (err.message.includes("Token expired")) {
+      return res
+        .status(401)
+        .json({ message: "Authentication failed: Token expired. Please try again." });
+    }
     res.status(500).json({ message: "Invalid Google Token" });
   }
 };
