@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
@@ -23,7 +23,7 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const { loginWithCredentials, loginWithGoogle, isLoggedIn } = useAuth();
+  const { loginWithCredentials, loginWithGoogle, loginAsAdmin, isLoggedIn, user } = useAuth();
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -31,11 +31,17 @@ export function LoginPage() {
   const [adminPassword, setAdminPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Redirect if already logged in
-  if (isLoggedIn) navigate("/");
+  /** ✅ FIXED: Safe redirect after login */
+  useEffect(() => {
+    if (isLoggedIn && user) {
+      const destination = user.role === "admin" ? "/admin/dashboard" : "/";
+      // Wrap navigation in a microtask to ensure it's after render
+      Promise.resolve().then(() => navigate(destination, { replace: true }));
+    }
+  }, [isLoggedIn, user, navigate]);
 
   /** -------------------------------
-   *  Normal Login Handler
+   *  User Login Handler
    * ------------------------------- */
   const handleUserLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,11 +49,13 @@ export function LoginPage() {
       toast.error("Please enter both email and password.");
       return;
     }
+
     try {
       setLoading(true);
-      await loginWithCredentials(userEmail, userPassword);
-      toast.success("Welcome back!");
-      navigate("/");
+      const user = await loginWithCredentials(userEmail, userPassword);
+      toast.success(`Welcome back, ${user.name || "User"}!`);
+
+      navigate(user.role === "admin" ? "/admin/dashboard" : "/");
     } catch (err: any) {
       const msg = err?.response?.data?.message || "Invalid email or password.";
       toast.error(msg);
@@ -59,13 +67,24 @@ export function LoginPage() {
   /** -------------------------------
    *  Admin Login Handler
    * ------------------------------- */
-  const handleAdminLogin = (e: React.FormEvent) => {
+  const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminEmail === "admin@in2.com" && adminPassword === "admin123") {
-      toast.success("Admin login successful!");
-      navigate("/admin-dashboard");
-    } else {
-      toast.error("Invalid admin credentials");
+
+    if (!adminEmail || !adminPassword) {
+      toast.error("Please fill in both fields.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const admin = await loginAsAdmin(adminEmail, adminPassword);
+      toast.success(`Welcome Admin, ${admin.name || "IN2"}!`);
+      navigate("/admin/dashboard");
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err.message || "Admin login failed.";
+      toast.error(msg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,8 +98,8 @@ export function LoginPage() {
     }
     try {
       setLoading(true);
-      await loginWithGoogle(credential);
-      toast.success("Signed in with Google");
+      const user = await loginWithGoogle(credential);
+      toast.success(`Signed in as ${user.name || "Google User"}`);
       navigate("/");
     } catch (err: any) {
       const msg = err?.response?.data?.message || "Google authentication failed";
@@ -90,6 +109,7 @@ export function LoginPage() {
     }
   };
 
+  // ---------------- UI ----------------
   return (
     <div className="min-h-screen w-full lg:grid lg:grid-cols-2 bg-white">
       {/* Left Panel */}
@@ -132,7 +152,7 @@ export function LoginPage() {
                 <TabsTrigger value="admin">Admin</TabsTrigger>
               </TabsList>
 
-              {/* User Login */}
+              {/* User Login Tab */}
               <TabsContent value="user">
                 <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
                   <div className="w-full flex flex-col gap-3">
@@ -201,17 +221,14 @@ export function LoginPage() {
                 </div>
 
                 <p className="mt-6 text-center text-sm text-muted-foreground">
-                  Don't have an account?{" "}
-                  <button
-                    onClick={() => navigate("/signup")}
-                    className="text-primary_green hover:underline font-medium"
-                  >
+                  Don’t have an account?{" "}
+                  <button onClick={() => navigate("/signup")} className="text-primary_green hover:underline font-medium">
                     Sign up
                   </button>
                 </p>
               </TabsContent>
 
-              {/* Admin Login */}
+              {/* Admin Login Tab */}
               <TabsContent value="admin" className="mt-6">
                 <form onSubmit={handleAdminLogin} className="space-y-6">
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-center">

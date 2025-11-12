@@ -106,7 +106,7 @@ export function Navbar({
             {/* Admin Dashboard Button */}
             {isAdmin && (
               <button
-                onClick={() => onNavigate("admin-dashboard")}
+                onClick={() => onNavigate("/admin/admin-dashboard")}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all duration-300 ${
                   currentPage === "admin-dashboard"
                     ? "bg-primary_green text-white"

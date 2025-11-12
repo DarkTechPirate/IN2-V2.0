@@ -27,6 +27,7 @@ interface AuthContextType {
   loginWithCredentials: (email: string, password: string) => Promise<User>;
   signupWithCredentials: (name: string, email: string, password: string) => Promise<User>;
   loginWithGoogle: (idToken: string) => Promise<User>;
+  loginAsAdmin: (email: string, password: string) => Promise<User>;
   fetchMe: () => Promise<User | null>;
   logout: () => void;
 
@@ -58,9 +59,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
   };
 
-  /**
-   * Axios instance that auto refreshes token
-   */
+  /** =========================
+   * Axios with Auto-Refresh
+   ========================= */
   const axios = useMemo(() => {
     const instance = axiosBase.create({
       baseURL: BACKEND_URL,
@@ -85,10 +86,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           try {
             const refreshRes = await axiosBase.post(`${BACKEND_URL}/api/auth/refresh-token`, { refreshToken });
             const newAccess = refreshRes.data.accessToken;
-
             setAccessToken(newAccess);
 
-            // Retry original request with new access token
+            // Retry the original request
             err.config.headers.Authorization = `Bearer ${newAccess}`;
             return instance(err.config);
           } catch {
@@ -102,9 +102,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return instance;
   }, [accessToken]);
 
-  /**
-   * Save tokens + user
-   */
+  /** =========================
+   * Session Management
+   ========================= */
   const setSession = (accessToken: string | null, refreshToken?: string | null, u?: User | null) => {
     setAccessToken(accessToken);
 
@@ -122,6 +122,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  /** =========================
+   * Auth Methods
+   ========================= */
   const loginWithCredentials = async (email: string, password: string) => {
     const res = await axios.post(`${BACKEND_URL}/api/auth/login`, { email, password });
     const { accessToken: at, refreshToken: rt, user } = res.data;
@@ -143,6 +146,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return user;
   };
 
+  const loginAsAdmin = async (email: string, password: string) => {
+    const res = await axios.post(`${BACKEND_URL}/api/auth/admin/login`, { email, password });
+    const { accessToken: at, refreshToken: rt, user } = res.data;
+
+    if (user.role !== "admin") {
+      throw new Error("Access denied: not an admin");
+    }
+
+    setSession(at, rt, user);
+    return user;
+  };
+
   const fetchMe = async () => {
     const res = await axios.get(`${BACKEND_URL}/api/user/profile`);
     const u: User = res.data.user;
@@ -150,9 +165,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return u;
   };
 
-  /**
-   * Restore session on page reload
-   */
+  /** =========================
+   * Restore Session
+   ========================= */
   useEffect(() => {
     const boot = async () => {
       const storedUser = localStorage.getItem(LS_USER);
@@ -175,9 +190,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     boot();
   }, []);
 
-  /**
-   * 🔥 Register Access Token Getter for ApiService (Option 1)
-   */
+  /** 🔥 Register Access Token Getter for ApiService */
   useEffect(() => {
     registerAccessTokenGetter(() => accessToken);
   }, [accessToken]);
@@ -193,6 +206,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         loginWithCredentials,
         signupWithCredentials,
         loginWithGoogle,
+        loginAsAdmin,
         fetchMe,
         logout,
         setSession,
