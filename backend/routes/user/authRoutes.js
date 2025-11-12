@@ -1,5 +1,5 @@
 import express from "express";
-import { emailLogin, emailSignup, googleAuth } from "../../controller/user/auth/index.js";
+import { emailLogin, emailSignup, googleAuth , refreshAccessToken } from "../../controller/user/auth/index.js";
 
 const router = express.Router();
 
@@ -11,5 +11,8 @@ router.post("/google", googleAuth);
 
 // Email Login
 router.post("/login", emailLogin);
+
+// Refresh Access Token
+router.post("/refresh-token", refreshAccessToken);
 
 export default router;

@@ -1,8 +1,7 @@
 import User from "../../../model/user.js";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-
-import { generateToken } from "../../../auth/generateTokens.js";
+import { generateAccessToken, generateRefreshToken } from "../../../auth/generateTokens.js";
 
 /* -----------------------------------
   SIGNUP - Normal Email + Password
@@ -26,11 +25,13 @@ export const emailSignup = async (req, res) => {
       isVerified: true, // if you want email verification later, change this
     });
 
-    const token = generateToken(user);
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
 
     res.status(201).json({
       message: "Signup successful",
-      token,
+      accessToken,
+      refreshToken,
       user: {
         id: user._id,
         name: user.name,

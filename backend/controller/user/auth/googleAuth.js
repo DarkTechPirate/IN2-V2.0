@@ -1,6 +1,6 @@
 import User from "../../../model/user.js";
 import { OAuth2Client } from "google-auth-library";
-import { generateToken } from "../../../auth/generateTokens.js";
+import { generateAccessToken , generateRefreshToken  } from "../../../auth/generateTokens.js";
 import crypto from "crypto";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -47,11 +47,14 @@ export const googleAuth = async (req, res) => {
       await user.save();
     }
 
-    const token = generateToken(user);
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
 
     res.status(200).json({
       message: "Google Auth Success",
-      token,
+      accessToken,
+      refreshToken,
       user: {
         id: user._id,
         name,
