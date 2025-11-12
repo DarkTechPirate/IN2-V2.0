@@ -15,7 +15,7 @@ import { ShopPage } from "./components/ShopPage";
 import { SocialCausePage } from "./components/SocialCausePage";
 import { GalleryPage } from "./components/GalleryPage";
 import { ContactPage } from "./components/ContactPage";
-import { ProfilePage } from "./components/ProfilePage";
+import { ProfilePage } from "./pages/user/profile/ProfilePage";
 import { WishlistPage } from "./components/WishlistPage";
 import { CartPage } from "./components/CartPage";
 import { OrderTrackingPage } from "./components/OrderTrackingPage";
@@ -29,6 +29,7 @@ import { HomePage } from "./pages/homePage";
 // import { GoogleOAuthProvider } from "@react-oauth/google"; // Removed as Passport.js is backend-centric
 import LoadingScreen from "@/components/LoadingScreen";
 
+import { useAuth } from "./context/AuthContext";
 
 
 interface UserData {
@@ -47,11 +48,8 @@ interface UserData {
 function AppContent() {
   const [cartCount, setCartCount] = useState(3);
   const [wishlistCount, setWishlistCount] = useState(3);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [userData, setUserData] = useState<UserData | null>(null);
   const [loaded, setLoaded] = useState(false);
-
+  const { user, isLoggedIn, isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -67,16 +65,6 @@ function AppContent() {
   }, [location.pathname]);
   // ----------------------------------
 
-  const handleLogin = (userType: "user" | "admin", user: UserData) => {
-    setIsLoggedIn(true);
-    setIsAdmin(userType === "admin");
-    setUserData(user);
-    if (userType === "admin") {
-      navigate("/admin-dashboard");
-    } else {
-      navigate("/");
-    }
-  };
 
   const handleSignup = (user: UserData) => {
     setIsLoggedIn(true);
@@ -85,12 +73,7 @@ function AppContent() {
     navigate("/");
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setIsAdmin(false);
-    setUserData(null);
-    navigate("/");
-  };
+
 
   const hideLayout =
     location.pathname === "/login" || location.pathname === "/signup";
@@ -117,7 +100,7 @@ function AppContent() {
             wishlistCount={wishlistCount}
             isAdmin={isAdmin}
             isLoggedIn={isLoggedIn}
-            onLogout={handleLogout}
+            
           />
         )}
 
@@ -149,7 +132,7 @@ function AppContent() {
             />
             <Route
               path="/login"
-              element={<LoginPage onLogin={handleLogin} />}
+              element={<LoginPage  />}
             />
             <Route
               path="/signup"

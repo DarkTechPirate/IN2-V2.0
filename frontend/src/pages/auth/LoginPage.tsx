@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -9,12 +8,10 @@ import { LogIn, User, Lock } from "lucide-react";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
-
-// Google OAuth
+import { useAuth } from "../../context/AuthContext";
 import { GoogleLogin } from "@react-oauth/google";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
-
+// Google logo
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="1.25em" height="1.25em">
     <path
@@ -24,18 +21,22 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-interface LoginPageProps {
-  onLogin: (userType: "user" | "admin", userData: any) => void;
-}
-
-export function LoginPage({ onLogin }: LoginPageProps) {
+export function LoginPage() {
   const navigate = useNavigate();
+  const { loginWithCredentials, loginWithGoogle, isLoggedIn } = useAuth();
+
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [adminEmail, setAdminEmail] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Redirect if already logged in
+  if (isLoggedIn) navigate("/");
+
+  /** -------------------------------
+   *  Normal Login Handler
+   * ------------------------------- */
   const handleUserLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userEmail || !userPassword) {
@@ -44,34 +45,33 @@ export function LoginPage({ onLogin }: LoginPageProps) {
     }
     try {
       setLoading(true);
-      const res = await axios.post(`${BACKEND_URL}/api/auth/login`, {
-        email: userEmail,
-        password: userPassword,
-      });
-      const { token, user } = res.data;
-      localStorage.setItem("token", token);
+      await loginWithCredentials(userEmail, userPassword);
       toast.success("Welcome back!");
-      onLogin("user", user);
       navigate("/");
     } catch (err: any) {
-      const msg = err?.response?.data?.message || "Login failed";
+      const msg = err?.response?.data?.message || "Invalid email or password.";
       toast.error(msg);
     } finally {
       setLoading(false);
     }
   };
 
+  /** -------------------------------
+   *  Admin Login Handler
+   * ------------------------------- */
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (adminEmail === "admin@in2.com" && adminPassword === "admin123") {
-      const adminData = { name: "Admin", email: adminEmail, role: "admin" };
-      onLogin("admin", adminData);
       toast.success("Admin login successful!");
+      navigate("/admin-dashboard");
     } else {
       toast.error("Invalid admin credentials");
     }
   };
 
+  /** -------------------------------
+   *  Google OAuth Login
+   * ------------------------------- */
   const onGoogleSuccess = async (credential: string | undefined) => {
     if (!credential) {
       toast.error("Google credential missing");
@@ -79,15 +79,11 @@ export function LoginPage({ onLogin }: LoginPageProps) {
     }
     try {
       setLoading(true);
-      const res = await axios.post(`${BACKEND_URL}/api/auth/google`, { idToken: credential });
-      const { token, user } = res.data;
-
-      localStorage.setItem("token", token);
+      await loginWithGoogle(credential);
       toast.success("Signed in with Google");
-      onLogin("user", user);
       navigate("/");
     } catch (err: any) {
-      const msg = err?.response?.data?.message || "Google auth failed";
+      const msg = err?.response?.data?.message || "Google authentication failed";
       toast.error(msg);
     } finally {
       setLoading(false);
@@ -96,6 +92,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
 
   return (
     <div className="min-h-screen w-full lg:grid lg:grid-cols-2 bg-white">
+      {/* Left Panel */}
       <div className="relative hidden lg:flex items-center justify-center bg-gray-900">
         <ImageWithFallback
           src="/hero/dark.jpg"
@@ -103,47 +100,30 @@ export function LoginPage({ onLogin }: LoginPageProps) {
           className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
         <div className="relative z-10 text-center space-y-4 p-8">
-          <h1
-            className="text-7xl font-bold tracking-tight text-white"
-            style={{ fontFamily: "Poppins, sans-serif" }}
-          >
+          <h1 className="text-7xl font-bold tracking-tight text-white" style={{ fontFamily: "Poppins, sans-serif" }}>
             IN<span className="text-primary_green">2</span>
           </h1>
-          <p
-            className="text-white/80 text-2xl"
-            style={{ fontFamily: "Inter, sans-serif" }}
-          >
+          <p className="text-white/80 text-2xl" style={{ fontFamily: "Inter, sans-serif" }}>
             Luxury in Motion.
           </p>
         </div>
       </div>
 
+      {/* Right Panel */}
       <div className="flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div className="text-center lg:hidden">
-              <h1
-                className="text-5xl font-bold tracking-tight"
-                style={{ fontFamily: "Poppins, sans-serif" }}
-              >
+              <h1 className="text-5xl font-bold tracking-tight" style={{ fontFamily: "Poppins, sans-serif" }}>
                 IN<span className="text-primary_green">2</span>
               </h1>
             </div>
 
             <div className="text-center mt-4 lg:mt-0">
-              <h2
-                className="text-3xl font-semibold tracking-tight"
-                style={{ fontFamily: "Inter, sans-serif" }}
-              >
+              <h2 className="text-3xl font-semibold tracking-tight" style={{ fontFamily: "Inter, sans-serif" }}>
                 Welcome Back
               </h2>
-              <p className="mt-2 text-gray-600">
-                Login to continue your journey.
-              </p>
+              <p className="mt-2 text-gray-600">Login to continue your journey.</p>
             </div>
 
             <Tabs defaultValue="user" className="w-full mt-8">
@@ -171,9 +151,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                       <span className="w-full border-t" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-white px-2 text-muted-foreground">
-                        Or login with email
-                      </span>
+                      <span className="bg-white px-2 text-muted-foreground">Or login with email</span>
                     </div>
                   </div>
 
@@ -193,6 +171,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                         />
                       </div>
                     </div>
+
                     <div className="space-y-2">
                       <Label htmlFor="user-password">Password</Label>
                       <div className="relative flex items-center">
@@ -208,6 +187,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                         />
                       </div>
                     </div>
+
                     <Button
                       type="submit"
                       disabled={loading}
@@ -219,6 +199,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                     </Button>
                   </form>
                 </div>
+
                 <p className="mt-6 text-center text-sm text-muted-foreground">
                   Don't have an account?{" "}
                   <button
@@ -230,6 +211,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                 </p>
               </TabsContent>
 
+              {/* Admin Login */}
               <TabsContent value="admin" className="mt-6">
                 <form onSubmit={handleAdminLogin} className="space-y-6">
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-center">
@@ -237,6 +219,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                       Demo: <strong>admin@in2.com</strong> / <strong>admin123</strong>
                     </p>
                   </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="admin-email">Admin Email</Label>
                     <div className="relative flex items-center">
@@ -252,6 +235,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                       />
                     </div>
                   </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="admin-password">Admin Password</Label>
                     <div className="relative flex items-center">
@@ -267,6 +251,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                       />
                     </div>
                   </div>
+
                   <Button type="submit" className="w-full h-12 bg-primary_green hover:bg-primary_green/90 text-white gap-2">
                     <LogIn className="h-4 w-4" />
                     Admin Login

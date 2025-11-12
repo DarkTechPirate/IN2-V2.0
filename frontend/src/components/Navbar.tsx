@@ -25,8 +25,9 @@ interface NavbarProps {
   wishlistCount?: number;
   isAdmin?: boolean;
   isLoggedIn?: boolean;
-  onLogout?: () => void;
+
 }
+import { useAuth } from "../context/AuthContext";
 
 export function Navbar({
   currentPage,
@@ -35,11 +36,17 @@ export function Navbar({
   wishlistCount = 0,
   isAdmin = false,
   isLoggedIn = false,
-  onLogout,
+
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isHomePage = currentPage === "home";
 
+  const { logout } = useAuth();
+
+  const onLogout = () => {
+    logout();
+    onNavigate("home");
+  };
   const navLinks = [
     { label: "Home", value: "home" },
     { label: "Shop", value: "shop" },
