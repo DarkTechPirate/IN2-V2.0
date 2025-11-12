@@ -47,8 +47,8 @@ export const googleAuth = async (req, res) => {
       await user.save();
     }
 
-    const accessToken = generateAccessToken(user._id);
-    const refreshToken = generateRefreshToken(user._id);
+    const accessToken = generateAccessToken(user._id, user.role);
+    const refreshToken = generateRefreshToken(user._id, user.role);
 
 
     res.status(200).json({

@@ -15,4 +15,6 @@ router.post("/login", emailLogin);
 // Refresh Access Token
 router.post("/refresh-token", refreshAccessToken);
 
+router.post("/admin/login", emailLogin);
+
 export default router;
