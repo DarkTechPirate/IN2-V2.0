@@ -6,8 +6,8 @@ import {getAllAdminProducts} from "./admin/getAllAdminProducts.js";
 import {getAdminProductById} from "./admin/getProductById.js";
 
 
-import {getProducts} from "./user/getProducts.js";
-import {getProductById} from "./user/getProductById.js";
+import {getUserProductById} from "./user/getUserProductById.js";
+import {getUserProducts} from "./user/getUserProducts.js";
 
 export {
     createProduct,
@@ -18,6 +18,6 @@ export {
     getAdminProductById,
 
 
-    getProducts,
-    getProductById,
+    getUserProducts,
+    getUserProductById,
 };

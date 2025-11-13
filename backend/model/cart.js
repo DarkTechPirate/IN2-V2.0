@@ -20,11 +20,24 @@ const cartSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      unique: true, // one cart per user
+      unique: true,
     },
     items: [cartItemSchema],
   },
   { timestamps: true }
 );
+
+/* 🔥 Method to calculate total cost */
+cartSchema.methods.getTotalCost = function () {
+  let total = 0;
+
+  for (const item of this.items) {
+    if (item.product?.sellingPrice) {
+      total += item.quantity * item.product.sellingPrice;
+    }
+  }
+
+  return total;
+};
 
 export default mongoose.model("Cart", cartSchema);
