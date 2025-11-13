@@ -6,11 +6,22 @@ const cartItemSchema = new mongoose.Schema({
     ref: "Product",
     required: true,
   },
+
   quantity: {
     type: Number,
-    required: true,
     min: 1,
+    required: true,
     default: 1,
+  },
+
+  size: {
+    type: String,
+    required: true,
+  },
+
+  color: {
+    type: String,
+    required: true,
   },
 });
 
@@ -27,17 +38,11 @@ const cartSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-/* 🔥 Method to calculate total cost */
+// METHOD — total cost of cart
 cartSchema.methods.getTotalCost = function () {
-  let total = 0;
-
-  for (const item of this.items) {
-    if (item.product?.sellingPrice) {
-      total += item.quantity * item.product.sellingPrice;
-    }
-  }
-
-  return total;
+  return this.items.reduce((sum, item) => {
+    return sum + item.product.sellingPrice * item.quantity;
+  }, 0);
 };
 
 export default mongoose.model("Cart", cartSchema);

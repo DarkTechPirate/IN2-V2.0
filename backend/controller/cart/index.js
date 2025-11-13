@@ -1,7 +1,7 @@
 import { addToCart } from "./addToCart.js";
-import { removeFromCart } from "./removeFromCart.js";
+import { removeCartItem} from "./removeCartItem.js";
 import { clearCart } from "./clearCart.js";
-import { updateQuantity } from "./updateQuantity.js";
-import { getCart } from "./getCart.js";
+import { updateCartItem } from "./updateCartItem.js";
+import { getUserCart } from "./getUserCart.js";
 
-export { addToCart, removeFromCart, clearCart, updateQuantity , getCart};
+export { addToCart, removeCartItem, clearCart, updateCartItem, getUserCart };
