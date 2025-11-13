@@ -1,6 +1,7 @@
 // src/components/LoadingScreen.tsx
 import { motion } from "motion/react";
 import React, { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface LoadingScreenProps {
   onLoadingComplete?: () => void;
@@ -43,14 +44,16 @@ export default function LoadingScreen({
     };
   }, [finalDuration, fadeDuration, onLoadingComplete]);
 
+  const { t } = useTranslation();
+
   if (isDone) return null;
 
   // when the assembled pop should start: when the last letter finished its slide
   const assembledStart = delays.two + slideDuration;
 
   // responsive font size: smaller on narrow screens
-  const [fontSize, setFontSize] = useState<number>(() => 
-    (typeof window !== "undefined" && window.innerWidth < 420 ? 52 : 72)
+  const [fontSize, setFontSize] = useState<number>(() =>
+    typeof window !== "undefined" && window.innerWidth < 420 ? 52 : 72
   );
 
   useEffect(() => {
@@ -63,19 +66,25 @@ export default function LoadingScreen({
   }, []);
 
   // Fixed spacing calculation - better gap between letters
-  const letterSpacing = fontSize * 0.60; // Increased from 0.55 to 0.8 for better spacing
+  const letterSpacing = fontSize * 0.6; // Increased from 0.55 to 0.8 for better spacing
   const containerWidth = letterSpacing * 2.2; // Width to accommodate all three elements
 
   const finalPositions = {
-    I: -letterSpacing,    // I moves left
-    N: 0,                // N stays center
-    TWO: fontSize/1.4 // 2 moves right
+    I: -letterSpacing, // I moves left
+    N: 0, // N stays center
+    TWO: fontSize / 1.4, // 2 moves right
   };
 
   // small helper: rgba from hex
   function hexToRgba(hex: string, alpha = 1) {
     const cleaned = hex.replace("#", "");
-    const full = cleaned.length === 3 ? cleaned.split("").map(c => c + c).join("") : cleaned;
+    const full =
+      cleaned.length === 3
+        ? cleaned
+            .split("")
+            .map((c) => c + c)
+            .join("")
+        : cleaned;
     const bigint = parseInt(full, 16);
     const r = (bigint >> 16) & 255;
     const g = (bigint >> 8) & 255;
@@ -112,9 +121,9 @@ export default function LoadingScreen({
             ease: "easeInOut",
           }}
           className="relative flex items-center justify-center"
-          style={{ 
-            width: containerWidth, 
-            height: fontSize * 1.8 
+          style={{
+            width: containerWidth,
+            height: fontSize * 1.8,
           }}
         >
           {/* I - slides in from left */}
@@ -122,7 +131,8 @@ export default function LoadingScreen({
             aria-hidden
             className="pointer-events-none select-none absolute"
             style={{
-              fontFamily: "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+              fontFamily:
+                "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
               fontWeight: 900,
               fontSize: `${fontSize}px`,
               lineHeight: 1,
@@ -144,7 +154,8 @@ export default function LoadingScreen({
             aria-hidden
             className="pointer-events-none select-none absolute"
             style={{
-              fontFamily: "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+              fontFamily:
+                "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
               fontWeight: 900,
               fontSize: `${fontSize}px`,
               lineHeight: 1,
@@ -166,7 +177,8 @@ export default function LoadingScreen({
             aria-hidden
             className="pointer-events-none select-none absolute text-primary_green"
             style={{
-              fontFamily: "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+              fontFamily:
+                "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
               fontWeight: 900,
               fontSize: `${fontSize}px`,
               lineHeight: 1,
@@ -188,12 +200,16 @@ export default function LoadingScreen({
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 1, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity, delay: (assembledStart + 160) / 1000 }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          delay: (assembledStart + 160) / 1000,
+        }}
         className="absolute bottom-20 text-sm text-primary_green font-medium"
-        style={{  }}
+        style={{}}
       >
-        Loading...
+        {t("loading.loading")}
       </motion.div>
     </motion.div>
   );
-}  
+}

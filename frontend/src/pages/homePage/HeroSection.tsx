@@ -5,27 +5,28 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useTranslation } from "react-i18next";
 
 const heroSlides = [
   {
     image: "/hero/hero2.jpg",
-    title: "Step into Comfort",
-    subtitle: "Discover our new collection of premium socks.",
+    titleKey: "hero_slide_1_title",
+    subtitleKey: "hero_slide_1_subtitle",
   },
   {
     image: "/hero/hero2(1).jpg",
-    title: "Style for Every Occasion",
-    subtitle: "From casual to formal, we have the perfect pair for you.",
+    titleKey: "hero_slide_2_title",
+    subtitleKey: "hero_slide_2_subtitle",
   },
   {
     image: "/hero/hero2(2).jpg",
-    title: "Quality You Can Feel",
-    subtitle: "Made with the finest materials for ultimate comfort and durability.",
+    titleKey: "hero_slide_3_title",
+    subtitleKey: "hero_slide_3_subtitle",
   },
   {
     image: "/hero/dark.jpg",
-    title: "Join Our Social Cause",
-    subtitle: "Every purchase helps us support a greater cause.",
+    titleKey: "hero_slide_4_title",
+    subtitleKey: "hero_slide_4_subtitle",
   },
 ];
 
@@ -59,6 +60,7 @@ export function HeroSection() {
   const [direction, setDirection] = useState<"next" | "prev">("next");
   // 'autoPlay' stops the timer on user interaction
   const [autoPlay, setAutoPlay] = useState(true);
+  const { t } = useTranslation();
 
   // Auto-play timer
   useEffect(() => {
@@ -131,7 +133,7 @@ export function HeroSection() {
           <div className="absolute inset-0 bg-black/30 z-10" />
           <ImageWithFallback
             src={currentSlideData.image}
-            alt={currentSlideData.title}
+            alt={t(currentSlideData.titleKey)}
             className="w-full h-full object-cover"
           />
 
@@ -157,20 +159,20 @@ export function HeroSection() {
                   fontSize: "clamp(2rem, 5vw, 4rem)",
                 }}
               >
-                {currentSlideData.title}
+                {t(currentSlideData.titleKey)}
               </h1>
               <p
                 className="text-white/90 mb-8 max-w-2xl mx-auto"
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
-                {currentSlideData.subtitle}
+                {t(currentSlideData.subtitleKey)}
               </p>
               <div className="flex gap-4 justify-center flex-wrap">
                 <Button
                   onClick={() => navigate("/shop")}
                   className="h-12 px-8 bg-primary_green hover:bg-[#26d41f] text-white transition-all"
                 >
-                  Shop Now
+                  {t("shop_now")}
                 </Button>
                 <Button
                   onClick={() => navigate("/social-cause")}
@@ -178,7 +180,7 @@ export function HeroSection() {
                   // --- UI Fix: Changed text-black to text-white ---
                   className="h-12 px-8 border-2 border-white text-black hover:bg-white hover:text-gray-500"
                 >
-                  Explore Story
+                  {t("explore_story")}
                 </Button>
               </div>
             </motion.div>

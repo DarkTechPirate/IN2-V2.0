@@ -1,0 +1,205 @@
+{
+  "welcome": "Willkommen auf unserer Luxus-Sportbekleidungs-E-Commerce-Website!",
+  "language_switcher": "Sprache",
+  "hero_slide_1_title": "Treten Sie ein in den Komfort",
+  "hero_slide_1_subtitle": "Entdecken Sie unsere neue Kollektion hochwertiger Socken.",
+  "hero_slide_2_title": "Stil für jeden Anlass",
+  "hero_slide_2_subtitle": "Von lässig bis formell, wir haben das perfekte Paar für Sie.",
+  "hero_slide_3_title": "Qualität, die Sie fühlen können",
+  "hero_slide_3_subtitle": "Hergestellt aus den feinsten Materialien für ultimativen Komfort und Haltbarkeit.",
+  "hero_slide_4_title": "Engagieren Sie sich für unsere soziale Sache",
+  "hero_slide_4_subtitle": "Jeder Einkauf hilft uns, eine größere Sache zu unterstützen.",
+  "shop_now": "Jetzt einkaufen",
+  "explore_story": "Geschichte erkunden",
+  "bestsellers_title": "Bestseller",
+  "bestsellers_subtitle": "Entdecken Sie unsere beliebtesten Stücke, die für Spitzenleistung und Stil entwickelt wurden.",
+  "add_to_cart": "In den Warenkorb",
+  "view_all_products": "Alle Produkte ansehen",
+  "new_arrivals": "Neuheiten",
+  "womens_socks": "Damensocken",
+  "up_to_70_off": "Bis zu 70% Rabatt",
+  "ankle_socks": "Knöchelsocken",
+  "crew_socks": "Crew-Socken",
+  "performance": "Leistung",
+  "athletic_socks": "Sportsocken",
+  "sale_40_60_off": "SALE: 40%-60% Rabatt",
+  "our_features": "Unsere Merkmale",
+  "features_subtitle": "Entdecken Sie, warum unsere Socken von Tausenden geliebt werden. Wir konzentrieren uns auf Komfort, Haltbarkeit und Stil für den ganzen Tag.",
+  "ultra_soft_title": "Ultraweich",
+  "ultra_soft_description": "Erleben Sie unvergleichlichen Komfort mit unseren hochwertigen weichen Socken.",
+  "breathable_title": "Atmungsaktiv",
+  "breathable_description": "Halten Sie Ihre Füße den ganzen Tag frisch mit unserem atmungsaktiven Stoff.",
+  "eco_friendly_title": "Umweltfreundlich",
+  "eco_friendly_description": "Hergestellt aus nachhaltigen Materialien zum Schutz der Umwelt.",
+  "durable_reliable_title": "Langlebig & Zuverlässig",
+  "durable_reliable_description": "Langlebige Socken, die nach jedem Waschen bequem bleiben.",
+  "why_choose_us_title": "Warum uns wählen",
+  "why_choose_us_subtitle": "Wir sind bestrebt, das beste Socken-Erlebnis mit Komfort, Stil und Bequemlichkeit zu bieten. Hier ist, warum unsere Kunden uns lieben:",
+  "premium_quality_title": "Premium-Qualität",
+  "premium_quality_description": "Unsere Socken werden aus hochwertigen Materialien hergestellt, die Komfort, Haltbarkeit und Stil gewährleisten.",
+  "fast_delivery_title": "Schnelle Lieferung",
+  "fast_delivery_description": "Schneller und zuverlässiger Versand, um Ihre Lieblingssocken direkt zu Ihnen nach Hause zu liefern.",
+  "secure_shopping_title": "Sicheres Einkaufen",
+  "secure_shopping_description": "100% sichere Zahlungsoptionen für ein sorgenfreies Einkaufserlebnis.",
+  "great_offers_title": "Tolle Angebote",
+  "great_offers_description": "Exklusive Angebote, Rabatte und Bundle-Angebote, um Ihre Sockenlade glücklich zu machen.",
+  "movement_for_good_title": "Bewegung für das Gute",
+  "social_cause_text_1": "Bei IN2 glauben wir, dass Luxus und Zweckmäßigkeit koexistieren können. Mit jedem Einkauf tragen wir zu Gemeinschafts-Wellness-Programmen bei.",
+  "social_cause_text_2": "Gemeinsam bauen wir stärkere, gesündere Gemeinschaften durch Bewegung auf.",
+  "explore_more": "Mehr entdecken",
+  "gallery_title": "Galerie",
+  "gallery_subtitle": "Momente der Bewegung, Gemeinschaft und des Stils festhalten",
+  "view_full_gallery": "Vollständige Galerie ansehen",
+
+  "home": {
+    "offers": {
+      "heading": "Aktuelle Angebote & Aktionen",
+      "description": "Verpassen Sie nicht unsere exklusiven Angebote! Schauen Sie sich unsere Bundle-Angebote und Saisonrabatte an.",
+      "offer1": {
+        "title": "Kaufe 3, erhalte 1 gratis",
+        "description": "Decken Sie sich mit Ihren Lieblingssocken ein! Fügen Sie 4 Paare zu Ihrem Warenkorb hinzu und zahlen Sie nur für 3.",
+        "cta": "Jetzt shoppen"
+      },
+      "offer2": {
+        "title": "20% Rabatt auf die Winterkollektion",
+        "description": "Halten Sie Ihre Füße diesen Winter warm und stilvoll. Zeitlich begrenzter Rabatt auf ausgewählte Socken.",
+        "cta": "Kollektion entdecken"
+      },
+      "offer3": {
+        "title": "Paket: Sportsocken",
+        "description": "Sichern Sie sich 5 Paar Sportsocken zu einem Sonderpreis. Perfekt für Workouts.",
+        "cta": "Bundle kaufen"
+      }
+    }
+  },
+
+  "cart": {
+    "failedToLoad": "Warenkorb konnte nicht geladen werden",
+    "loading": "Warenkorb wird geladen...",
+    "empty": "Ihr Warenkorb ist leer",
+    "quantityUpdated": "Menge aktualisiert",
+    "failedToUpdateQuantity": "Menge konnte nicht aktualisiert werden",
+    "itemRemoved": "Artikel entfernt",
+    "failedToRemoveItem": "Artikel konnte nicht entfernt werden",
+    "shoppingCart": "Einkaufswagen",
+    "itemsInYourCart": "{{count}} Artikel in Ihrem Warenkorb",
+    "size": "Größe",
+    "color": "Farbe",
+    "orderSummary": "Bestellübersicht",
+    "subtotal": "Zwischensumme",
+    "shipping": "Versand",
+    "total": "Gesamt",
+    "checkout": "Zur Kasse"
+  },
+  "contact": {
+    "messageSent": "Nachricht erfolgreich gesendet! Wir melden uns in Kürze bei Ihnen.",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "youtube": "YouTube",
+    "getInTouch": "Kontakt aufnehmen",
+    "getInTouchDescription": "Haben Sie eine Frage oder möchten Sie mehr über IN2 erfahren? Wir freuen uns darauf, von Ihnen zu hören.",
+    "sendMessage": "Senden Sie uns eine Nachricht",
+    "name": "Name",
+    "yourName": "Ihr Name",
+    "yourEmail": "ihre@email.com",
+    "message": "Nachricht",
+    "howCanWeHelp": "Sagen Sie uns, wie wir helfen können...",
+    "sendMessageButton": "Nachricht senden",
+    "contactInformation": "Kontaktinformationen",
+    "followUs": "Folgen Sie uns",
+    "businessHours": "Geschäftszeiten",
+    "mondayFriday": "Montag - Freitag",
+    "saturday": "Samstag",
+    "sunday": "Sonntag",
+    "closed": "Geschlossen"
+  },
+  "footer": {
+    "slogan": "Luxus in Bewegung. Wo Leistung auf Zweck trifft.",
+    "company": "Unternehmen",
+    "aboutUs": "Über uns",
+    "careers": "Karriere",
+    "press": "Presse",
+    "blog": "Blog",
+    "support": "Support",
+    "contactUs": "Kontakt",
+    "shipping": "Versand",
+    "returns": "Rücksendungen",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "stayUpdated": "Bleiben Sie auf dem Laufenden",
+    "newsletter": "Erhalten Sie die neuesten Updates zu neuen Produkten und exklusiven Angeboten.",
+    "yourEmail": "Ihre E-Mail",
+    "join": "Beitreten",
+    "copyright": "© 2025 IN2. Alle Rechte vorbehalten."
+  },
+  "gallery": {
+    "title": "Galerie",
+    "description": "Momente der Bewegung, Gemeinschaft und des Stils festhalten",
+    "pastEvents": "Vergangene Veranstaltungen",
+    "upcomingEvents": "Kommende Veranstaltungen"
+  },
+  "loading": {
+    "loading": "Wird geladen..."
+  },
+  "wishlist": {
+    "title": "Meine Wunschliste",
+    "items_single": "Artikel gespeichert",
+    "items": "Artikel gespeichert",
+    "removed": "Artikel aus der Wunschliste entfernt",
+    "added_to_cart": "{{name}} in den Warenkorb gelegt!",
+    "add_to_cart": "In den Warenkorb",
+    "add_to_cart_short": "Hinzufügen",
+    "out_of_stock": "Nicht auf Lager",
+    "empty_title": "Deine Wunschliste ist leer",
+    "empty_paragraph": "Speichere deine Lieblingsartikel für später",
+    "continue_shopping": "Weiter einkaufen"
+  },
+  "social": {
+    "title": "Bewegung für das Gute",
+    "hero_paragraph": "Bei IN2 glauben wir, dass Luxus und Zweck zusammen existieren können. Jeder Kauf bewirkt positive Veränderungen in Gemeinschaften weltweit.",
+    "stats": [
+      { "label": "Lebensveränderungen", "value": "10.000+" },
+      { "label": "Gemeinden unterstützt", "value": "50+" },
+      { "label": "Programme gestartet", "value": "100+" },
+      { "label": "Gesammelte Mittel", "value": "2 Mio.+" }
+    ],
+    "initiatives": [
+      {
+        "title": "Jugend-Fitness-Programme",
+        "description": "Wir arbeiten mit lokalen Gemeinschaften zusammen, um kostenlose Fitnesskurse und Ausrüstung für benachteiligte Jugendliche bereitzustellen."
+      },
+      {
+        "title": "Nachhaltige Produktion",
+        "description": "Jedes IN2-Produkt wird mit Blick auf Nachhaltigkeit gefertigt. Wir verwenden umweltfreundliche Materialien und sorgen für faire Arbeitsbedingungen."
+      },
+      {
+        "title": "Psychische Gesundheit",
+        "description": "Körperliche und geistige Gesundheit gehören zusammen. Wir fördern Workshops und Therapieprogramme zur Unterstützung benachteiligter Gemeinschaften."
+      }
+    ],
+    "join_title": "Schließe dich der Bewegung an",
+    "join_paragraph": "Jeder Kauf hilft beim Aufbau gesünderer, stärkerer Gemeinschaften. Zusammen schaffen wir eine Bewegung, die Mode übertrifft.",
+    "join_cta": "Mitmachen"
+  },
+  "nav": {
+    "home": "Startseite",
+    "shop": "Shop",
+    "social_cause": "Soziale Sache",
+    "gallery": "Galerie",
+    "dashboard": "Dashboard",
+    "login": "Anmelden",
+    "my_profile": "Mein Profil",
+    "my_orders": "Meine Bestellungen",
+    "logout": "Abmelden",
+    "back": "Zurück",
+    "profile": "Profil",
+    "remove_from_wishlist": "Aus Wunschliste entfernen",
+    "wishlist": "Wunschliste",
+    "cart": "Warenkorb",
+    "track_order": "Sendungsverfolgung",
+    "menu": "Menü"
+  }
+}

@@ -1,34 +1,36 @@
 import React from "react";
 import { Feather, Sun, Leaf, Heart } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const featuresData = [
   {
     icon: <Feather className="w-6 h-6 text-white" />,
-    title: "Ultra Soft",
-    description: "Experience unmatched comfort with our premium soft socks.",
+    titleKey: "ultra_soft_title",
+    descriptionKey: "ultra_soft_description",
     bgColor: "bg-primary_green",
   },
   {
     icon: <Sun className="w-6 h-6 text-white" />,
-    title: "Breathable",
-    description: "Keep your feet fresh all day with our breathable fabric.",
+    titleKey: "breathable_title",
+    descriptionKey: "breathable_description",
     bgColor: "bg-yellow-400",
   },
   {
     icon: <Leaf className="w-6 h-6 text-white" />,
-    title: "Eco-Friendly",
-    description: "Made from sustainable materials to protect the environment.",
+    titleKey: "eco_friendly_title",
+    descriptionKey: "eco_friendly_description",
     bgColor: "bg-green-500",
   },
   {
     icon: <Heart className="w-6 h-6 text-white" />,
-    title: "Durable & Reliable",
-    description: "Long-lasting socks that stay comfortable wash after wash.",
+    titleKey: "durable_reliable_title",
+    descriptionKey: "durable_reliable_description",
     bgColor: "bg-red-500",
   },
 ];
 
 export function FeaturesSection() {
+  const { t } = useTranslation();
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-[1200px] mx-auto px-6 text-center">
@@ -36,13 +38,13 @@ export function FeaturesSection() {
           className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6"
           style={{ fontFamily: "Poppins, sans-serif" }}
         >
-          Our Features
+          {t("our_features")}
         </h2>
         <p
           className="text-gray-600 mb-12 max-w-[700px] mx-auto"
           style={{ fontFamily: "Inter, sans-serif" }}
         >
-          Discover why our socks are loved by thousands. We focus on comfort, durability, and style for all-day wear.
+          {t("features_subtitle")}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -60,13 +62,13 @@ export function FeaturesSection() {
                 className="text-xl font-semibold mb-2 text-gray-900"
                 style={{ fontFamily: "Poppins, sans-serif" }}
               >
-                {feature.title}
+                {t(feature.titleKey)}
               </h3>
               <p
                 className="text-gray-600 text-sm"
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
-                {feature.description}
+                {t(feature.descriptionKey)}
               </p>
             </div>
           ))}

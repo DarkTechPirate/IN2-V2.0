@@ -7,9 +7,11 @@ import { ProductProvider } from "./components/ProductContext";
 import { UserRoutes } from "./routes/UserRoutes";
 import { AdminRoutes } from "./routes/AdminRoutes";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <Router>
@@ -22,6 +24,7 @@ export default function App() {
             color="#050a30"
           />
         )}
+        {/* <h1>{t("welcome")}</h1> */}
 
         <Routes>
           {/* Auth Pages */}

@@ -1,51 +1,61 @@
-import { useState } from 'react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Label } from './ui/label';
-import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { Label } from "./ui/label";
+import { motion } from "motion/react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+} from "lucide-react";
+import { toast } from "sonner@2.0.3";
+import { useTranslation } from "react-i18next";
 
 export function ContactPage() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Message sent successfully! We\'ll get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    toast.success(t("contact.messageSent"));
+    setFormData({ name: "", email: "", message: "" });
   };
 
   const contactInfo = [
     {
       icon: Mail,
-      label: 'Email',
-      value: 'hello@in2luxury.com',
-      link: 'mailto:hello@in2luxury.com',
+      label: "Email",
+      value: "hello@in2luxury.com",
+      link: "mailto:hello@in2luxury.com",
     },
     {
       icon: Phone,
-      label: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      label: "Phone",
+      value: "+1 (555) 123-4567",
+      link: "tel:+15551234567",
     },
     {
       icon: MapPin,
-      label: 'Address',
-      value: '123 Fashion Ave, New York, NY 10001',
-      link: 'https://maps.google.com',
+      label: "Address",
+      value: "123 Fashion Ave, New York, NY 10001",
+      link: "https://maps.google.com",
     },
   ];
 
   const socialLinks = [
-    { icon: Facebook, label: 'Facebook', link: '#' },
-    { icon: Instagram, label: 'Instagram', link: '#' },
-    { icon: Twitter, label: 'Twitter', link: '#' },
-    { icon: Youtube, label: 'YouTube', link: '#' },
+    { icon: Facebook, label: "Facebook", link: "#" },
+    { icon: Instagram, label: "Instagram", link: "#" },
+    { icon: Twitter, label: "Twitter", link: "#" },
+    { icon: Youtube, label: "YouTube", link: "#" },
   ];
 
   return (
@@ -58,14 +68,20 @@ export function ContactPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 
+          <h1
             className="mb-4"
-            style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)' }}
+            style={{
+              fontFamily: "Poppins, sans-serif",
+              fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
+            }}
           >
-            Get in Touch
+            {t("contact.getInTouch")}
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Have a question or want to learn more about IN2? We'd love to hear from you.
+          <p
+            className="text-gray-600 max-w-2xl mx-auto"
+            style={{ fontFamily: "Inter, sans-serif" }}
+          >
+            {t("contact.getInTouchDescription")}
           </p>
         </motion.div>
 
@@ -78,65 +94,83 @@ export function ContactPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
-              <h2 className="mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                Send us a Message
+              <h2
+                className="mb-6"
+                style={{ fontFamily: "Poppins, sans-serif" }}
+              >
+                {t("contact.sendMessage")}
               </h2>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <Label htmlFor="name" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    Name
+                  <Label
+                    htmlFor="name"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
+                    {t("contact.name")}
                   </Label>
                   <Input
                     id="name"
                     type="text"
-                    placeholder="Your name"
+                    placeholder={t("contact.yourName")}
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     required
                     className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: "Inter, sans-serif" }}
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="email" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    Email
+                  <Label
+                    htmlFor="email"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
+                    {t("contact.email")}
                   </Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="your@email.com"
+                    placeholder={t("contact.yourEmail")}
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     required
                     className="mt-2 h-12 border-gray-300 focus:border-primary_green focus:ring-primary_green"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: "Inter, sans-serif" }}
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="message" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    Message
+                  <Label
+                    htmlFor="message"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
+                    {t("contact.message")}
                   </Label>
                   <Textarea
                     id="message"
-                    placeholder="Tell us how we can help..."
+                    placeholder={t("contact.howCanWeHelp")}
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
                     required
                     rows={6}
                     className="mt-2 border-gray-300 focus:border-primary_green focus:ring-primary_green resize-none"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: "Inter, sans-serif" }}
                   />
                 </div>
 
                 <Button
                   type="submit"
                   className="w-full h-12 bg-primary_green hover:bg-black hover:text-primary_green transition-all duration-300"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: "Inter, sans-serif" }}
                 >
-                  Send Message
+                  {t("contact.sendMessageButton")}
                 </Button>
               </form>
             </div>
@@ -151,10 +185,13 @@ export function ContactPage() {
           >
             {/* Contact Details */}
             <div>
-              <h2 className="mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                Contact Information
+              <h2
+                className="mb-6"
+                style={{ fontFamily: "Poppins, sans-serif" }}
+              >
+                {t("contact.contactInformation")}
               </h2>
-              
+
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <a
@@ -166,10 +203,16 @@ export function ContactPage() {
                       <info.icon className="w-6 h-6 text-primary_green" />
                     </div>
                     <div>
-                      <h3 className="mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                        {info.label}
+                      <h3
+                        className="mb-1"
+                        style={{ fontFamily: "Poppins, sans-serif" }}
+                      >
+                        {t(`contact.${info.label.toLowerCase()}`) || info.label}
                       </h3>
-                      <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      <p
+                        className="text-gray-600"
+                        style={{ fontFamily: "Inter, sans-serif" }}
+                      >
                         {info.value}
                       </p>
                     </div>
@@ -180,17 +223,22 @@ export function ContactPage() {
 
             {/* Social Media */}
             <div>
-              <h2 className="mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                Follow Us
+              <h2
+                className="mb-6"
+                style={{ fontFamily: "Poppins, sans-serif" }}
+              >
+                {t("contact.followUs")}
               </h2>
-              
+
               <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
                   <a
                     key={index}
                     href={social.link}
                     className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center hover:bg-primary_green hover:text-white transition-all duration-300 group"
-                    aria-label={social.label}
+                    aria-label={
+                      t(`contact.${social.label.toLowerCase()}`) || social.label
+                    }
                   >
                     <social.icon className="w-5 h-5" />
                   </a>
@@ -200,22 +248,28 @@ export function ContactPage() {
 
             {/* Business Hours */}
             <div className="bg-gray-50 rounded-2xl p-8">
-              <h2 className="mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                Business Hours
+              <h2
+                className="mb-6"
+                style={{ fontFamily: "Poppins, sans-serif" }}
+              >
+                {t("contact.businessHours")}
               </h2>
-              
-              <div className="space-y-3 text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
+
+              <div
+                className="space-y-3 text-gray-600"
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
                 <div className="flex justify-between">
-                  <span>Monday - Friday</span>
+                  <span>{t("contact.mondayFriday")}</span>
                   <span>9:00 AM - 6:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Saturday</span>
+                  <span>{t("contact.saturday")}</span>
                   <span>10:00 AM - 4:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Sunday</span>
-                  <span>Closed</span>
+                  <span>{t("contact.sunday")}</span>
+                  <span>{t("contact.closed")}</span>
                 </div>
               </div>
             </div>

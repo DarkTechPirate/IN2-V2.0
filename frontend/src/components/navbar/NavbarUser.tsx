@@ -17,6 +17,7 @@ import {
 } from "../ui/dropdown-menu";
 import { useAuth } from "../../context/AuthContext";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface NavbarUserProps {
   currentPage: string;
@@ -35,16 +36,18 @@ export function NavbarUser({
   const isHomePage = currentPage === "home";
   const { logout, isLoggedIn } = useAuth();
 
+  const { t } = useTranslation();
+
   const handleLogout = () => {
     logout();
     onNavigate("home");
   };
 
   const navLinks = [
-    { label: "Home", value: "home" },
-    { label: "Shop", value: "shop" },
-    { label: "Social Cause", value: "social-cause" },
-    { label: "Gallery", value: "gallery" },
+    { label: t("nav.home"), value: "home" },
+    { label: t("nav.shop"), value: "shop" },
+    { label: t("nav.social_cause"), value: "social-cause" },
+    { label: t("nav.gallery"), value: "gallery" },
   ];
 
   return (
@@ -57,7 +60,7 @@ export function NavbarUser({
               <button
                 onClick={() => onNavigate("home")}
                 className="lg:hidden p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
-                aria-label="Back"
+                aria-label={t("nav.back")}
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -103,7 +106,7 @@ export function NavbarUser({
                 <DropdownMenuTrigger asChild>
                   <button
                     className="p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
-                    aria-label="Profile"
+                    aria-label={t("nav.profile")}
                   >
                     <User className="w-4 h-4" />
                   </button>
@@ -111,17 +114,15 @@ export function NavbarUser({
                 <DropdownMenuContent align="end" className="w-44">
                   <DropdownMenuItem onClick={() => onNavigate("profile")}>
                     <User className="w-3.5 h-3.5 mr-2" />
-                    My Profile
+                    {t("nav.my_profile")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => onNavigate("orders")}
-                  >
+                  <DropdownMenuItem onClick={() => onNavigate("orders")}>
                     <Package className="w-3.5 h-3.5 mr-2" />
-                    My Orders
+                    {t("nav.my_orders")}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="w-3.5 h-3.5 mr-2" />
-                    Logout
+                    {t("nav.logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -131,14 +132,14 @@ export function NavbarUser({
                 className="px-3 py-1.5 rounded-lg bg-primary_green/10 text-primary_green hover:bg-primary_green hover:text-white transition-all duration-300"
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
-                Login
+                {t("nav.login")}
               </button>
             )}
 
             <button
               onClick={() => onNavigate("wishlist")}
               className="relative p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
-              aria-label="Wishlist"
+              aria-label={t("nav.wishlist")}
             >
               <Heart className="w-4 h-4" />
               {wishlistCount > 0 && (
@@ -151,7 +152,7 @@ export function NavbarUser({
             <button
               onClick={() => onNavigate("cart")}
               className="relative p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
-              aria-label="Cart"
+              aria-label={t("nav.cart")}
             >
               <ShoppingBag className="w-4 h-4" />
               {cartCount > 0 && (
@@ -164,7 +165,7 @@ export function NavbarUser({
             <button
               onClick={() => onNavigate("order-tracking")}
               className="hidden lg:flex p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
-              aria-label="Track Order"
+              aria-label={t("nav.track_order")}
             >
               <Truck className="w-4 h-4" />
             </button>
@@ -173,7 +174,7 @@ export function NavbarUser({
             <button
               className="lg:hidden p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Menu"
+              aria-label={t("nav.menu")}
             >
               <Menu className="w-4 h-4" />
             </button>

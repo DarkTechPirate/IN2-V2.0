@@ -1,16 +1,18 @@
 import { MessageCircle, Globe } from 'lucide-react';
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 
 export function FloatingButtons() {
-  const [selectedLang, setSelectedLang] = useState('English');
+  const { i18n } = useTranslation();
 
   const languages = [
     { code: 'en', name: 'English' },
-    { code: 'fr', name: 'French' },
-    { code: 'hi', name: 'Hindi' },
-    { code: 'es', name: 'Spanish' },
+    { code: 'de', name: 'Deutsch' },
   ];
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
 
   return (
     <>
@@ -44,8 +46,8 @@ export function FloatingButtons() {
           {languages.map((lang) => (
             <DropdownMenuItem
               key={lang.code}
-              onClick={() => setSelectedLang(lang.name)}
-              className={selectedLang === lang.name ? 'bg-primary_green/10 text-primary_green' : ''}
+              onClick={() => changeLanguage(lang.code)}
+              className={i18n.language === lang.code ? 'bg-primary_green/10 text-primary_green' : ''}
             >
               {lang.name}
             </DropdownMenuItem>

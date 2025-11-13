@@ -1,0 +1,203 @@
+{
+  "welcome": "Welcome to our Luxury Sportswear E-commerce Website!",
+  "language_switcher": "Language",
+  "hero_slide_1_title": "Step into Comfort",
+  "hero_slide_1_subtitle": "Discover our new collection of premium socks.",
+  "hero_slide_2_title": "Style for Every Occasion",
+  "hero_slide_2_subtitle": "From casual to formal, we have the perfect pair for you.",
+  "hero_slide_3_title": "Quality You Can Feel",
+  "hero_slide_3_subtitle": "Made with the finest materials for ultimate comfort and durability.",
+  "hero_slide_4_title": "Join Our Social Cause",
+  "hero_slide_4_subtitle": "Every purchase helps us support a greater cause.",
+  "shop_now": "Shop Now",
+  "explore_story": "Explore Story",
+  "bestsellers_title": "Bestsellers",
+  "bestsellers_subtitle": "Discover our most loved pieces, designed for peak performance and style.",
+  "add_to_cart": "Add to Cart",
+  "view_all_products": "View All Products",
+  "new_arrivals": "New Arrivals",
+  "womens_socks": "Women's Socks",
+  "up_to_70_off": "Up to 70% Off",
+  "ankle_socks": "Ankle Socks",
+  "crew_socks": "Crew Socks",
+  "performance": "Performance",
+  "athletic_socks": "Athletic Socks",
+  "sale_40_60_off": "SALE: 40%-60% OFF",
+  "our_features": "Our Features",
+  "features_subtitle": "Discover why our socks are loved by thousands. We focus on comfort, durability, and style for all-day wear.",
+  "ultra_soft_title": "Ultra Soft",
+  "ultra_soft_description": "Experience unmatched comfort with our premium soft socks.",
+  "breathable_title": "Breathable",
+  "breathable_description": "Keep your feet fresh all day with our breathable fabric.",
+  "eco_friendly_title": "Eco-Friendly",
+  "eco_friendly_description": "Made from sustainable materials to protect the environment.",
+  "durable_reliable_title": "Durable & Reliable",
+  "durable_reliable_description": "Long-lasting socks that stay comfortable wash after wash.",
+  "why_choose_us_title": "Why Choose Us",
+  "why_choose_us_subtitle": "We are committed to providing the best socks experience with comfort, style, and convenience. Here’s why our customers love us:",
+  "premium_quality_title": "Premium Quality",
+  "premium_quality_description": "Our socks are made from high-quality materials ensuring comfort, durability, and style.",
+  "fast_delivery_title": "Fast Delivery",
+  "fast_delivery_description": "Quick and reliable shipping to get your favorite socks delivered to your doorstep.",
+  "secure_shopping_title": "Secure Shopping",
+  "secure_shopping_description": "100% safe and secure payment options for a worry-free shopping experience.",
+  "great_offers_title": "Great Offers",
+  "great_offers_description": "Exclusive deals, discounts, and bundle offers to keep your sock drawer happy.",
+  "movement_for_good_title": "Movement for Good",
+  "social_cause_text_1": "At IN2, we believe luxury and purpose can coexist. For every purchase, we contribute to community wellness programs.",
+  "social_cause_text_2": "Together, we’re building stronger, healthier communities through movement.",
+  "explore_more": "Explore More",
+  "gallery_title": "Gallery",
+  "gallery_subtitle": "Capturing moments of movement, community, and style",
+  "view_full_gallery": "View Full Gallery",
+  "home": {
+    "offers": {
+      "heading": "Current Offers & Promotions",
+      "description": "Don’t miss our exclusive deals! Check out our bundle offers and seasonal discounts.",
+      "offer1": {
+        "title": "Buy 3 Get 1 Free",
+        "description": "Stock up on your favorite socks! Add 4 pairs to your cart and pay for only 3.",
+        "cta": "Shop Now"
+      },
+      "offer2": {
+        "title": "20% Off on Winter Collection",
+        "description": "Keep your feet warm and stylish this winter. Limited-time discount on selected socks.",
+        "cta": "Explore Collection"
+      },
+      "offer3": {
+        "title": "Bundle Pack: Sports Socks",
+        "description": "Grab 5 pairs of sports socks at a special bundle price. Perfect for workouts.",
+        "cta": "Buy Bundle"
+      }
+    }
+  },
+  "cart": {
+    "failedToLoad": "Failed to load cart",
+    "loading": "Loading cart...",
+    "empty": "Your cart is empty",
+    "quantityUpdated": "Quantity updated",
+    "failedToUpdateQuantity": "Failed to update quantity",
+    "itemRemoved": "Item removed",
+    "failedToRemoveItem": "Failed to remove item",
+    "shoppingCart": "Shopping Cart",
+    "itemsInYourCart": "{{count}} items in your cart",
+    "size": "Size",
+    "color": "Color",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "checkout": "Checkout"
+  },
+  "contact": {
+    "messageSent": "Message sent successfully! We'll get back to you soon.",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "youtube": "YouTube",
+    "getInTouch": "Get in Touch",
+    "getInTouchDescription": "Have a question or want to learn more about IN2? We'd love to hear from you.",
+    "sendMessage": "Send us a Message",
+    "name": "Name",
+    "yourName": "Your name",
+    "yourEmail": "your@email.com",
+    "message": "Message",
+    "howCanWeHelp": "Tell us how we can help...",
+    "sendMessageButton": "Send Message",
+    "contactInformation": "Contact Information",
+    "followUs": "Follow Us",
+    "businessHours": "Business Hours",
+    "mondayFriday": "Monday - Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "closed": "Closed"
+  },
+  "footer": {
+    "slogan": "Luxury in Motion. Where performance meets purpose.",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "careers": "Careers",
+    "press": "Press",
+    "blog": "Blog",
+    "support": "Support",
+    "contactUs": "Contact Us",
+    "shipping": "Shipping",
+    "returns": "Returns",
+    "privacyPolicy": "Privacy Policy",
+    "stayUpdated": "Stay Updated",
+    "newsletter": "Get the latest updates on new products and exclusive offers.",
+    "yourEmail": "Your email",
+    "join": "Join",
+    "copyright": "© 2025 IN2. All rights reserved."
+  },
+  "gallery": {
+    "title": "Gallery",
+    "description": "Capturing moments of movement, community, and style through our events and initiatives",
+    "pastEvents": "Past Events",
+    "upcomingEvents": "Upcoming Events"
+  },
+  "loading": {
+    "loading": "Loading..."
+  },
+  "wishlist": {
+    "title": "My Wishlist",
+    "items_single": "item saved",
+    "items": "items saved",
+    "removed": "Item removed from wishlist",
+    "added_to_cart": "{{name}} added to cart!",
+    "add_to_cart": "Add to Cart",
+    "add_to_cart_short": "Add",
+    "out_of_stock": "Out of Stock",
+    "empty_title": "Your wishlist is empty",
+    "empty_paragraph": "Save your favorite items for later",
+    "continue_shopping": "Continue Shopping"
+  },
+  "social": {
+    "title": "Movement for Good",
+    "hero_paragraph": "At IN2, we believe luxury and purpose can coexist. Every purchase drives positive change in communities around the world.",
+    "stats": [
+      { "label": "Lives Impacted", "value": "10,000+" },
+      { "label": "Communities Served", "value": "50+" },
+      { "label": "Programs Launched", "value": "100+" },
+      { "label": "Funds Raised", "value": "$2M+" }
+    ],
+    "initiatives": [
+      {
+        "title": "Youth Fitness Programs",
+        "description": "We partner with local communities to provide free fitness training and equipment to underprivileged youth, helping them build confidence, discipline, and healthy habits."
+      },
+      {
+        "title": "Sustainable Manufacturing",
+        "description": "Every IN2 product is crafted with sustainability in mind. We use eco-friendly materials and ensure fair labor practices throughout our supply chain."
+      },
+      {
+        "title": "Mental Wellness Support",
+        "description": "Physical and mental health go hand in hand. We fund mental wellness workshops and therapy programs in underserved communities, promoting holistic well-being."
+      }
+    ],
+    "join_title": "Join the Movement",
+    "join_paragraph": "Every purchase you make contributes to building healthier, stronger communities. Together, we're creating a movement that transcends fashion.",
+    "join_cta": "Join the Movement"
+  },
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "social_cause": "Social Cause",
+    "gallery": "Gallery",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "my_profile": "My Profile",
+    "my_orders": "My Orders",
+    "logout": "Logout",
+    "back": "Back",
+    "profile": "Profile",
+    "remove_from_wishlist": "Remove from wishlist",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "track_order": "Track Order",
+    "menu": "Menu"
+  }
+}

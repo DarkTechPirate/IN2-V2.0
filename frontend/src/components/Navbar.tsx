@@ -17,6 +17,8 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import React from "react";
+import { LanguageSwitcher } from "./ui/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 interface NavbarProps {
   currentPage: string;
@@ -25,7 +27,6 @@ interface NavbarProps {
   wishlistCount?: number;
   isAdmin?: boolean;
   isLoggedIn?: boolean;
-
 }
 import { useAuth } from "../context/AuthContext";
 
@@ -36,28 +37,31 @@ export function Navbar({
   wishlistCount = 0,
   isAdmin = false,
   isLoggedIn = false,
-
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isHomePage = currentPage === "home";
 
   const { logout } = useAuth();
 
+  const { t } = useTranslation();
+
   const onLogout = () => {
     logout();
     onNavigate("home");
   };
   const navLinks = [
-    { label: "Home", value: "home" },
-    { label: "Shop", value: "shop" },
-    { label: "Social Cause", value: "social-cause" },
-    { label: "Gallery", value: "gallery" },
+    { label: t("nav.home"), value: "home" },
+    { label: t("nav.shop"), value: "shop" },
+    { label: t("nav.social_cause"), value: "social-cause" },
+    { label: t("nav.gallery"), value: "gallery" },
   ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
       <div className="max-w-[1400px] mx-auto px-4 lg:px-12">
-        <div className="flex items-center justify-between h-16"> {/* Reduced height */}
+        <div className="flex items-center justify-between h-16">
+          {" "}
+          {/* Reduced height */}
           {/* Left Section - Logo */}
           <div className="flex items-center gap-3 flex-shrink-0">
             {!isHomePage && (
@@ -69,20 +73,18 @@ export function Navbar({
                 <ChevronLeft className="w-4 h-4" />
               </button>
             )}
-          <button
-            onClick={() => onNavigate("home")}
-            className="flex items-center gap-1.5 group"
-          >
-            <div
-              className="text-3xl tracking-tight transition-all duration-300 group-hover:tracking-wide"
-              style={{ fontFamily: "Poppins, sans-serif" }}
+            <button
+              onClick={() => onNavigate("home")}
+              className="flex items-center gap-1.5 group"
             >
-              IN<span style={{ color: "#2FF924" }}>2</span>
-            </div>
-          </button>
-
+              <div
+                className="text-3xl tracking-tight transition-all duration-300 group-hover:tracking-wide"
+                style={{ fontFamily: "Poppins, sans-serif" }}
+              >
+                IN<span style={{ color: "#2FF924" }}>2</span>
+              </div>
+            </button>
           </div>
-
           {/* Center Section - Nav Links */}
           <div className="hidden lg:flex flex-1 justify-center items-center gap-6">
             {navLinks.map((link) => (
@@ -115,11 +117,10 @@ export function Navbar({
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
                 <LayoutDashboard className="w-4 h-4" />
-                Dashboard
+                {t("nav.dashboard")}
               </button>
             )}
           </div>
-
           {/* Right Section - Icons */}
           <div className="flex items-center gap-3 flex-shrink-0">
             {isLoggedIn ? (
@@ -127,7 +128,7 @@ export function Navbar({
                 <DropdownMenuTrigger asChild>
                   <button
                     className="p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
-                    aria-label="Profile"
+                    aria-label={t("nav.profile")}
                   >
                     <User className="w-4 h-4" />
                   </button>
@@ -135,25 +136,25 @@ export function Navbar({
                 <DropdownMenuContent align="end" className="w-44">
                   <DropdownMenuItem onClick={() => onNavigate("profile")}>
                     <User className="w-3.5 h-3.5 mr-2" />
-                    My Profile
+                    {t("nav.my_profile")}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => onNavigate("order-tracking")}
                   >
                     <Package className="w-3.5 h-3.5 mr-2" />
-                    My Orders
+                    {t("nav.my_orders")}
                   </DropdownMenuItem>
                   {isAdmin && (
                     <DropdownMenuItem
                       onClick={() => onNavigate("admin-dashboard")}
                     >
                       <LayoutDashboard className="w-3.5 h-3.5 mr-2" />
-                      Admin Dashboard
+                      {t("nav.dashboard")}
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuItem onClick={onLogout}>
                     <LogOut className="w-3.5 h-3.5 mr-2" />
-                    Logout
+                    {t("nav.logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -163,14 +164,14 @@ export function Navbar({
                 className="px-3 py-1.5 rounded-lg bg-primary_green/10 text-primary_green hover:bg-primary_green hover:text-white transition-all duration-300"
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
-                Login
+                {t("nav.login")}
               </button>
             )}
 
             <button
               onClick={() => onNavigate("wishlist")}
               className="relative p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
-              aria-label="Wishlist"
+              aria-label={t("nav.wishlist")}
             >
               <Heart className="w-4 h-4" />
               {wishlistCount > 0 && (
@@ -183,7 +184,7 @@ export function Navbar({
             <button
               onClick={() => onNavigate("cart")}
               className="relative p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
-              aria-label="Cart"
+              aria-label={t("nav.cart")}
             >
               <ShoppingBag className="w-4 h-4" />
               {cartCount > 0 && (
@@ -196,16 +197,18 @@ export function Navbar({
             <button
               onClick={() => onNavigate("order-tracking")}
               className="hidden lg:flex p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 hover:shadow-md"
-              aria-label="Track Order"
+              aria-label={t("nav.track_order")}
             >
               <Truck className="w-4 h-4" />
             </button>
+
+            <LanguageSwitcher />
 
             {/* Mobile Menu Toggle */}
             <button
               className="lg:hidden p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Menu"
+              aria-label={t("nav.menu")}
             >
               <Menu className="w-4 h-4" />
             </button>

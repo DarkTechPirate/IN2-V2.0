@@ -7,12 +7,14 @@ import { toast } from "sonner";
 import { apiService } from "../services/api";
 import { getImageUrl } from "../utils/imageUrl";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export function CartPage() {
   const [cart, setCart] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   /* ------------------- FETCH CART ------------------- */
   const fetchCart = async () => {
@@ -20,7 +22,7 @@ export function CartPage() {
       const res = await apiService.get("/api/cart");
       setCart(res);
     } catch {
-      toast.error("Failed to load cart");
+      toast.error(t("cart.failedToLoad"));
     } finally {
       setLoading(false);
     }
@@ -30,13 +32,14 @@ export function CartPage() {
     fetchCart();
   }, []);
 
-  if (loading) return <div className="pt-20 text-center">Loading cart...</div>;
+  if (loading)
+    return <div className="pt-20 text-center">{t("cart.loading")}</div>;
 
   if (!cart || cart.cart.items.length === 0)
     return (
       <div className="pt-20 text-center">
         <ShoppingBag className="w-24 h-24 text-gray-300 mx-auto mb-4" />
-        <h2 className="text-xl font-semibold">Your cart is empty</h2>
+        <h2 className="text-xl font-semibold">{t("cart.empty")}</h2>
       </div>
     );
 
@@ -55,9 +58,11 @@ export function CartPage() {
       });
 
       setCart(res);
-      toast.success("Quantity updated");
+      toast.success(t("cart.quantityUpdated"));
     } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to update quantity");
+      toast.error(
+        err.response?.data?.message || t("cart.failedToUpdateQuantity")
+      );
     }
   };
 
@@ -69,9 +74,9 @@ export function CartPage() {
       );
 
       setCart(res);
-      toast.success("Item removed");
+      toast.success(t("cart.itemRemoved"));
     } catch {
-      toast.error("Failed to remove item");
+      toast.error(t("cart.failedToRemoveItem"));
     }
   };
 
@@ -86,9 +91,11 @@ export function CartPage() {
         >
           <div className="flex items-center gap-3 mb-2">
             <ShoppingBag className="w-8 h-8 text-primary_green" />
-            <h1 className="text-3xl font-bold">Shopping Cart</h1>
+            <h1 className="text-3xl font-bold">{t("cart.shoppingCart")}</h1>
           </div>
-          <p className="text-gray-600">{items.length} items in your cart</p>
+          <p className="text-gray-600">
+            {t("cart.itemsInYourCart", { count: items.length })}
+          </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -124,7 +131,8 @@ export function CartPage() {
                     </div>
 
                     <p className="text-sm text-gray-600 mt-1">
-                      Size: {item.size} • Color: {item.color}
+                      {t("cart.size")}: {item.size} • {t("cart.color")}:{" "}
+                      {item.color}
                     </p>
 
                     <p className="text-lg font-semibold mt-1">
@@ -157,20 +165,22 @@ export function CartPage() {
 
           {/* ------------------- RIGHT: Summary ------------------- */}
           <div className="bg-white rounded-xl p-6 shadow border">
-            <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("cart.orderSummary")}
+            </h2>
 
             <div className="flex justify-between mb-2">
-              <span>Subtotal</span>
+              <span>{t("cart.subtotal")}</span>
               <span>₣{cart.totalCost.toFixed(2)}</span>
             </div>
 
             <div className="flex justify-between mb-2">
-              <span>Shipping</span>
+              <span>{t("cart.shipping")}</span>
               <span>₣15</span>
             </div>
 
             <div className="flex justify-between mb-4">
-              <strong>Total</strong>
+              <strong>{t("cart.total")}</strong>
               <strong>₣{(cart.totalCost + 15).toFixed(2)}</strong>
             </div>
 
@@ -178,7 +188,7 @@ export function CartPage() {
               className="w-full bg-primary_green text-black"
               onClick={() => navigate("/checkout")}
             >
-              Checkout <ArrowRight className="w-4 h-4 ml-1" />
+              {t("cart.checkout")} <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
         </div>

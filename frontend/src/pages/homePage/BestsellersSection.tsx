@@ -3,6 +3,7 @@ import { ShoppingCart } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useTranslation } from "react-i18next";
 
 interface BestsellersSectionProps {
   // onNavigate: (page: string) => void; // Removed
@@ -10,6 +11,7 @@ interface BestsellersSectionProps {
 
 export function BestsellersSection() {
   const navigate = useNavigate(); // Initialize useNavigate
+  const { t } = useTranslation();
   const bestsellers = [
     { id: '1', name: 'Elite Performance Tee', image: '/product/1.jpg', sellingPrice: 89 },
     { id: '2', name: 'Motion Flex Leggings', image: '/product/2.jpg', sellingPrice: 129 },
@@ -21,9 +23,9 @@ export function BestsellersSection() {
     <section className="bg-gray-50 py-20">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 "> 
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-        <h2 className="text-center mb-4 font-poppins text-3xl lg:text-4xl font-bold">Bestsellers</h2>
+        <h2 className="text-center mb-4 font-poppins text-3xl lg:text-4xl font-bold">{t("bestsellers_title")}</h2>
         <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto font-inter">
-          Discover our most loved pieces, designed for peak performance and style.
+          {t("bestsellers_subtitle")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {bestsellers.map((product, index) => (
@@ -40,7 +42,7 @@ export function BestsellersSection() {
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                   <Button className="bg-white text-black hover:bg-primary_green hover:text-white transition-all">
                     <ShoppingCart className="w-4 h-4 mr-2" />
-                    Add to Cart
+                    {t("add_to_cart")}
                   </Button>
                 </div>
               </div>
@@ -56,7 +58,7 @@ export function BestsellersSection() {
             variant="outline"
             className="h-12 px-8 border-2 border-primary_green text-primary_green hover:bg-primary_green hover:text-white"
           >
-            View All Products
+            {t("view_all_products")}
           </Button>
         </div>
       </motion.div>
