@@ -135,7 +135,7 @@ const AdminProducts = () => {
 
                   <TableCell>{product.name}</TableCell>
                   <TableCell>{product.category}</TableCell>
-                  <TableCell>${product.sellingPrice.toFixed(2)}</TableCell>
+                  <TableCell>₣{product.sellingPrice.toFixed(2)}</TableCell>
                   <TableCell>{product.stock}</TableCell>
                   <TableCell>
                     <DropdownMenu>

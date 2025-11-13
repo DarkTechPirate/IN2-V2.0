@@ -29,7 +29,7 @@ export function ShopPage() {
   const [loading, setLoading] = useState(true);
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState([0, 250]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 0]); // dynamic
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,12 +37,24 @@ export function ShopPage() {
   const navigate = useNavigate();
 
   /* ---------------------------------------------------
-    FETCH ALL PRODUCTS
+    FETCH ALL PRODUCTS + AUTO PRICE RANGE
   --------------------------------------------------- */
   const fetchProducts = async () => {
     try {
       const res = await apiService.get("/api/products");
-      setProducts(res.data);
+      const list = res.data;
+
+      console.log("Products:", list);
+      setProducts(list);
+
+      if (list.length > 0) {
+        const prices = list.map((p: Product) => p.sellingPrice);
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+
+        setPriceRange([minPrice, maxPrice]);
+      }
+
     } catch (err) {
       toast.error("Failed to load products");
     } finally {
@@ -62,7 +74,7 @@ export function ShopPage() {
       await apiService.post("/api/cart/add", {
         productId: product._id,
         quantity: 1,
-        size: product.sizes?.[0] ,
+        size: product.sizes?.[0],
         color: product.colors?.[0],
       });
 
@@ -75,7 +87,6 @@ export function ShopPage() {
   /* ---------------------------------------------------
     FILTERING LOGIC
   --------------------------------------------------- */
-
   const categories = Array.from(new Set(products.map((p) => p.category)));
   const allSizes = Array.from(new Set(products.flatMap((p) => p.sizes)));
   const allColors = Array.from(new Set(products.flatMap((p) => p.colors)));
@@ -83,7 +94,7 @@ export function ShopPage() {
   const filteredProducts = products.filter((product) => {
     const query = searchQuery.toLowerCase();
 
-    // Search
+    // Search filter
     if (
       searchQuery &&
       !product.name.toLowerCase().includes(query) &&
@@ -91,28 +102,28 @@ export function ShopPage() {
     )
       return false;
 
-    // Category
+    // Category filter
     if (
       selectedCategories.length &&
       !selectedCategories.includes(product.category)
     )
       return false;
 
-    // Price
+    // Price filter
     if (
       product.sellingPrice < priceRange[0] ||
       product.sellingPrice > priceRange[1]
     )
       return false;
 
-    // Sizes
+    // Size filter
     if (
       selectedSizes.length &&
       !selectedSizes.some((s) => product.sizes.includes(s))
     )
       return false;
 
-    // Colors
+    // Color filter
     if (
       selectedColors.length &&
       !selectedColors.some((c) => product.colors.includes(c))
@@ -123,12 +134,11 @@ export function ShopPage() {
   });
 
   /* ---------------------------------------------------
-    FILTER SECTION (Reusable)
+    FILTER SIDEBAR COMPONENT
   --------------------------------------------------- */
-
   const FilterContent = () => (
     <div className="space-y-8">
-      {/* Category */}
+      {/* Category Filter */}
       <div>
         <h3 className="mb-4 font-poppins">Category</h3>
         <div className="space-y-3">
@@ -139,9 +149,7 @@ export function ShopPage() {
                 onCheckedChange={(checked) =>
                   checked
                     ? setSelectedCategories([...selectedCategories, category])
-                    : setSelectedCategories(
-                        selectedCategories.filter((c) => c !== category)
-                      )
+                    : setSelectedCategories(selectedCategories.filter((c) => c !== category))
                 }
               />
               <span className="capitalize">{category}</span>
@@ -150,13 +158,14 @@ export function ShopPage() {
         </div>
       </div>
 
-      {/* Price */}
+      {/* Dynamic Price Range */}
       <div>
         <h3 className="mb-4 font-poppins">Price Range</h3>
         <Slider
           value={priceRange}
           onValueChange={setPriceRange}
-          max={250}
+          max={priceRange[1]}
+          min={priceRange[0]}
           step={10}
         />
         <div className="flex justify-between text-gray-600 text-sm">
@@ -165,7 +174,7 @@ export function ShopPage() {
         </div>
       </div>
 
-      {/* Size */}
+      {/* Size Filter */}
       <div>
         <h3 className="mb-4 font-poppins">Size</h3>
         <div className="space-y-3">
@@ -185,7 +194,7 @@ export function ShopPage() {
         </div>
       </div>
 
-      {/* Color */}
+      {/* Color Filter */}
       <div>
         <h3 className="mb-4 font-poppins">Color</h3>
         <div className="space-y-3">
@@ -260,7 +269,7 @@ export function ShopPage() {
         </div>
 
         <div className="flex gap-8">
-          {/* LEFT Sidebar Filters */}
+          {/* LEFT Sidebar */}
           <aside className="hidden lg:block w-64">
             <div className="sticky top-24">
               <FilterContent />
@@ -336,6 +345,7 @@ export function ShopPage() {
               </div>
             )}
           </div>
+
         </div>
 
       </div>

@@ -12,6 +12,7 @@ import { CartPage } from "../components/CartPage";
 import { OrderTrackingPage } from "../pages/user/order/OrderTrackingPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { CheckoutPage } from "../pages/checkout/CheckoutPage";
+import { OrderHistoryPage } from "../pages/user/order/OrderHistoryPage";
 
 export function UserRoutes() {
   return (
@@ -65,7 +66,15 @@ export function UserRoutes() {
             </ProtectedRoute>
           }
         />
+        <Route 
+        path="/orders" 
+        element={
+          <ProtectedRoute>
+            <OrderHistoryPage />
+          </ProtectedRoute>
+            } />
       </Route>
+
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

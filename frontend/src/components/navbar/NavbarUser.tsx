@@ -114,7 +114,7 @@ export function NavbarUser({
                     My Profile
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => onNavigate("order-tracking")}
+                    onClick={() => onNavigate("orders")}
                   >
                     <Package className="w-3.5 h-3.5 mr-2" />
                     My Orders

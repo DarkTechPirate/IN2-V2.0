@@ -14,10 +14,11 @@ export function CartPage() {
 
   const navigate = useNavigate();
 
+  /* ------------------- FETCH CART ------------------- */
   const fetchCart = async () => {
     try {
       const res = await apiService.get("/api/cart");
-      setCart(res);  
+      setCart(res);
     } catch {
       toast.error("Failed to load cart");
     } finally {
@@ -31,7 +32,7 @@ export function CartPage() {
 
   if (loading) return <div className="pt-20 text-center">Loading cart...</div>;
 
-  if (!cart || cart.isEmpty || cart.cart.items.length === 0)
+  if (!cart || cart.cart.items.length === 0)
     return (
       <div className="pt-20 text-center">
         <ShoppingBag className="w-24 h-24 text-gray-300 mx-auto mb-4" />
@@ -41,22 +42,32 @@ export function CartPage() {
 
   const items = cart.cart.items;
 
+  /* ------------------- UPDATE QUANTITY ------------------- */
   const updateQty = async (item: any, newQty: number) => {
+    if (newQty < 1) return;
+
     try {
       const res = await apiService.put("/api/cart/update", {
         productId: item.product._id,
+        size: item.size,
+        color: item.color,
         quantity: newQty,
       });
 
       setCart(res);
-    } catch {
-      toast.error("Failed to update quantity");
+      toast.success("Quantity updated");
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Failed to update quantity");
     }
   };
 
+  /* ------------------- REMOVE ITEM ------------------- */
   const removeItem = async (item: any) => {
     try {
-      const res = await apiService.delete(`/api/cart/${item.product._id}`);
+      const res = await apiService.delete(
+        `/api/cart/${item.product._id}?size=${item.size}&color=${item.color}`
+      );
+
       setCart(res);
       toast.success("Item removed");
     } catch {
@@ -64,10 +75,15 @@ export function CartPage() {
     }
   };
 
+  /* ------------------- PAGE UI ------------------- */
   return (
     <div className="min-h-screen pt-20">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-12">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
           <div className="flex items-center gap-3 mb-2">
             <ShoppingBag className="w-8 h-8 text-primary_green" />
             <h1 className="text-3xl font-bold">Shopping Cart</h1>
@@ -76,6 +92,7 @@ export function CartPage() {
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
+          {/* ------------------- LEFT: Items ------------------- */}
           <div className="lg:col-span-2 space-y-4">
             {items.map((item: any, index: number) => (
               <motion.div
@@ -97,22 +114,39 @@ export function CartPage() {
                   <div>
                     <div className="flex justify-between">
                       <h3 className="font-semibold">{item.product.name}</h3>
-                      <button onClick={() => removeItem(item)} className="text-gray-500 hover:text-red-500">
+
+                      <button
+                        onClick={() => removeItem(item)}
+                        className="text-gray-500 hover:text-red-500"
+                      >
                         <Trash2 className="w-5 h-5" />
                       </button>
                     </div>
 
-                    <p className="text-lg font-semibold mt-1">₣{item.product.sellingPrice}</p>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Size: {item.size} • Color: {item.color}
+                    </p>
+
+                    <p className="text-lg font-semibold mt-1">
+                      ₣{item.product.sellingPrice}
+                    </p>
                   </div>
 
+                  {/* Quantity Controls */}
                   <div className="flex items-center gap-3 mt-4">
-                    <Button variant="outline" onClick={() => updateQty(item, item.quantity - 1)}>
+                    <Button
+                      variant="outline"
+                      onClick={() => updateQty(item, item.quantity - 1)}
+                    >
                       <Minus />
                     </Button>
 
                     <span className="w-8 text-center">{item.quantity}</span>
 
-                    <Button variant="outline" onClick={() => updateQty(item, item.quantity + 1)}>
+                    <Button
+                      variant="outline"
+                      onClick={() => updateQty(item, item.quantity + 1)}
+                    >
                       <Plus />
                     </Button>
                   </div>
@@ -121,6 +155,7 @@ export function CartPage() {
             ))}
           </div>
 
+          {/* ------------------- RIGHT: Summary ------------------- */}
           <div className="bg-white rounded-xl p-6 shadow border">
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
 
