@@ -15,6 +15,7 @@ import User from "../model/user.js";
 export const authMiddleware = (adminOnly = false) => {
   return async (req, res, next) => {
     try {
+      console.log("Auth Middleware Invoked");
       const authHeader = req.headers.authorization;
 
       // Require Authorization: Bearer <accessToken>
