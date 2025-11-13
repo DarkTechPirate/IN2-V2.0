@@ -4,7 +4,6 @@ import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Textarea } from "../../../components/ui/textarea";
 import { Label } from "../../../components/ui/label";
-import { Badge } from "../../../components/ui/badge";
 import { toast } from "sonner";
 import { apiService } from "../../../services/api";
 import { Product } from "@/types";
@@ -20,23 +19,30 @@ export function EditProductPage() {
   const [image, setImage] = useState<File | null>(null);
   const [mediaFiles, setMediaFiles] = useState<File[]>([]);
 
-  const [previewImage, setPreviewImage] = useState<string>("");
-  const [previewMedia, setPreviewMedia] = useState<string[]>([]);
+  /** Gallery preview (main image first, then media) */
+  const [gallery, setGallery] = useState<string[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string>("");
 
   const [isLoading, setIsLoading] = useState(false);
   const thumbnailRef = useRef<HTMLDivElement | null>(null);
 
-  // Fetch product
+  /* ----------------------------- Fetch Existing Product ---------------------------- */
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const res = await apiService.get(`/api/admin/products/${id}`);
-
         const product = res.data;
 
         setForm(product);
-        setPreviewImage(getImageUrl(product.image));
-        setPreviewMedia(product.media?.map((m: string) => getImageUrl(m)) || []);
+
+        // Build gallery: MAIN IMAGE FIRST, THEN MEDIA[]
+        const finalGallery = [
+          ...(product.image ? [getImageUrl(product.image)] : []),
+          ...(product.media?.map((m: string) => getImageUrl(m)) ?? []),
+        ];
+
+        setGallery(finalGallery);
+        setSelectedImage(finalGallery[0] || "");
       } catch {
         toast.error("Failed to load product.");
         navigate("/admin/products");
@@ -45,12 +51,12 @@ export function EditProductPage() {
     fetchProduct();
   }, [id]);
 
-  // Handle text inputs
+  /* -------------------------------- Handle Inputs ------------------------------- */
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.id]: e.target.value });
   };
 
-  // Scroll thumbnails
+  /* ------------------------------- Scroll Thumbs ------------------------------- */
   const scrollThumbnails = (direction: "left" | "right") => {
     if (thumbnailRef.current) {
       const amt = direction === "left" ? -200 : 200;
@@ -58,18 +64,15 @@ export function EditProductPage() {
     }
   };
 
-  // Submit update
+  /* ---------------------------------- Submit ---------------------------------- */
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
 
     const data = new FormData();
-
-    // Add form fields
     Object.entries(form).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
+      if (value !== undefined && value !== null)
         data.append(key, value.toString());
-      }
     });
 
     if (image) data.append("image", image);
@@ -86,74 +89,76 @@ export function EditProductPage() {
     }
   };
 
+  /* ---------------------------------- Render ---------------------------------- */
   return (
     <div className="min-h-screen pt-20">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 pb-16">
-
+        
         {/* Back Button */}
         <Button variant="ghost" onClick={() => navigate("/admin/products")} className="mb-6">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to Products
         </Button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          
-          {/* ------------------------- LEFT: IMAGE GALLERY ------------------------ */}
+
+          {/* ---------------------------- LEFT: GALLERY --------------------------- */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col items-center"
           >
-            {/* MAIN IMAGE */}
-            <div className="w-full aspect-square rounded-2xl overflow-hidden bg-gray-100">
-              <img
-                src={previewImage}
-                className="w-full h-full object-cover"
-              />
+            {/* Main Preview */}
+            <div className="w-full aspect-square rounded-2xl bg-gray-100 overflow-hidden">
+              <img src={selectedImage} className="w-full h-full object-cover" />
             </div>
 
-            {/* Thumbnail Scroll */}
-            {previewMedia.length > 0 && (
+            {/* Thumbnails */}
+            {gallery.length > 1 && (
               <div className="relative w-full mt-6">
-                {/* Left arrow */}
+
+                {/* Left Arrow */}
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full shadow"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full shadow"
                   onClick={() => scrollThumbnails("left")}
                 >
                   <ChevronLeft />
                 </Button>
 
+                {/* Scrollable thumbnails */}
                 <div
                   ref={thumbnailRef}
                   className="flex gap-4 overflow-x-auto px-10 scrollbar-hide"
                 >
-                  {previewMedia.map((m, idx) => (
+                  {gallery.map((img, index) => (
                     <div
-                      key={idx}
-                      className="w-24 h-24 rounded-xl overflow-hidden border cursor-pointer"
-                      onClick={() => setPreviewImage(m)}
+                      key={index}
+                      className={`w-24 h-24 rounded-xl overflow-hidden border ${
+                        selectedImage === img ? "border-primary_green" : "border-gray-300"
+                      } cursor-pointer`}
+                      onClick={() => setSelectedImage(img)}
                     >
-                      <img src={m} className="w-full h-full object-cover" />
+                      <img src={img} className="w-full h-full object-cover" />
                     </div>
                   ))}
                 </div>
 
-                {/* Right arrow */}
+                {/* Right Arrow */}
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 rounded-full shadow"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full shadow"
                   onClick={() => scrollThumbnails("right")}
                 >
                   <ChevronRight />
                 </Button>
+
               </div>
             )}
           </motion.div>
 
-          {/* ------------------------- RIGHT: FORM ------------------------ */}
+          {/* ---------------------------- RIGHT: FORM ---------------------------- */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -162,7 +167,7 @@ export function EditProductPage() {
             <h1 className="text-3xl font-semibold mb-6">Edit Product</h1>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
-              
+
               {/* Name */}
               <div>
                 <Label>Name</Label>
@@ -172,9 +177,14 @@ export function EditProductPage() {
               {/* Description */}
               <div>
                 <Label>Description</Label>
-                <Textarea id="description" value={form.description || ""} onChange={handleChange} />
+                <Textarea
+                  id="description"
+                  value={form.description || ""}
+                  onChange={handleChange}
+                />
               </div>
 
+              {/* Category + Stock */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>Category</Label>
@@ -186,18 +196,29 @@ export function EditProductPage() {
                 </div>
               </div>
 
+              {/* Prices */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>Cost Price</Label>
-                  <Input id="costPrice" type="number" value={form.costPrice || ""} onChange={handleChange} />
+                  <Input
+                    id="costPrice"
+                    type="number"
+                    value={form.costPrice || ""}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div>
                   <Label>Selling Price</Label>
-                  <Input id="sellingPrice" type="number" value={form.sellingPrice || ""} onChange={handleChange} />
+                  <Input
+                    id="sellingPrice"
+                    type="number"
+                    value={form.sellingPrice || ""}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
-              {/* Main image upload */}
+              {/* Upload Main Image */}
               <div>
                 <Label>Change Main Image</Label>
                 <Input
@@ -207,13 +228,17 @@ export function EditProductPage() {
                     const file = e.target.files?.[0];
                     if (file) {
                       setImage(file);
-                      setPreviewImage(URL.createObjectURL(file));
+                      const preview = URL.createObjectURL(file);
+
+                      // Replace main image in gallery
+                      setGallery((g) => [preview, ...g.slice(1)]);
+                      setSelectedImage(preview);
                     }
                   }}
                 />
               </div>
 
-              {/* Media upload */}
+              {/* Upload Media */}
               <div>
                 <Label>Upload Additional Images</Label>
                 <Input
@@ -223,7 +248,11 @@ export function EditProductPage() {
                   onChange={(e) => {
                     const files = Array.from(e.target.files || []);
                     setMediaFiles(files);
-                    setPreviewMedia(files.map((f) => URL.createObjectURL(f)));
+
+                    const previews = files.map((f) => URL.createObjectURL(f));
+
+                    // Append new images after existing gallery
+                    setGallery((g) => [...g, ...previews]);
                   }}
                 />
               </div>
@@ -237,8 +266,10 @@ export function EditProductPage() {
                   {isLoading ? "Saving..." : "Update Product"}
                 </Button>
               </div>
+
             </form>
           </motion.div>
+
         </div>
       </div>
     </div>

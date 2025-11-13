@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { UserLayout } from "../layouts/UserLayout";
 import { HomePage } from "../pages/homePage";
-import { ShopPage } from "../components/ShopPage";
-import { ProductDetailPage } from "../components/ProductDetailPage";
+import { ShopPage } from "../pages/user/shop/ShopPage";
+import { ProductDetailPage } from "../pages/user/shop/ProductDetailPage";
 import { SocialCausePage } from "../components/SocialCausePage";
 import { GalleryPage } from "../components/GalleryPage";
 import { ContactPage } from "../components/ContactPage";
