@@ -32,11 +32,15 @@ class ApiService {
     return localStorage.getItem("refreshToken");
   }
 
-  private buildHeaders(customHeaders?: Record<string, string>): Headers {
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      ...customHeaders,
-    });
+  private buildHeaders(
+    customHeaders?: Record<string, string>,
+    isFormData = false
+  ): Headers {
+    const headers = new Headers(customHeaders);
+
+    if (!isFormData) {
+      headers.set("Content-Type", "application/json");
+    }
 
     const token = this.getAccessToken();
     if (token) headers.append("Authorization", `Bearer ${token}`);
@@ -54,11 +58,13 @@ class ApiService {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
+    const isFormData = data instanceof FormData;
+
     try {
       const response = await fetch(this.buildURL(url, params), {
         method,
-        headers: this.buildHeaders(headers),
-        body: data ? JSON.stringify(data) : undefined,
+        headers: this.buildHeaders(headers, isFormData),
+        body: isFormData ? data : (data ? JSON.stringify(data) : undefined),
         signal: controller.signal,
       });
 
