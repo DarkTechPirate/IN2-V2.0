@@ -41,12 +41,6 @@ export function ProductDetailPage() {
 
   const thumbnailRef = useRef<HTMLDivElement | null>(null);
 
-  const [reviews] = useState([
-    { id: 1, name: "Sarah Johnson", rating: 5, comment: "Absolutely love this product!", date: "2024-10-05", verified: true },
-    { id: 2, name: "Michael Chen", rating: 4, comment: "Great quality and comfortable.", date: "2024-10-01", verified: true },
-    { id: 3, name: "Emma Williams", rating: 5, comment: "Best purchase I've made this year.", date: "2024-09-28", verified: true },
-  ]);
-
   /* ------------------------------- FETCH PRODUCT ------------------------------ */
   useEffect(() => {
     const fetchProduct = async () => {
@@ -56,18 +50,14 @@ export function ProductDetailPage() {
 
         setProduct(p);
 
-        // Build gallery → Main image FIRST → then media
         const g = [
           ...(p.image ? [p.image] : []),
           ...(Array.isArray(p.media) ? p.media : []),
         ];
 
         setGallery(g);
-
-        // Set default selected image
         if (g.length > 0) setSelectedMedia(getImageUrl(g[0]));
 
-        // Select size & color
         if (p.sizes?.length) setSelectedSize(p.sizes[0]);
         if (p.colors?.length) setSelectedColor(p.colors[0]);
       } catch {
@@ -88,9 +78,6 @@ export function ProductDetailPage() {
     return <div className="min-h-screen pt-20 text-center">Product not found.</div>;
   }
 
-  const averageRating =
-    reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length;
-
   const scrollThumbnails = (dir: "left" | "right") => {
     if (thumbnailRef.current) {
       thumbnailRef.current.scrollBy({
@@ -100,10 +87,23 @@ export function ProductDetailPage() {
     }
   };
 
-  const handleAddToCart = () => {
-    if (!selectedSize) return toast.error("Select size");
-    if (!selectedColor) return toast.error("Select color");
-    toast.success(`${product.name} added to cart!`);
+  /* -------------------------- ADD TO CART -------------------------- */
+  const handleAddToCart = async () => {
+    if (!selectedSize) return toast.error("Please select a size");
+    if (!selectedColor) return toast.error("Please select a color");
+
+    try {
+      await apiService.post("/api/cart/add", {
+        productId: product._id,
+        quantity,
+        size: selectedSize,
+        color: selectedColor,
+      });
+
+      toast.success(`${product.name} added to cart!`);
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Failed to add to cart");
+    }
   };
 
   const handleCheckPincode = () => {
@@ -126,7 +126,6 @@ export function ProductDetailPage() {
 
           {/* ------------------------------ LEFT GALLERY ------------------------------ */}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
-            {/* Main Image */}
             <div
               className={`relative overflow-hidden rounded-2xl bg-gray-100 w-full aspect-square ${
                 zoomed ? "cursor-zoom-out" : "cursor-zoom-in"
@@ -146,10 +145,8 @@ export function ProductDetailPage() {
               )}
             </div>
 
-            {/* Thumbnails */}
             {gallery.length > 1 && (
               <div className="relative w-full mt-6">
-                {/* Left arrow */}
                 <Button
                   variant="ghost"
                   size="icon"
@@ -159,7 +156,6 @@ export function ProductDetailPage() {
                   <ChevronLeft />
                 </Button>
 
-                {/* Scrollable thumbnails */}
                 <div
                   ref={thumbnailRef}
                   className="flex gap-4 overflow-x-auto px-10 scrollbar-hide"
@@ -182,7 +178,6 @@ export function ProductDetailPage() {
                   })}
                 </div>
 
-                {/* Right arrow */}
                 <Button
                   variant="ghost"
                   size="icon"
@@ -199,27 +194,11 @@ export function ProductDetailPage() {
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
             <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
 
-            {/* Ratings */}
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-5 ${
-                      i < Math.floor(averageRating)
-                        ? "fill-primary_green text-primary_green"
-                        : "text-gray-300"
-                    }`}
-                  />
-                ))}
-              </div>
-              <span className="text-gray-600">({reviews.length} reviews)</span>
-            </div>
-
+            {/* PRICE */}
             <p className="text-3xl font-semibold mb-2">₣{product.sellingPrice}</p>
             <p className="text-gray-600 mb-6">{product.description}</p>
 
-            {/* Sizes */}
+            {/* Size */}
             <div className="mb-6">
               <h3 className="mb-3 font-medium">Select Size</h3>
               <div className="flex gap-3 flex-wrap">
@@ -239,7 +218,7 @@ export function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Colors */}
+            {/* Color */}
             <div className="mb-6">
               <h3 className="mb-3 font-medium">Select Color</h3>
               <div className="flex gap-3 flex-wrap">
@@ -273,69 +252,19 @@ export function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Delivery */}
-            <div className="mb-6">
-              <h3 className="mb-3 font-medium flex items-center">
-                <MapPin className="w-4 h-4 mr-2" /> Check Delivery
-              </h3>
-              <div className="flex gap-2">
-                <Input
-                  placeholder="Enter pincode"
-                  value={pincode}
-                  onChange={(e) =>
-                    setPincode(e.target.value.replace(/\D/g, "").slice(0, 6))
-                  }
-                  className="max-w-xs"
-                />
-                <Button variant="outline" onClick={handleCheckPincode}>
-                  Check
-                </Button>
-              </div>
-              {pincodeChecked && (
-                <p className="text-green-600 mt-2 flex items-center gap-2">
-                  <Check className="w-4 h-4" /> Delivery in 3–5 days
-                </p>
-              )}
-            </div>
-
-            {/* Buttons */}
+            {/* Add to cart */}
             <div className="flex gap-4 pt-4">
               <Button
                 className="flex-1 h-12 bg-primary_green text-black hover:bg-green-500"
                 onClick={handleAddToCart}
               >
-                <ShoppingCart className="w-4 h-4 mr-2" /> Add to Cart
+                <ShoppingCart className="w-4 h-4 mr-2" />
+                Add to Cart
               </Button>
+
               <Button variant="outline" className="h-12">
                 <Heart />
               </Button>
-            </div>
-
-            {/* Features */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t mt-6">
-              <div className="flex items-center gap-3">
-                <Truck className="w-5 h-5 text-primary_green" />
-                <div>
-                  <p className="text-sm font-medium">Free Shipping</p>
-                  <p className="text-xs text-gray-500">Orders over $100</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Shield className="w-5 h-5 text-primary_green" />
-                <div>
-                  <p className="text-sm font-medium">Secure Payment</p>
-                  <p className="text-xs text-gray-500">100% protected</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-primary_green" />
-                <div>
-                  <p className="text-sm font-medium">Quality Assured</p>
-                  <p className="text-xs text-gray-500">Premium materials</p>
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -344,7 +273,11 @@ export function ProductDetailPage() {
         <div className="border-t pt-12">
           <h2 className="text-2xl font-bold mb-6">Ratings & Reviews</h2>
 
-          {reviews.map((review) => (
+          {[
+            { id: 1, name: "Sarah Johnson", rating: 5, comment: "Absolutely love this product!" },
+            { id: 2, name: "Michael Chen", rating: 4, comment: "Great quality and comfortable." },
+            { id: 3, name: "Emma Williams", rating: 5, comment: "Best purchase I've made this year." }
+          ].map((review) => (
             <div key={review.id} className="border-b py-4">
               <div className="flex items-center mb-2">
                 {[...Array(5)].map((_, i) => (
@@ -358,17 +291,12 @@ export function ProductDetailPage() {
                   />
                 ))}
                 <p className="ml-3 font-semibold">{review.name}</p>
-                {review.verified && (
-                  <Badge variant="outline" className="ml-2 border-green-600 text-green-600">
-                    Verified Purchase
-                  </Badge>
-                )}
               </div>
               <p className="text-gray-600">{review.comment}</p>
-              <p className="text-xs text-gray-400">{review.date}</p>
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );

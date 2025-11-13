@@ -1,260 +1,154 @@
-import { useState } from 'react';
-import { Button } from './ui/button';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import { motion } from 'motion/react';
-import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
-import { Input } from './ui/input';
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-  size: string;
-}
+import { useEffect, useState } from "react";
+import { Button } from "../components/ui/button";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { motion } from "motion/react";
+import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from "lucide-react";
+import { toast } from "sonner";
+import { apiService } from "../services/api";
+import { getImageUrl } from "../utils/imageUrl";
 
 export function CartPage() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: 'Elite Performance Tee',
-      price: 89,
-      image: 'https://images.unsplash.com/photo-1641808887823-b3201916a57d?w=400',
-      quantity: 1,
-      size: 'M',
-    },
-    {
-      id: 2,
-      name: 'Motion Flex Leggings',
-      price: 129,
-      image: 'https://images.unsplash.com/photo-1645652367526-a0ecb717650a?w=400',
-      quantity: 2,
-      size: 'L',
-    },
-    {
-      id: 3,
-      name: 'Ultra-Lite Jacket',
-      price: 199,
-      image: 'https://images.unsplash.com/photo-1637844528612-064026615fcd?w=400',
-      quantity: 1,
-      size: 'XL',
-    },
-  ]);
+  const [cart, setCart] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  const [promoCode, setPromoCode] = useState('');
-
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity < 1) return;
-    setCartItems(cartItems.map(item => 
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    ));
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-    toast.success('Item removed from cart');
-  };
-
-  const applyPromoCode = () => {
-    if (promoCode.trim()) {
-      toast.success('Promo code applied successfully!');
+  const fetchCart = async () => {
+    try {
+      const res = await apiService.get("/api/cart");
+      console.log(res);
+      setCart(res); // backend structure is: { cart, isEmpty, totalCost }
+    } catch {
+      toast.error("Failed to load cart");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = subtotal > 150 ? 0 : 15;
-  const tax = subtotal * 0.08;
-  const total = subtotal + shipping + tax;
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  if (loading) return <div className="pt-20 text-center">Loading cart...</div>;
+
+  if (!cart || cart.isEmpty || cart.cart.items.length === 0)
+    return (
+      <div className="pt-20 text-center">
+        <ShoppingBag className="w-24 h-24 text-gray-300 mx-auto mb-4" />
+        <h2 className="text-xl font-semibold">Your cart is empty</h2>
+      </div>
+    );
+
+  const items = cart.cart.items;
+
+  const updateQty = async (item: any, newQty: number) => {
+    try {
+      const res = await apiService.put("/api/cart/update", {
+        productId: item.product._id,
+        size: item.size,
+        color: item.color,
+        quantity: newQty,
+      });
+
+      setCart(res);
+    } catch {
+      toast.error("Failed to update quantity");
+    }
+  };
+
+  const removeItem = async (item: any) => {
+    try {
+      const res = await apiService.delete(
+        `/api/cart/${item.product._id}?size=${item.size}&color=${item.color}`
+      );
+      setCart(res);
+      toast.success("Item removed");
+    } catch {
+      toast.error("Failed to remove item");
+    }
+  };
 
   return (
     <div className="min-h-screen pt-20">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-12">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <ShoppingBag className="w-8 h-8 text-primary_green" />
-            <h1 
-              style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)' }}
-            >
-              Shopping Cart
-            </h1>
+            <h1 className="text-3xl font-bold">Shopping Cart</h1>
           </div>
-          <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
-            {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} in your cart
-          </p>
+          <p className="text-gray-600">{items.length} items in your cart</p>
         </motion.div>
 
-        {cartItems.length > 0 ? (
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-4">
-              {cartItems.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 flex gap-4"
-                >
-                  {/* Product Image */}
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100">
-                    <ImageWithFallback
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+        <div className="grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-4">
+            {items.map((item: any, index: number) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="bg-white rounded-xl p-4 shadow flex gap-4 border"
+              >
+                <div className="w-24 h-24 rounded-xl overflow-hidden bg-gray-100">
+                  <ImageWithFallback
+                    src={getImageUrl(item.product.image)}
+                    alt={item.product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
-                  {/* Product Info */}
-                  <div className="flex-1 flex flex-col justify-between">
-                    <div>
-                      <div className="flex justify-between gap-4 mb-2">
-                        <h3 style={{ fontFamily: 'Poppins, sans-serif' }}>
-                          {item.name}
-                        </h3>
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          className="text-gray-400 hover:text-red-500 transition-colors"
-                          aria-label="Remove item"
-                        >
-                          <Trash2 className="w-5 h-5" />
-                        </button>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        Size: {item.size}
-                      </p>
-                      <p className="text-gray-900" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        ${item.price}
-                      </p>
-                    </div>
-
-                    {/* Quantity Controls */}
-                    <div className="flex items-center gap-3 mt-4">
-                      <button
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-                        aria-label="Decrease quantity"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </button>
-                      <span className="w-8 text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        {item.quantity}
-                      </span>
-                      <button
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-                        aria-label="Increase quantity"
-                      >
-                        <Plus className="w-4 h-4" />
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between">
+                      <h3 className="font-semibold">{item.product.name}</h3>
+                      <button onClick={() => removeItem(item)} className="text-gray-500 hover:text-red-500">
+                        <Trash2 className="w-5 h-5" />
                       </button>
                     </div>
+
+                    <p className="text-sm text-gray-500">Size: {item.size}</p>
+                    <p className="text-sm text-gray-500">Color: {item.color}</p>
+
+                    <p className="text-lg font-semibold mt-1">₣{item.product.sellingPrice}</p>
                   </div>
-                </motion.div>
-              ))}
-            </div>
 
-            {/* Order Summary */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="lg:col-span-1"
-            >
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 sticky top-24">
-                <h2 className="mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  Order Summary
-                </h2>
+                  <div className="flex items-center gap-3 mt-4">
+                    <Button variant="outline" onClick={() => updateQty(item, item.quantity - 1)}>
+                      <Minus />
+                    </Button>
 
-                {/* Promo Code */}
-                <div className="mb-6">
-                  <div className="flex gap-2">
-                    <Input
-                      type="text"
-                      placeholder="Promo code"
-                      value={promoCode}
-                      onChange={(e) => setPromoCode(e.target.value)}
-                      className="flex-1 h-11 border-gray-300"
-                      style={{ fontFamily: 'Inter, sans-serif' }}
-                    />
-                    <Button
-                      onClick={applyPromoCode}
-                      variant="outline"
-                      className="h-11"
-                      style={{ fontFamily: 'Inter, sans-serif' }}
-                    >
-                      Apply
+                    <span className="w-8 text-center">{item.quantity}</span>
+
+                    <Button variant="outline" onClick={() => updateQty(item, item.quantity + 1)}>
+                      <Plus />
                     </Button>
                   </div>
                 </div>
-
-                {/* Price Breakdown */}
-                <div className="space-y-3 mb-6 pb-6 border-b border-gray-200" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Shipping</span>
-                    <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Tax</span>
-                    <span>${tax.toFixed(2)}</span>
-                  </div>
-                </div>
-
-                {/* Total */}
-                <div className="flex justify-between mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  <span>Total</span>
-                  <span className="text-primary_green">${total.toFixed(2)}</span>
-                </div>
-
-                {/* Checkout Button */}
-                <Button
-                  className="w-full h-12 bg-primary_green hover:bg-[#26d41f] text-white mb-3"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
-                  Proceed to Checkout
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-
-                {shipping > 0 && (
-                  <p className="text-sm text-center text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    Add ${(150 - subtotal).toFixed(2)} more for free shipping
-                  </p>
-                )}
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center py-20"
-          >
-            <ShoppingBag className="w-24 h-24 text-gray-300 mx-auto mb-6" />
-            <h2 className="mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              Your cart is empty
-            </h2>
-            <p className="text-gray-600 mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Add items to get started
-            </p>
-            <Button
-              className="h-12 px-8 bg-primary_green hover:bg-[#26d41f] text-white"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              Continue Shopping
+
+          <div className="bg-white rounded-xl p-6 shadow border">
+            <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+
+            <div className="flex justify-between mb-2">
+              <span>Subtotal</span>
+              <span>₣{cart.totalCost.toFixed(2)}</span>
+            </div>
+
+            <div className="flex justify-between mb-2">
+              <span>Shipping</span>
+              <span>₣15</span>
+            </div>
+
+            <div className="flex justify-between mb-4">
+              <strong>Total</strong>
+              <strong>₣{(cart.totalCost + 15).toFixed(2)}</strong>
+            </div>
+
+            <Button className="w-full bg-primary_green text-black">
+              Checkout <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
-          </motion.div>
-        )}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -36,7 +36,9 @@ export function ShopPage() {
 
   const navigate = useNavigate();
 
-  // 🔥 Fetch products from backend
+  /* ---------------------------------------------------
+    FETCH ALL PRODUCTS
+  --------------------------------------------------- */
   const fetchProducts = async () => {
     try {
       const res = await apiService.get("/api/products");
@@ -52,7 +54,28 @@ export function ShopPage() {
     fetchProducts();
   }, []);
 
-  // Unique category/size/color lists
+  /* ---------------------------------------------------
+    ADD TO CART
+  --------------------------------------------------- */
+  const handleAddToCart = async (product: Product) => {
+    try {
+      await apiService.post("/api/cart/add", {
+        productId: product._id,
+        quantity: 1,
+        size: product.sizes?.[0] ,
+        color: product.colors?.[0],
+      });
+
+      toast.success(`${product.name} added to cart`);
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Failed to add to cart");
+    }
+  };
+
+  /* ---------------------------------------------------
+    FILTERING LOGIC
+  --------------------------------------------------- */
+
   const categories = Array.from(new Set(products.map((p) => p.category)));
   const allSizes = Array.from(new Set(products.flatMap((p) => p.sizes)));
   const allColors = Array.from(new Set(products.flatMap((p) => p.colors)));
@@ -60,6 +83,7 @@ export function ShopPage() {
   const filteredProducts = products.filter((product) => {
     const query = searchQuery.toLowerCase();
 
+    // Search
     if (
       searchQuery &&
       !product.name.toLowerCase().includes(query) &&
@@ -67,24 +91,28 @@ export function ShopPage() {
     )
       return false;
 
+    // Category
     if (
       selectedCategories.length &&
       !selectedCategories.includes(product.category)
     )
       return false;
 
+    // Price
     if (
       product.sellingPrice < priceRange[0] ||
       product.sellingPrice > priceRange[1]
     )
       return false;
 
+    // Sizes
     if (
       selectedSizes.length &&
       !selectedSizes.some((s) => product.sizes.includes(s))
     )
       return false;
 
+    // Colors
     if (
       selectedColors.length &&
       !selectedColors.some((c) => product.colors.includes(c))
@@ -94,9 +122,9 @@ export function ShopPage() {
     return true;
   });
 
-  const handleAddToCart = (name: string) => {
-    toast.success(`${name} added to cart!`);
-  };
+  /* ---------------------------------------------------
+    FILTER SECTION (Reusable)
+  --------------------------------------------------- */
 
   const FilterContent = () => (
     <div className="space-y-8">
@@ -179,6 +207,10 @@ export function ShopPage() {
     </div>
   );
 
+  /* ---------------------------------------------------
+    PAGE UI
+  --------------------------------------------------- */
+
   if (loading) {
     return (
       <div className="pt-20 text-center text-gray-500">
@@ -191,7 +223,7 @@ export function ShopPage() {
     <div className="min-h-screen pt-20">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-12">
 
-        {/* Search / Filters */}
+        {/* Search + Filters Top */}
         <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="relative flex-1 md:max-w-xs">
             <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -228,14 +260,14 @@ export function ShopPage() {
         </div>
 
         <div className="flex gap-8">
-          {/* Sidebar filters */}
+          {/* LEFT Sidebar Filters */}
           <aside className="hidden lg:block w-64">
             <div className="sticky top-24">
               <FilterContent />
             </div>
           </aside>
 
-          {/* Products */}
+          {/* RIGHT Product Grid */}
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product, index) => (
@@ -257,11 +289,12 @@ export function ShopPage() {
                     <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary_green rounded-2xl" />
 
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
+                      {/* ADD TO CART BUTTON */}
                       <Button
                         size="sm"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleAddToCart(product.name);
+                          handleAddToCart(product);
                         }}
                         className="bg-white text-black hover:bg-primary_green hover:text-white transition-all shadow-lg"
                       >
@@ -269,6 +302,7 @@ export function ShopPage() {
                         Add to Cart
                       </Button>
 
+                      {/* VIEW DETAILS */}
                       <Button
                         size="sm"
                         variant="outline"
@@ -295,6 +329,7 @@ export function ShopPage() {
               ))}
             </div>
 
+            {/* No Results */}
             {filteredProducts.length === 0 && (
               <div className="text-center py-20 text-gray-500">
                 No products found. Try adjusting your filters.
