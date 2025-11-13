@@ -6,16 +6,18 @@ import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { apiService } from "../services/api";
 import { getImageUrl } from "../utils/imageUrl";
+import { useNavigate } from "react-router-dom";
 
 export function CartPage() {
   const [cart, setCart] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
+
   const fetchCart = async () => {
     try {
       const res = await apiService.get("/api/cart");
-      console.log(res);
-      setCart(res); // backend structure is: { cart, isEmpty, totalCost }
+      setCart(res);  
     } catch {
       toast.error("Failed to load cart");
     } finally {
@@ -43,8 +45,6 @@ export function CartPage() {
     try {
       const res = await apiService.put("/api/cart/update", {
         productId: item.product._id,
-        size: item.size,
-        color: item.color,
         quantity: newQty,
       });
 
@@ -56,9 +56,7 @@ export function CartPage() {
 
   const removeItem = async (item: any) => {
     try {
-      const res = await apiService.delete(
-        `/api/cart/${item.product._id}?size=${item.size}&color=${item.color}`
-      );
+      const res = await apiService.delete(`/api/cart/${item.product._id}`);
       setCart(res);
       toast.success("Item removed");
     } catch {
@@ -104,9 +102,6 @@ export function CartPage() {
                       </button>
                     </div>
 
-                    <p className="text-sm text-gray-500">Size: {item.size}</p>
-                    <p className="text-sm text-gray-500">Color: {item.color}</p>
-
                     <p className="text-lg font-semibold mt-1">₣{item.product.sellingPrice}</p>
                   </div>
 
@@ -144,7 +139,10 @@ export function CartPage() {
               <strong>₣{(cart.totalCost + 15).toFixed(2)}</strong>
             </div>
 
-            <Button className="w-full bg-primary_green text-black">
+            <Button
+              className="w-full bg-primary_green text-black"
+              onClick={() => navigate("/checkout")}
+            >
               Checkout <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>

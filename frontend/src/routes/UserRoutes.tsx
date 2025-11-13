@@ -9,8 +9,9 @@ import { ContactPage } from "../components/ContactPage";
 import { ProfilePage } from "../pages/user/profile/ProfilePage";
 import { WishlistPage } from "../components/WishlistPage";
 import { CartPage } from "../components/CartPage";
-import { OrderTrackingPage } from "../components/OrderTrackingPage";
+import { OrderTrackingPage } from "../pages/user/order/OrderTrackingPage";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { CheckoutPage } from "../pages/checkout/CheckoutPage";
 
 export function UserRoutes() {
   return (
@@ -53,6 +54,14 @@ export function UserRoutes() {
           element={
             <ProtectedRoute>
               <OrderTrackingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <CheckoutPage />
             </ProtectedRoute>
           }
         />
