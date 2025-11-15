@@ -7,6 +7,8 @@ import { FeaturesSection } from "./FeaturesSection";
 import SocksPromo from "./SocksPromo";
 import ScrollAnimation from "../../components/ui/ScrollAnimation";
 
+
+
 export function HomePage() {
   return (
     <div className="overflow-x-hidden pt-14">
