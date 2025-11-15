@@ -1,6 +1,3 @@
-/**
- * Authentication Service - Handles user authentication
- */
 
 import { apiService } from './api';
 import { API_ENDPOINTS, STORAGE_KEYS } from '../constants';
