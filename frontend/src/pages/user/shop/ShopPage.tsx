@@ -24,21 +24,33 @@ import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../../../utils/imageUrl";
 import { Product } from "@/types";
 
+/* --------------------------------------------------
+   Helper: Round to nearest 10
+-------------------------------------------------- */
+const roundTo10 = (value: number, type: "up" | "down") => {
+  return type === "down"
+    ? Math.floor(value / 10) * 10
+    : Math.ceil(value / 10) * 10;
+};
+
 export function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 0]); // dynamic
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Price states
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 0]);
+  const [fullRange, setFullRange] = useState<[number, number]>([0, 0]);
+
   const navigate = useNavigate();
 
-  /* ---------------------------------------------------
-    FETCH ALL PRODUCTS + AUTO PRICE RANGE
-  --------------------------------------------------- */
+  /* --------------------------------------------------
+    FETCH PRODUCTS + CALCULATE PRICE RANGE
+  -------------------------------------------------- */
   const fetchProducts = async () => {
     try {
       const res = await apiService.get("/api/products");
@@ -49,13 +61,19 @@ export function ShopPage() {
 
       if (list.length > 0) {
         const prices = list.map((p: Product) => p.sellingPrice);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
 
+        let minPrice = Math.min(...prices);
+        let maxPrice = Math.max(...prices);
+
+        // 🔥 round them properly
+        minPrice = roundTo10(minPrice, "down");
+        maxPrice = roundTo10(maxPrice, "up");
+
+        setFullRange([minPrice, maxPrice]);
         setPriceRange([minPrice, maxPrice]);
       }
-
     } catch (err) {
+      console.error(err);
       toast.error("Failed to load products");
     } finally {
       setLoading(false);
@@ -66,9 +84,9 @@ export function ShopPage() {
     fetchProducts();
   }, []);
 
-  /* ---------------------------------------------------
+  /* --------------------------------------------------
     ADD TO CART
-  --------------------------------------------------- */
+  -------------------------------------------------- */
   const handleAddToCart = async (product: Product) => {
     try {
       await apiService.post("/api/cart/add", {
@@ -84,9 +102,9 @@ export function ShopPage() {
     }
   };
 
-  /* ---------------------------------------------------
-    FILTERING LOGIC
-  --------------------------------------------------- */
+  /* --------------------------------------------------
+    FILTER LOGIC
+  -------------------------------------------------- */
   const categories = Array.from(new Set(products.map((p) => p.category)));
   const allSizes = Array.from(new Set(products.flatMap((p) => p.sizes)));
   const allColors = Array.from(new Set(products.flatMap((p) => p.colors)));
@@ -94,50 +112,41 @@ export function ShopPage() {
   const filteredProducts = products.filter((product) => {
     const query = searchQuery.toLowerCase();
 
-    // Search filter
     if (
       searchQuery &&
       !product.name.toLowerCase().includes(query) &&
       !product.description.toLowerCase().includes(query)
-    )
-      return false;
+    ) return false;
 
-    // Category filter
     if (
       selectedCategories.length &&
       !selectedCategories.includes(product.category)
-    )
-      return false;
+    ) return false;
 
-    // Price filter
     if (
       product.sellingPrice < priceRange[0] ||
       product.sellingPrice > priceRange[1]
-    )
-      return false;
+    ) return false;
 
-    // Size filter
     if (
       selectedSizes.length &&
       !selectedSizes.some((s) => product.sizes.includes(s))
-    )
-      return false;
+    ) return false;
 
-    // Color filter
     if (
       selectedColors.length &&
       !selectedColors.some((c) => product.colors.includes(c))
-    )
-      return false;
+    ) return false;
 
     return true;
   });
 
-  /* ---------------------------------------------------
-    FILTER SIDEBAR COMPONENT
-  --------------------------------------------------- */
+  /* --------------------------------------------------
+    FILTER SIDEBAR
+  -------------------------------------------------- */
   const FilterContent = () => (
     <div className="space-y-8">
+
       {/* Category Filter */}
       <div>
         <h3 className="mb-4 font-poppins">Category</h3>
@@ -158,17 +167,20 @@ export function ShopPage() {
         </div>
       </div>
 
-      {/* Dynamic Price Range */}
+      {/* PRICE SLIDER */}
       <div>
         <h3 className="mb-4 font-poppins">Price Range</h3>
+
         <Slider
+          key={fullRange[1]}  // needed for correct reset
           value={priceRange}
           onValueChange={setPriceRange}
-          max={priceRange[1]}
-          min={priceRange[0]}
+          min={fullRange[0]}
+          max={fullRange[1]}
           step={10}
         />
-        <div className="flex justify-between text-gray-600 text-sm">
+
+        <div className="flex justify-between text-gray-600 text-sm mt-2">
           <span>₣{priceRange[0]}</span>
           <span>₣{priceRange[1]}</span>
         </div>
@@ -213,13 +225,13 @@ export function ShopPage() {
           ))}
         </div>
       </div>
+
     </div>
   );
 
-  /* ---------------------------------------------------
-    PAGE UI
-  --------------------------------------------------- */
-
+  /* --------------------------------------------------
+    UI RENDER
+  -------------------------------------------------- */
   if (loading) {
     return (
       <div className="pt-20 text-center text-gray-500">
@@ -230,10 +242,12 @@ export function ShopPage() {
 
   return (
     <div className="min-h-screen pt-20">
+
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-12">
 
-        {/* Search + Filters Top */}
+        {/* Search + Filter Button */}
         <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
           <div className="relative flex-1 md:max-w-xs">
             <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             <Input
@@ -256,29 +270,35 @@ export function ShopPage() {
                   Filters
                 </Button>
               </SheetTrigger>
+
               <SheetContent side="left" className="w-80">
                 <SheetHeader>
                   <SheetTitle>Filters</SheetTitle>
                 </SheetHeader>
+
                 <div className="mt-6">
                   <FilterContent />
                 </div>
               </SheetContent>
             </Sheet>
           </div>
+
         </div>
 
+        {/* Layout */}
         <div className="flex gap-8">
-          {/* LEFT Sidebar */}
+
+          {/* Sidebar */}
           <aside className="hidden lg:block w-64">
             <div className="sticky top-24">
               <FilterContent />
             </div>
           </aside>
 
-          {/* RIGHT Product Grid */}
+          {/* Product Grid */}
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
               {filteredProducts.map((product, index) => (
                 <motion.div
                   key={product._id}
@@ -289,6 +309,7 @@ export function ShopPage() {
                   onClick={() => navigate(`/product/${product._id}`)}
                 >
                   <div className="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] bg-gray-100">
+
                     <ImageWithFallback
                       src={getImageUrl(product.image)}
                       alt={product.name}
@@ -298,7 +319,7 @@ export function ShopPage() {
                     <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary_green rounded-2xl" />
 
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
-                      {/* ADD TO CART BUTTON */}
+
                       <Button
                         size="sm"
                         onClick={(e) => {
@@ -311,7 +332,6 @@ export function ShopPage() {
                         Add to Cart
                       </Button>
 
-                      {/* VIEW DETAILS */}
                       <Button
                         size="sm"
                         variant="outline"
@@ -323,10 +343,12 @@ export function ShopPage() {
                       >
                         <Eye className="w-4 h-4" />
                       </Button>
+
                     </div>
                   </div>
 
                   <h3 className="font-poppins">{product.name}</h3>
+
                   <p className="text-xs text-gray-500 line-clamp-2">
                     {product.description}
                   </p>
@@ -336,9 +358,9 @@ export function ShopPage() {
                   </div>
                 </motion.div>
               ))}
+
             </div>
 
-            {/* No Results */}
             {filteredProducts.length === 0 && (
               <div className="text-center py-20 text-gray-500">
                 No products found. Try adjusting your filters.
@@ -349,6 +371,7 @@ export function ShopPage() {
         </div>
 
       </div>
+
     </div>
   );
 }

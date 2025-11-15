@@ -230,13 +230,8 @@ export function LoginPage() {
 
               {/* Admin Login Tab */}
               <TabsContent value="admin" className="mt-6">
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
                 <form onSubmit={handleAdminLogin} className="space-y-6">
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-center">
-                    <p className="text-sm text-yellow-800">
-                      Demo: <strong>admin@in2.com</strong> / <strong>admin123</strong>
-                    </p>
-                  </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="admin-email">Admin Email</Label>
                     <div className="relative flex items-center">
@@ -274,6 +269,7 @@ export function LoginPage() {
                     Admin Login
                   </Button>
                 </form>
+                </div>
               </TabsContent>
             </Tabs>
           </motion.div>
